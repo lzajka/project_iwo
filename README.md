@@ -74,14 +74,37 @@ F03: System powinien umożliwiać tworzenie profili postaci.
 | :--- | :--- | :--- |
 | Priorytet i trudność: Kluczowe || Wydanie: 1.0 |
 | Zaimplementowanie funkcjonalności umożliwiającej użytkownikowi tworzenie nowych profili postaci do gry LARP. Użytkownik powinien móc zdefiniować podstawowe atrybuty postaci (imię, klasa/rasa np. elf, krasnolud, rycerz, poziom doświadczenia), dodać opis biografii oraz wybrać wygląd postaci. Każda utworzona postać jest automatycznie powiązana z kontem użytkownika, który ją stworzył. |
+F04: System powinien umożliwiać edycję i przeglądanie szczegółów postaci.
+| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
 
-F06: System powinien umożliwiać rejestrację nowego konta.
+| Zaimplementowanie funkcjonalności pozwalającej użytkownikowi na edycję wszystkich danych istniejącej postaci (imię, biografia, atrybuty, ekwipunek) oraz przeglądanie jej szczegółowych statystyk. System powinien wyświetlać informacje o poziomie doświadczenia, posiadanych przedmiotach, osiągnięciach z poprzednich sesji oraz historię rozgrywek daną postacią. Edycja postaci powinna być możliwa tylko gdy postać nie bierze aktualnie udziału w trwającej sesji LARP. |
+F05: System powinien umożliwiać przeglądanie historii uczestnictwa w wydarzeniach.
+| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
+
+| Zaimplementowanie sekcji pozwalającej użytkownikowi na przeglądanie pełnej historii wydarzeń LARP, w których brał udział. System powinien wyświetlać listę wszystkich ukończonych sesji z podstawowymi informacjami (data, nazwa wydarzenia, lokalizacja, odegrana postać, czas trwania), a także prezentować zagregowane statystyki takie jak: całkowita liczba ukończonych sesji, najczęściej grane role, ulubione scenariusze i typy wydarzeń. Historia powinna być sortowalna według daty oraz filtrowalna według typu wydarzenia, odgrywanej postaci lub organizatora. |
+F06: System powinien umożliwiać edycję danych osobowych w profilu użytkownika.
+| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Kluczowe || Wydanie: 1.0 |
+| Zaimplementowanie panelu umożliwiającego użytkownikowi edycję swoich danych osobowych w systemie. Użytkownik powinien móc zmienić imię, nazwisko, adres email, numer telefonu oraz hasło do konta. System powinien wymagać potwierdzenia zmiany wrażliwych danych (email, hasło) poprzez weryfikację aktualnego hasła lub kod wysłany na dotychczasowy adres email. Wszystkie zmiany danych osobowych powinny być zapisywane w historii zmian konta dla celów bezpieczeństwa. |
+
+F07: System powinien umożliwiać zarządzanie preferencjami użytkownika.
+| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Przydatne || Wydanie: 1.0 |
+| Zaimplementowanie sekcji konfiguracji preferencji systemowych użytkownika. Użytkownik powinien móc skonfigurować ustawienia powiadomień (email, SMS, powiadomienia push dla aplikacji mobilnej), określić preferencje dotyczące typów wydarzeń LARP (fantasy, sci-fi, horror, historyczne), wskazać preferowane dni tygodnia i przedziały czasowe uczestnictwa, oraz ustawić poziom prywatności profilu określający widoczność swoich danych i statystyk dla innych użytkowników systemu. |
+
+F08: System powinien umożliwiać rejestrację nowego konta.
 | Typ: _funkcjonalne_ | Wersja: 1.0 (02.03.2026) | Odpowiedzialny: cojarobietu9 |
 | :--- | :--- | :--- |
 | Priorytet i trudność: Kluczowe || Wydanie: 1.0 |
 | Zaimplementowanie funkcjonalności umożliwiającej użytkownikowi rejestrację konta na platformie. Tworzone konto wymaga od użytkownika podania swojego adresu e-mail, dostępnej i unikatowej nazwy konta, oraz dwukrotnego podania hasła. System powinien posiadać odpowiednie wymagania dotyczące hasła (np. długość, rodzaj znaków) i informować, kiedy użytkownik podał odpowiedni przykład. Rejestracja konta możliwa jest po potwierdzeniu tożsamości za pomocą podanego adresu e-mail.|
 
-F07: System powinien umożliwiać logowanie metodą dwuetapową.
+F09: System powinien umożliwiać logowanie metodą dwuetapową.
 | Typ: _funkcjonalne_ | Wersja: 1.0 (02.03.2026) | Odpowiedzialny: cojarobietu9 |
 | :--- | :--- | :--- |
 | Priorytet i trudność: Użyteczne || Wydanie: 1.0 |
@@ -89,32 +112,15 @@ F07: System powinien umożliwiać logowanie metodą dwuetapową.
 
 
 
-F04: System powinien umożliwiać edycję i przeglądanie szczegółów postaci.
-| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
-| :--- | :--- | :--- |
-| Priorytet i trudność: Istotne || Wydanie: 1.0 |
-| Zaimplementowanie funkcjonalności pozwalającej użytkownikowi na edycję wszystkich danych istniejącej postaci (imię, biografia, atrybuty, ekwipunek) oraz przeglądanie jej szczegółowych statystyk. System powinien wyświetlać informacje o poziomie doświadczenia, posiadanych przedmiotach, osiągnięciach z poprzednich sesji oraz historię rozgrywek daną postacią. Edycja postaci powinna być możliwa tylko gdy postać nie bierze aktualnie udziału w trwającej sesji LARP. |
 
 
-F05: System powinien umożliwiać przeglądanie historii uczestnictwa w wydarzeniach.
-| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
-| :--- | :--- | :--- |
-| Priorytet i trudność: Istotne || Wydanie: 1.0 |
-| Zaimplementowanie sekcji pozwalającej użytkownikowi na przeglądanie pełnej historii wydarzeń LARP, w których brał udział. System powinien wyświetlać listę wszystkich ukończonych sesji z podstawowymi informacjami (data, nazwa wydarzenia, lokalizacja, odegrana postać, czas trwania), a także prezentować zagregowane statystyki takie jak: całkowita liczba ukończonych sesji, najczęściej grane role, ulubione scenariusze i typy wydarzeń. Historia powinna być sortowalna według daty oraz filtrowalna według typu wydarzenia, odgrywanej postaci lub organizatora. |
 
 
-F06: System powinien umożliwiać edycję danych osobowych w profilu użytkownika.
-| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
-| :--- | :--- | :--- |
-| Priorytet i trudność: Kluczowe || Wydanie: 1.0 |
-| Zaimplementowanie panelu umożliwiającego użytkownikowi edycję swoich danych osobowych w systemie. Użytkownik powinien móc zmienić imię, nazwisko, adres email, numer telefonu oraz hasło do konta. System powinien wymagać potwierdzenia zmiany wrażliwych danych (email, hasło) poprzez weryfikację aktualnego hasła lub kod wysłany na dotychczasowy adres email. Wszystkie zmiany danych osobowych powinny być zapisywane w historii zmian konta dla celów bezpieczeństwa. |
 
 
-F07: System powinien umożliwiać zarządzanie preferencjami użytkownika.
-| Typ: _funkcjonalne_ | Wersja: 1.0 (01.03.2026) | Odpowiedzialny: Polina |
-| :--- | :--- | :--- |
-| Priorytet i trudność: Przydatne || Wydanie: 1.0 |
-| Zaimplementowanie sekcji konfiguracji preferencji systemowych użytkownika. Użytkownik powinien móc skonfigurować ustawienia powiadomień (email, SMS, powiadomienia push dla aplikacji mobilnej), określić preferencje dotyczące typów wydarzeń LARP (fantasy, sci-fi, horror, historyczne), wskazać preferowane dni tygodnia i przedziały czasowe uczestnictwa, oraz ustawić poziom prywatności profilu określający widoczność swoich danych i statystyk dla innych użytkowników systemu. |
+
+
+
 
 
 
