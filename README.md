@@ -116,12 +116,26 @@ F07: System powinien umożliwiać zarządzanie preferencjami użytkownika.
 | Priorytet i trudność: Przydatne || Wydanie: 1.0 |
 | Zaimplementowanie sekcji konfiguracji preferencji systemowych użytkownika. Użytkownik powinien móc skonfigurować ustawienia powiadomień (email, SMS, powiadomienia push dla aplikacji mobilnej), określić preferencje dotyczące typów wydarzeń LARP (fantasy, sci-fi, horror, historyczne), wskazać preferowane dni tygodnia i przedziały czasowe uczestnictwa, oraz ustawić poziom prywatności profilu określający widoczność swoich danych i statystyk dla innych użytkowników systemu. |
 
+F15: System powinien umożliwiać zgłaszanie nieprzyzwoitych zachowań użytkowników
+| Typ: _funkcjonalne_ | Wersja 1.0 (02.03.2025) | Odpowiedzialny: lzajka |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
+| Zaimplementowanie funkcjonalności zgłoszenia użytkownika. Powinny być 2 typy zgłoszeń — za złamanie reguły serwisu oraz za złamanie reguły wydarzenia.
+W przypadku złamania reguły wydarzenia zgłaszający wybiera — użytkownika, wydarzenie, złamaną regułę, dodaję opis incydentu oraz ewentualnie załączniki. Zgłoszenie trafia do organizatorów wydarzenia.
+W przypadku złamania reguły serwisu zgłaszający wybiera — użytkownika, wydarzenie (opcjonalnie), złamaną regułę serwisu, dodaje opis incydentu oraz ewentualne załączniki. Zgłoszenie trafia do administracji serwisu. |
 
 
+F16: System powinien umożliwiać wystawianie oceny użytkownikom
+| Typ: _funkcjonalne_ | Wersja 1.0 (02.03.2025) | Odpowiedzialny: lzajka |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
+| Użytkownik powinien być w stanie wystawić opinię na temat innego użytkownika. Użytkownik nie może wystawić wielu opinii dla jednego użytkownika. System powinien analizować zachowanie zgłaszających w celu oflagowania podejrzanych zgłoszeń. |
 
-
-
-
+F17: System powinien umożliwaić wyświetlanie oceny użytkownika
+| Typ: _funkcjonalne_ | Wersja 1.0 (02.03.2025) | Odpowiedzialny: lzajka |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
+| System ma zapewniać organizatorom wyłączny dostęp do ocen użytkowników w celu sprawnej selekcji uczestników wydarzenia. Interfejs musi prezentować zarówno średnią, jak i szczegółową listę wszystkich wystawionych opinii wraz z ich treścią. W przypadku wykrycia podejrzanych wpisów mechanizm powinien umożliwiać nałożenie ostrzeżenia, obniżenie ich wpływu na wynik ogólny lub usunięcie. |
 ---
 
 ## 3.4 Cechy jakościowe
@@ -132,10 +146,11 @@ J02: System powinien wyświetlać dezygnowane ekrany oczekiwania w momentach ła
 | Priorytet i trudność: Istotne || Wydanie: 1.0 |
 | Strona i aplikacja powinny posiadać ekrany oczekiwania w sytuacjach ładowania i przesyłania zasobów, słabszego połączenia z internetem etc. Użytkownik powinien być poinformowany o statusie ładowania (np pasek postępu), oraz ew. o procesie obecnie zachodzącym np. "Zapisywanie Twojej postaci - nie wychodź z aplikacji" |
 
-
-
-
-
+J05: System powinien zapewniać bezpieczną i zgodną z zasadami rpzgrywkę
+| Typ: _jakościowe_ | Wersja: 1.0 (02.03.2026) | Odpowiedzialny: lzajka |
+| :--- | :--- | :--- |
+| Priorytet i trudność: Istotne || Wydanie: 1.0 |
+| System powinien zapewniać bezpieczną oraz uczciwą rozgrywkę dla użytkowników. Łamiące zasady zachowanie powinno skutkować restrykcjami dla użytkownika takimi jak brak możliwości uczestnictwa w niektórych wydarzeniach oraz blokady konta. |
 
 
 
