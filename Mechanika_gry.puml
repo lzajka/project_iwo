@@ -2,7 +2,6 @@
 left to right direction
 
 actor "Projektant gry" as projektant
-actor "Administrator systemu" as admin
 
 package "Mechanika i projektowanie gry" {
 
@@ -32,8 +31,5 @@ package "Mechanika i projektowanie gry" {
 }
 
 projektant --> UC0
-
-admin --> UC7
-admin --> UC9
 
 @enduml
