@@ -15,10 +15,10 @@ actor "Administrator systemu" as admin
 package "Zarządzanie Wydarzeniami" {
 usecase "Utworzenie wydarzenia" as UC1
 usecase "Obsługa procesu akceptacji gry" as UC2
-usecase "Wyszukiwanie wydarzeń" as UC3
+usecase "Wyszukanie wydarzeń" as UC3
 usecase "Zapisanie się na wydarzenie" as UC4
 usecase "Zapisanie na listę rezerwową" as UC5
-usecase "Pokazanie listy wydarzeń" as UC6
+usecase "Wyświetlenie listy wydarzeń" as UC6
 usecase "Zakończenie wydarzenia" as UC7
 usecase "Uruchomienie wydarzenia" as UC8
 usecase "Odwołanie wydarzenia" as UC9
