@@ -1,35 +1,33 @@
-@startuml
-left to right direction
+```mermaid
+flowchart LR
 
-actor "Projektant gry" as projektant
+projektant["Projektant gry"]
 
-package "Mechanika i projektowanie gry" {
+subgraph Mechanika_i_projektowanie_gry["Mechanika i projektowanie gry"]
 
-    usecase "Projektowanie mechaniki gry" as UC0
+UC0(("Projektowanie mechaniki gry"))
 
-    usecase "Projektowanie przedmiotu" as UC1
-    usecase "Projektowanie mini-gier" as UC2
-    usecase "Projektowanie zadań" as UC3
-    usecase "Projektowanie przeszkód" as UC4
-    usecase "Określanie warunków zwycięstwa" as UC5
+UC1(("Projektowanie przedmiotu"))
+UC2(("Projektowanie mini-gier"))
+UC3(("Projektowanie zadań"))
+UC4(("Projektowanie przeszkód"))
+UC5(("Określanie warunków zwycięstwa"))
 
-    usecase "Projektowanie systemu walki między graczami" as UC6
-    usecase "Definiowanie poziomu trudności gry" as UC7
-    usecase "Ustawienie limitu czasu gry" as UC8
-    usecase "Aktywacja zaawansowanego trybu gry" as UC9
+UC6(("Projektowanie systemu walki między graczami"))
+UC7(("Definiowanie poziomu trudności gry"))
+UC8(("Ustawienie limitu czasu gry"))
+UC9(("Aktywacja zaawansowanego trybu gry"))
 
-    UC0 ..> UC1 : <<include>>
-    UC0 ..> UC2 : <<include>>
-    UC0 ..> UC3 : <<include>>
-    UC0 ..> UC4 : <<include>>
-    UC0 ..> UC5 : <<include>>
-    UC0 ..> UC6 : <<include>>
-    UC0 ..> UC7 : <<include>>
-    UC0 ..> UC8 : <<include>>
-    UC0 ..> UC9 : <<include>>
+UC0 -. "<<include>>" .-> UC1
+UC0 -. "<<include>>" .-> UC2
+UC0 -. "<<include>>" .-> UC3
+UC0 -. "<<include>>" .-> UC4
+UC0 -. "<<include>>" .-> UC5
+UC0 -. "<<include>>" .-> UC6
+UC0 -. "<<include>>" .-> UC7
+UC0 -. "<<include>>" .-> UC8
+UC0 -. "<<include>>" .-> UC9
 
-}
+end
 
 projektant --> UC0
-
-@enduml
