@@ -1,4 +1,5 @@
 ```mermaid
+
 flowchart LR
 
 projektant["Projektant gry"]
@@ -30,4 +31,11 @@ UC0 -. "<<include>>" .-> UC9
 
 end
 
-projektant --> UC0
+projektant 
+
+```
+
+
+
+
+> UC0
