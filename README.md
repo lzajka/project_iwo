@@ -665,29 +665,250 @@ J07: Interfejs aplikacji powinien posiadać tryb 'Dark-Mode'.
 | Priorytet: Istotne || Wydanie: 1.0 |
 | Interfejs aplikacji mobilnej musi być dostosowany do pracy w warunkach niskiego oświetlenia. |
 
+
 ## 3.5 Słownik
 
 **Diagram:** Słownik
 
-**Model samochodu**
+---
 
-- Typ:
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: smial
-- Priorytet i trudność:
+**Gra**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
 - Wydanie: 1.0
 
-dokładny opis samochodów o tych samych parametrach
+Zdefiniowany zestaw zasad określających interakcje między uczestnikami systemu. Gra zawiera elementy takie jak mapa, postacie, przedmioty oraz możliwe akcje wykonywane przez graczy.
 
-**Samochód**
+---
 
-- Typ:
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: smial
-- Priorytet i trudność:
+**Wydarzenie**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
 - Wydanie: 1.0
 
-konkretny egzemplarz danego modelu samochodu
+Konkretna instancja gry uruchomiona w określonym czasie i miejscu. W wydarzeniu uczestniczą gracze wykonujący akcje zgodnie z zasadami gry.
+
+---
+
+**Postać**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Rola przypisana graczowi podczas wydarzenia. Postać posiada określone atrybuty, przedmioty oraz możliwe akcje w trakcie rozgrywki.
+
+---
+
+**Przedmiot**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Obiekt w świecie gry, który może być posiadany przez postać. Przedmiot może umożliwiać wykonanie określonych akcji lub wywoływać efekty w grze.
+
+---
+
+**Mapa**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Reprezentacja przestrzeni, w której odbywa się gra. Mapa zawiera pomieszczenia, przejścia, przeszkody oraz inne elementy środowiska gry.
+
+---
+
+**Pomieszczenie**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Element mapy reprezentujący konkretną lokalizację w świecie gry. Pomieszczenie może zawierać przedmioty, zdarzenia lub inne elementy interakcji.
+
+---
+
+**Akcja**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Działanie wykonywane przez system w wyniku interakcji użytkownika, postaci lub zdarzeń w świecie gry.
+
+---
+
+**Użytkownik**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Osoba posiadająca konto w systemie i korzystająca z jego funkcjonalności.
+
+---
+
+**Gracz**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Użytkownik uczestniczący w wydarzeniu i wykonujący akcje w trakcie rozgrywki.
+
+---
+
+**Organizator**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Użytkownik odpowiedzialny za tworzenie i zarządzanie wydarzeniami w systemie.
+
+---
+
+**Organizator zewnętrzny**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Podmiot zewnętrzny mający dostęp do wybranych funkcji systemu, takich jak przeglądanie kalendarza wydarzeń.
+
+---
+
+**Twórca gier**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Użytkownik odpowiedzialny za definiowanie struktury gry, w tym mapy, postaci oraz akcji dostępnych w rozgrywce.
+
+---
+
+**Mistrz wydarzenia**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Osoba prowadząca wydarzenie i kontrolująca jego przebieg w trakcie rozgrywki.
+
+---
+
+**Recenzent**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Użytkownik odpowiedzialny za ocenę i weryfikację zgłoszonych gier.
+
+---
+
+**Administrator**
+
+- Typ: aktor systemu
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Użytkownik posiadający najwyższe uprawnienia w systemie odpowiedzialny za moderowanie i zarządzanie systemem.
+
+---
+
+**Kalendarz wydarzeń**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Widok systemowy umożliwiający przeglądanie wydarzeń w ujęciu czasowym.
+
+---
+
+**Zaproszenie**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Powiadomienie wysyłane do użytkownika umożliwiające dołączenie do wydarzenia.
+
+---
+
+**Kod QR**
+
+- Typ: pojęcie techniczne
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Kod graficzny wykorzystywany do identyfikacji elementów gry oraz inicjowania interakcji w aplikacji.
+
+---
+
+**Mini-gra**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Przydatne
+- Wydanie: 1.0
+
+Dodatkowa aktywność dostępna w trakcie wydarzenia umożliwiająca wykonanie krótkiej interakcji lub zadania.
+
+---
+
+**Skarga**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (16.03.2026)
+- Odpowiedzialny: Zespół projektowy
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Zgłoszenie wysyłane przez użytkownika w celu poinformowania organizatora lub administratora o problemie.
 
 ---
 
