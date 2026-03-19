@@ -1,15 +1,8 @@
-```plantuml
-@startuml
-left to right direction
+```mermaid
+flowchart LR
 
-"Wyświetlenie kalendarza przez gracza" as (ucg)
-"Wyświetlenie kalendarza przez organizatora" as (uco)
-"Wyświetlenie kalendarza" as (uc)
+    Gracz --> UCg["Wyświetlenie kalendarza przez gracza"]
+    Organizator --> UCo["Wyświetlenie kalendarza przez organizatora"]
 
-:Gracz: --> (ucg)
-:Organizator: --> (uco)
-
-ucg --|> uc
-uco --|> uc
-@enduml
-```
+    UCg -->|generalization| UC["Wyświetlenie kalendarza"]
+    UCo -->|generalization| UC
