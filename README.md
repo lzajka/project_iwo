@@ -916,127 +916,60 @@ Zgłoszenie wysyłane przez użytkownika w celu poinformowania organizatora lub 
 
 ## 4.1 Wymagania funkcjonalne
 
-### 4.1.1 Zarządzanie ofertą
+### 4.1.3 Zarządzanie wydarzeniami
 
-**Diagram:** Zarządzanie ofertą
+#### PU1: Wyświetlenie kalendarza
 
-**PU001: Dodanie nowego samochodu**
+**Wersja:** 1.0 (14.04.2026)  
+**Odpowiedzialny:** Hlib Filobok 
+**Priorytet i trudność:** Istotne  
+**Wydanie:** 1.0  
 
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: smial
-- Priorytet i trudność: Istotne 1
-- Wydanie: 1.0
-
-**PU002: Przejrzenie cennika**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Priorytet i trudność: Istotne 1
-- Wydanie: 1.0
-
-**PU003: Wygenerowanie raportu sprzedaży**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU004: Zmiana ceny samochodu**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
+**Opis:** Organizator przegląda kalendarz dostępnych terminów gry. System wyświetla wolne i zajęte sloty czasowe na podstawie typu wybranej gry.
 
 ---
 
-### 4.1.2 Zarządzanie sprzedażą
+#### PU2: Rezerwacja czasu dla gry
 
-**Diagram:** Specyfikowanie wymagań użytkownika
+**Wersja:** 1.0 (14.04.2026)  
+**Odpowiedzialny:** Hlib Filobok  
+**Priorytet i trudność:** Istotne  
+**Wydanie:** 1.0  
 
-**PU101: Dokonanie płatności online**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU102: Dokonanie zamówienia na samochód**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU103: Pokazanie listy samochodów**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU104: Potwierdzenie zamówienia na samochód**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU105: Przejrzenie listy zamówień**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU106: Wydanie samochodu do sprzedaży**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU107: Zarejestrowanie wydania samochodu**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
-
-**PU108: Złożenie zamówienia specjalnego**
-
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: kamil
-- Wydanie: 1.0
+**Opis:** Organizator wybiera dostępny termin w kalendarzu i dokonuje rezerwacji. System wyświetla prośbę o potwierdzenie (z opcją cofnięcia), następnie wymaga dokonania płatności. Potwierdzenie wysyła się do jego skrzynki wiadomości.
 
 ---
 
-## 4.2 Wymagania jakościowe i ograniczenia
+#### PU3: Wyświetlenie listy zgłoszeń do gry
 
-**Diagram:** Wymagania jakościowe i ograniczenia
+**Wersja:** 1.0 (14.04.2026)  
+**Odpowiedzialny:** Hlib Filobok  
+**Priorytet i trudność:** Istotne  
+**Wydanie:** 1.0  
 
-**J022-1: Maksymalna liczba kliknięć w celu otwarcia formularza awarii**
-
-- Typ: «Uzytecznosc»
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: smial
-- Priorytet i trudność: Przydatne 1
-- Wydanie: 1.0
-
-**Sposób pomiaru:**  
-Przeprowadzenie serii nawigacji do ekranu formularza awarii z różnych miejsc w interfejsie użytkownika, zgodnie ze scenariuszem TS112
-
-**Oczekiwane wartości:**  
-liczba kliknięć dla 90% sytuacji wynosi mniej niż 3; dla wszystkich sytuacji wynosi mniej niż 5
+**Opis:** Organizator przegląda listę zgłoszeń uczestników w swojej skrzynce wiadomości.
 
 ---
 
-**J022-2: Rejestracja awarii powinna trwać średnio nie dłużej niż minutę**
+#### PU4: Akceptacja/odrzucenie zgłoszenia
 
-- Typ: «Uzytecznosc»
-- Wersja: 1.0 (15.02.2023)
-- Odpowiedzialny: smial
-- Priorytet i trudność: Istotne 1
-- Wydanie: 1.0
+**Wersja:** 1.0 (14.04.2026)  
+**Odpowiedzialny:** Hlib Filobok  
+**Priorytet i trudność:** Istotne  
+**Wydanie:** 1.0  
 
-**Sposób pomiaru:**  
-Przeprowadzenie serii rejestracji zgodnie ze scenariuszem TS003 (…)
-
-**Oczekiwane wartości:**  
-średni czas wynosi < 1 min, maksymalny czas wynosi (…)
+**Opis:** Organizator wybiera zgłoszenie z listy i widzi profil gracza. Po naciśnięciu "Akceptuj" lub "Odrzuć" gracz jest przypisany do gry lub zgłoszenie zostaje odrzucone. Wiadomość znika ze skrzynki organizatora.
 
 ---
+
+#### PU5: Wysłanie zaproszenia na grę
+
+**Wersja:** 1.0 (14.04.2026)  
+**Odpowiedzialny:** Hlib Filobok  
+**Priorytet i trudność:** Istotne  
+**Wydanie:** 1.0  
+
+**Opis:** Organizator przechodzi do zakładki "Przyjaciele" i wybiera użytkownika. Po naciśnięciu "Zaproś" system wyświetla listę aktualnych gier. Po wyborze gry zaproszenie zostaje wysłane użytkownikowi.
 
 ## 4.3 Słownik
 
