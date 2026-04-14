@@ -912,6 +912,28 @@ Zgłoszenie wysyłane przez użytkownika w celu poinformowania organizatora lub 
 
 ---
 
+**Warunek rozpoczęcia wydarzenia**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (14.04.2026)
+- Odpowiedzialny: Julian Stefan
+- Wydanie: 1.0
+
+Rzecz która musi się wydarzyć aby mozna było uruchomić wydarzenie
+
+---
+
+**Warunek zakończenia wydarzenia**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (14.04.2026)
+- Odpowiedzialny: Julian Stefan
+- Wydanie: 1.0
+
+Rzecz która musi się wydarzyć aby mozna było zakończyć wydarzenie
+
+---
+
 # 4. Wymagania użytkownika
 
 ## 4.1 Wymagania funkcjonalne
@@ -999,6 +1021,22 @@ Zgłoszenie wysyłane przez użytkownika w celu poinformowania organizatora lub 
 - Wersja: 1.0 (15.02.2023)
 - Odpowiedzialny: kamil
 - Wydanie: 1.0
+
+### 4.1.4 Obsługa wydarzeń
+
+**PU401: Uruchomienie wydarzenia**
+
+- Wersja: 1.0 (14.04.2026)
+- Odpowiedzialny: Julian Stefan
+- Wydanie: 1.0
+- **Opis:** Po osiągnięciu warunków rozpoczęcia wydarzenia, mistrz wydarzenia rozpoczyna wydarzenie.
+
+**PU402: Zakończenie wydarzenia**
+
+- Wersja: 1.0 (14.04.2026)
+- Odpowiedzialny: Julian Stefan
+- Wydanie: 1.0
+- **Opis:** Po osiągnięciu warunków zakończenia wydarzenia, mistrz wydarzenia konczy wydarzenie.
 
 ---
 
