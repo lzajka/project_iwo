@@ -1296,7 +1296,7 @@ flowchart LR
     Player --> u1
     Player --> u2
     Player --> u3
-    Player --> u4
+    u3-.->|<< invoke >>|u4
 ```
 
 **PU1201: Wysłanie skargi**
