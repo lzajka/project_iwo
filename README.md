@@ -956,9 +956,11 @@ UC2(("Rezerwacja czasu dla gry"))
 UC3(("Wyświetlenie listy zgłoszeń do gry"))
 UC4(("Akceptacja / odrzucenie zgłoszenia"))
 UC5(("Wysłanie zaproszenia na grę"))
+UC6(("Płatność"))
 
-UC1 -. include .-> UC2
-UC3 -. include .-> UC4
+UC1 -. invoke .-> UC2
+UC3 -. invoke .-> UC4
+UC2 -. invoke .-> UC6
 
 end
 
@@ -1019,7 +1021,7 @@ organizator --> UC5
 **Priorytet i trudność:** Istotne  
 **Wydanie:** 1.0  
 
-**Opis:** Organizator przechodzi do zakładki "Przyjaciele" i wybiera użytkownika. Po naciśnięciu "Zaproś" system wyświetla listę aktualnych gier. Po wyborze gry zaproszenie zostaje wysłane użytkownikowi.
+**Opis:** Organizator przechodzi do zakładki "Przyjaciele" i wybiera użytkownika. Po naciśnięciu "Zaproś" system wyświetla listę aktualnych gier. Po wyborze gry zaproszenie zostaje wysłane użytkownikowi na skrzynkę wewnętrzną (w systemie).
 
 ---
 
