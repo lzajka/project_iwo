@@ -1827,9 +1827,9 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 5. Twórca wybiera pozycję nowego czujnika.
 6. System zamyka okno podglądu mapy.
 7. Twórca uzupełnia pozostałe dane czujnika.
-8. Twórca wybiera opcję zapisu i zamknięcia formularza.
+8. Twórca wybiera opcję zapisu i zamknięcia formularza.  
 [dane poprawne]
-9. System zapisuje nowy czujnik.
+9. System zapisuje nowy czujnik.  
 [zapis pomyślny]
 10. System wyświetla komunikat o pomyślnym dodaniu czujnika.
 
@@ -1837,16 +1837,16 @@ Warunek końcowy: nowy czujnik jest zarejestrowany dla danej gry
 
 **Scenariusz alternatywny 1**
 
-1.-8. jak w Scenariuszu głównym
-[dane niepoprawne]
-9a. System wyświetla komunikat o błędnych danych.
+1.-8. jak w Scenariuszu głównym  
+[dane niepoprawne]  
+9a. System wyświetla komunikat o błędnych danych.  
 Powrót do kroku 3. w Scenariuszu głównym
 
 **Scenariusz alternatywny 2**
 
-1.-9. jak w Scenariuszu głównym
-[zapis niepomyślny]
-10b. System wyświetla komunikat o błędzie zapisu.
+1.-9. jak w Scenariuszu głównym  
+[zapis niepomyślny]  
+10b. System wyświetla komunikat o błędzie zapisu.  
 11b. System zamyka formularz definicji czujnika.
 
 Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
