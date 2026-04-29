@@ -929,6 +929,87 @@ Bezpieczny transfer zasobów wirtualnych między dwoma graczami, autoryzowany za
 
 ---
 
+### 3.5.1 Model pojęć - projektowanie zadań w scenariuszu gry (diagram klas)
+
+Dotyczy przypadków **PU205** (kontekst otwartego scenariusza) i **PU204** (tworzenie zadania).
+
+**Diagram:** Model pojęć - zadanie w scenariuszu gry
+
+```mermaid
+classDiagram
+    direction TB
+
+    class ScenariuszGry {
+        +idScenariusza
+    }
+
+    class Zadanie {
+        +idZadania
+        +tytulOpcjonalny
+    }
+
+    class TrescFabularna {
+        +tekst
+    }
+
+    class ParametryTechniczne {
+        +wymaganyPoziomGracza
+        +typInterakcji
+        +ograniczeniaCzasowe
+    }
+
+    class Nagroda {
+        +typNagrody
+        +wartoscLubSzczegoly
+    }
+
+    class ObiektInterakcji {
+        +identyfikatorTechniczny
+        +typFizycznyLubLogiczny
+    }
+
+    class DaneZadania {
+        <<agregat wprowadzany do formularza>>
+    }
+
+    class OpcjaDodaniaZadania {
+        <<boundary UI>>
+    }
+
+    class FormularzDefinicjiZadania {
+        <<boundary UI>>
+    }
+
+    class PotwierdzenieZapisu {
+        <<boundary UI>>
+    }
+
+    class KomunikatOBledach {
+        <<boundary UI>>
+    }
+
+    class OstrzezenieODuplikacji {
+        <<boundary UI>>
+    }
+
+    ScenariuszGry "1" --> "*" Zadanie : zawiera
+    Zadanie "1" --> "1" TrescFabularna : prezentowana graczowi
+    Zadanie "1" --> "1" ParametryTechniczne : konfiguruje mechanikę
+    Zadanie "1" --> "*" Nagroda : przyznaje po ukonczeniu
+    Zadanie "*" --> "0..1" ObiektInterakcji : realizacja progresu
+
+    OpcjaDodaniaZadania ..> FormularzDefinicjiZadania : inicjuje
+    FormularzDefinicjiZadania ..> DaneZadania : mapuje pola na
+    FormularzDefinicjiZadania ..> Zadanie : tworzy lub aktualizuje
+
+    note for DaneZadania "Dane poprawne: zestaw pól spełnia walidacje kompletności (wymagane pola wypełnione) oraz walidacje spójności powiązań - w szczególności brak konfliktu unikalności obiektu interakcji z innym zadaniem w tym samym scenariuszu."
+    note for ObiektInterakcji "Ten sam identyfikator techniczny (np. ten sam kod QR) nie może być jednocześnie przypisany do dwóch różnych zadań w obrębie jednego scenariusza - naruszenie uruchamia ścieżkę walidacji konfliktu powiązań."
+    note for ParametryTechniczne "Obejmują m.in. typ interakcji (np. skanowanie kodu), ewentualne limity czasowe i próg dostępu poziomem postaci - zgodnie z wybraną mechaniką zadania."
+```
+
+---
+
+
 # 4. Wymagania użytkownika
 
 ## 4.1 Wymagania funkcjonalne
@@ -1601,12 +1682,37 @@ GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED
 - Wydanie: 1.0
 - **Opis:** Twórca gry wprowadza treść [komunikatu do recenzenta] a następnie klika wyślij. System wyświetla informację o potwierdzeniu przesłania komunikatu i dodaje ją do [okna komunikacji twórcy gry z recenzentem].
 
-**PU204: Edycja komnaty**
-- Wersja: 1.0 (22.04.2026)
-- Odpowiedzialny: Maciej Bankiewicz
+### 4.1.11 Edycja scenariusza gry (projektant gier)
+
+DIAGRAM:
+```mermaid
+flowchart LR
+    PU201(("PU201:Zdefiniowanie gry"))
+    PG([Projektant gier])
+    PU205(("PU205: Wyświetlenie scenariusza\ngry w edytorze"))
+    PU204(("PU204: Projektowanie zadań w scenariuszu gry"))
+    PU201 -.->|"<<invoke>>"| PU205
+    PG --> PU205
+    PU205 -->|"<<invoke>>"| PU204
+```
+
+**PU205: Wyświetlenie scenariusza gry w edytorze**
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Igor Ochocki
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
-- **Opis:** System wyświetla panel edycji [komnaty (strefy)]. Twórca gry edytuje takie elementy jak: wyposażenie, rozmieszczenie [kodów QR], dostępność [komnaty], widoczność [komnaty] na interaktywnej [mapie]. System zapisuje dane i wyświetla informację o potwierdzeniu zapisania zmian.
+- Aktor główny: Projektant gier
+- **Opis:** Projektant wybiera istniejącą grę lub scenariusz i otwiera go w module edycji. System wczytuje zapis scenariusza z bazy i prezentuje widok edytora (struktura scenariusza, m.in. lista zadań i metadane - szczegóły UI w scenopisie). Ten przypadek **poprzedza** projektowanie nowych zadań (**PU204**): dodawanie zadania ma miejsce dopiero przy już wyświetlonym w edytorze scenariuszu.
+
+**PU204: Projektowanie zadań w scenariuszu gry**
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Igor Ochocki
+- Priorytet i trudność: Istotne (zgodnie z F28)
+- Wydanie: 1.0
+- Aktor główny: Projektant gier
+- **Opis:** Przy aktywnym widoku edytora scenariusza projektant dodaje nowe zadanie fabularne: wypełnia formularz z treścią dla gracza, parametrami mechanicznymi, opcjonalnym obiektem interakcji oraz nagrodami. System waliduje kompletność i spójność powiązań, zapisuje zadanie w strukturze scenariusza i informuje o powodzeniu; przy błędach lub konfliktach prezentuje odpowiednie komunikaty. Szczegóły scenariusza krok po kroku: rozdział 5.
+
+Powiązanie z wymaganiami funkcjonalnymi: **F28**.
 
 ---
 
@@ -1812,24 +1918,95 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 
 ---
 
-## 5.x PU1: Wyświetlenie kalendarza
+## 5.5.1 PU205: Wyświetlenie scenariusza gry w edytorze
 
 - Wersja: 1.0 (29.04.2026)
-- Odpowiedzialny: Olaf Smoleński
+- Odpowiedzialny: Igor Ochocki
 - Wydanie: 1.0
-- Aktor główny: Użytkownik
-- Warunek początkowy: Użytkownik jest zalogowany na swoje konto w serwisie i jego konto nie jest objęte blokadą.
-- Warunek końcowy (sukces): Strona z kalendarzem wydarzeń została wyświetlona przez system.
+- Aktor główny: Projektant gier
+- Warunek początkowy: Projektant jest zalogowany i ma uprawnienie do edycji wybranej gry lub scenariusza.
 
-Scenariusz główny
+**Scenariusz główny**
 
-1. Użytkownik wybiera opcję *Kalendarz* w głównym menu aplikacji.
-2. System wyświetla użytkownikowi stronę z kalendarzem wydarzeń.
+1. Projektant wybiera z poziomu aplikacji grę lub scenariusz do edycji i potwierdza wejście do modułu edytora scenariusza (np. z listy gier lub ze ścieżki powiązanej z definicją gry).
+2. System pobiera z bazy dane scenariusza przypisane do wybranej gry.
+3. System wyświetla widok edytora ze strukturą scenariusza (w tym istniejące zadania i elementy konfiguracji - szczegóły prezentacji w scenopisie).
 
-Scenariusz alternatywny: Sesja użytkownika wygasła przed kliknięciem opcji *Kalendarz*
+**Warunek końcowy:** Wybrany scenariusz jest wczytany i wyświetlony w edytorze.
 
-2a. System wylogowuje użytkownika.
-1. System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
-2. Strona z kalendarzem nie zostaje wyświetlona.
+**Finalny rezultat:** success
 
 ---
+
+## 5.6 PU204: Projektowanie zadań w scenariuszu gry
+
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Igor Ochocki
+- Wydanie: 1.0
+- Aktor główny: Projektant gier
+- **Związek z PU205:** Przypadek **PU204** realizuje się **po** otwarciu scenariusza w edytorze (**PU205**). Punkt wyjścia stanowi krok 3 scenariusza PU205 (widok edytora aktywny).
+- Warunek początkowy: Projektant jest zalogowany; w edytorze wyświetlony jest scenariusz gry zgodnie z **PU205** (struktura scenariusza widoczna w module edycji).
+
+**Scenariusz główny (sukces)**
+
+1. Projektant wybiera <opcję dodania zadania>.
+2. System wyświetla <formularz definicji zadania>.
+3. Projektant wprowadza <dane zadania>.
+4. System waliduje dane pod kątem <kompletności> oraz <spójności powiązań>.
+
+[dane poprawne]
+
+5. System zapisuje <nowe zadanie> w bazie scenariusza.
+6. System wyświetla <potwierdzenie zapisu>.
+
+**Warunek końcowy:** Nowe zadanie jest dostępne w strukturze scenariusza gry.
+
+**final:** success
+
+---
+
+**Scenariusz alternatywny 1: Dane niepoprawne - brak wymaganych pól**
+
+1–4. Tak jak w scenariuszu głównym.
+
+[dane niepoprawne - <brak wymaganych pól>]
+
+5a. System wyświetla <komunikat o błędach> z wskazaniem pól wymagających uzupełnienia.
+
+6a. Scenariusz wraca do kroku 3 scenariusza głównego.
+
+**final:** failure (brak zapisu do momentu poprawy danych)
+
+---
+
+**Scenariusz alternatywny 2: Dane niepoprawne - konflikt powiązań**
+
+1–4. Tak jak w scenariuszu głównym.
+
+[dane niepoprawne - <konflikt powiązań>]
+
+5b. System wyświetla <ostrzeżenie o duplikacji / konflikcie powiązań>.
+
+6b. Projektant wybiera <inny obiekt interakcji> albo modyfikuje istniejące powiązanie zgodnie z możliwościami formularza.
+
+7b. Scenariusz wraca do kroku 3 scenariusza głównego (po edycji projektant ponownie zatwierdza lub kontynuuje wprowadzanie).
+
+**final:** failure do czasu usunięcia konfliktu (brak zapisu)
+
+---
+
+**Scenariusz alternatywny 3: Anulowanie zapisu**
+
+1–2. Tak jak w scenariuszu głównym.
+
+3c. Projektant wybiera <opcję anuluj>.
+
+4c. System wyświetla <zapytanie o porzucenie zmian>.
+
+5c. Projektant potwierdza <chęć wyjścia bez zapisu>.
+
+6c. System zamyka <formularz> bez zapisywania zmian.
+
+**Warunek końcowy:** Struktura scenariusza gry nie uległa zmianie.
+
+**final:** failure (operacja dodania zadania nie została zakończona zapisem)
