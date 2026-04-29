@@ -1330,12 +1330,10 @@ flowchart LR
     u1["Wysłanie skargi"]
     u2["Wyjście z wydarzenia"]
     u3["Targowanie się"]
-    u4["Skanowanie kodu QR"]
 
     Player --> u1
     Player --> u2
     Player --> u3
-    u3-.->|<< invoke >>|u4
 ```
 
 **PU1201: Wysłanie skargi**
@@ -1354,13 +1352,7 @@ flowchart LR
 - Wersja: 1.0 (15.04.2026)
 - Odpowiedzialny: Cezary Rybiński
 - Wydanie: 1.0
-- Opis: Gracz inicjujący wybiera zasoby do przekazania. System generuje unikalny kod QR transakcji. Aby sfinalizować proces drugi gracz musi dołączyć do interakcji, co realizowane jest poprzez PU1019: Skanowanie kodu QR. Następnie muszą zaakceptować wymianę lub ją odrzucić (wystarczy aby jedna ze stron się nie zgodziła na wymianę aby nie doszła do skutku).
-
-**PU1204: Skanowanie kodu QR**
-- Wersja: 1.0 (15.04.2026)
-- Odpowiedzialny: Cezary Rybiński
-- Wydanie: 1.0
-- Opis: Gracz uruchamia skaner kodów QR w aplikacji i nakierowuje aparat na kod (wyświetlony u innego gracza lub umieszczony w przestrzeni gry). System dekoduje informację i wywołuje przypisaną do niej akcję.
+- Opis: Gracz inicjujący wybiera zasoby do przekazania. System generuje unikalny kod QR transakcji. Aby sfinalizować proces drugi gracz musi dołączyć do interakcji poprzez zeskanowanie kodu QR. Następnie muszą zaakceptować wymianę lub ją odrzucić (wystarczy aby jedna ze stron się nie zgodziła na wymianę aby nie doszła do skutku).
 
 
 ---
@@ -1811,5 +1803,166 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 2. System wyświetla komunikat „Wybrany termin jest już niedostępny. Dostępne są inne terminy".
 3. System oferuje organizatorowi powrót do kalendarza w celu wybrania innych dostępnych terminów.
 4. Scenariusz wraca do kroku 9 scenariusza głównego.
+
+---
+
+## 5.6 PU201: Zdefiniowanie gry
+
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Cezary Rybiński
+- Wydanie: 1.0
+- Aktor główny: Twórca gry
+- Warunek początkowy: Twórca gry jest zalogowany w systemie i posiada uprawnienia do tworzenia gier.
+- Warunek końcowy (sukces): Nowa gra zostaje zapisana w systemie ze statusem „Oczekuje na weryfikację", a gra jest widoczna na liście gier twórcy.
+
+**Scenariusz główny**
+
+1. Twórca gry wybiera opcję „Utwórz nową grę" w panelu twórcy.
+2. System wyświetla formularz opisu ogólnego gry z polami: nazwa gry, opis fabularny, poziom trudności, minimalna i maksymalna liczba graczy oraz szacowany czas trwania.
+3. Twórca gry wypełnia wymagane pola formularza.
+4. Twórca gry dodaje pozostałe elementy gry — definiuje dostępne postaci (role graczy), układ mapy (pomieszczenia i strefy) oraz przedmioty dostępne w świecie gry.
+5. Twórca gry klika przycisk „Zapisz".
+6. System waliduje poprawność i kompletność danych formularza.
+7. System zapisuje grę ze statusem „Oczekuje na weryfikację".
+8. System zamyka formularz opisu ogólnego gry i wyświetla komunikat o poprawnym zapisie oraz informację, że gra oczekuje na weryfikację recenzenta.
+9. System przekierowuje twórcę do widoku listy jego gier, gdzie nowa gra jest widoczna.
+
+**Scenariusz alternatywny A: Brakujące lub błędne dane formularza**
+
+6a. System stwierdza, że jedno lub więcej wymaganych pól formularza jest puste lub zawiera nieprawidłowe wartości (np. maksymalna liczba graczy mniejsza niż minimalna).
+1. System wyświetla komunikat „Uzupełnij wszystkie wymagane pola" i podświetla błędne pola.
+2. Formularz pozostaje otwarty z zaznaczonymi błędami.
+3. Scenariusz wraca do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny B: Twórca definiuje akcje gry**
+
+4a. Twórca gry chce zdefiniować akcje dostępne w rozgrywce.
+1. Twórca wybiera opcję „Dodaj akcję" w formularzu gry.
+2. System wywołuje PU202: Zdefiniowanie akcji.
+3. Po zakończeniu definiowania akcji system powraca do formularza opisu ogólnego gry.
+4. Scenariusz wraca do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny C: Twórca przesyła komunikat do recenzenta**
+
+4b. Twórca gry chce skontaktować się z recenzentem w trakcie tworzenia gry.
+1. Twórca wybiera opcję „Wyślij komunikat do recenzenta".
+2. System wywołuje PU203: Przesłanie komunikatu do recenzenta.
+3. Po wysłaniu komunikatu system powraca do formularza opisu ogólnego gry.
+4. Scenariusz wraca do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny D: Anulowanie tworzenia gry**
+
+(W dowolnym momencie kroków 2–4) Twórca gry klika przycisk „Anuluj".
+1. System wyświetla komunikat ostrzegający „Niezapisane zmiany zostaną utracone. Czy chcesz kontynuować?".
+2. Twórca potwierdza anulowanie.
+3. System zamyka formularz bez zapisywania danych i przekierowuje twórcę do listy jego gier.
+
+---
+
+## 5.7 PU003: Recenzja gry
+
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialna: Polina Nesterova
+- Wydanie: 1.0
+- Aktor główny: Recenzent gry
+- Warunek początkowy: Recenzent jest zalogowany w systemie, posiada uprawnienia recenzenta i znajduje się na liście gier wyświetlonej w ramach PU002 (Wyświetlenie listy gier przez recenzenta).
+- Warunek końcowy (sukces): Recenzja została zapisana, powiązana z wybraną grą oraz kontem recenzenta, a jej status zmienia się na „przesłana do twórcy”.
+
+**Scenariusz główny**
+
+1. Recenzent wybiera opcję „Recenzuj grę” przy wybranym rekordzie na liście gier.
+2. System wyświetla okno recenzji zawierające tytuł gry, pole tekstowe na treść recenzji, pole oceny liczbowej (skala 1–10) oraz przyciski „Zapisz szkic”, „Wyślij” i „Anuluj”.
+3. Recenzent wprowadza treść recenzji oraz ocenę liczbową.
+4. Recenzent wybiera przycisk „Wyślij”.
+5. System waliduje treść recenzji (wymagana długość minimalna, obecność oceny, brak zakazanych słów).
+[treść recenzji poprawna]
+6. System zapisuje recenzję w bazie recenzji i wiąże ją z grą oraz kontem recenzenta.
+7. System aktualizuje status recenzji na „przesłana do twórcy”.
+8. System wyświetla potwierdzenie „Recenzja została zapisana i przesłana do twórcy gry”.
+`<<invoke>>` Przesłanie komunikatu do twórcy
+9. System zamyka okno recenzji i wraca do listy gier.
+
+final: success
+POST: recenzja została zapisana w bazie recenzji, powiązana z grą i kontem recenzenta, a jej status to „przesłana do twórcy”.
+
+**Scenariusz alternatywny A: Zapisanie szkicu recenzji**
+
+1.-3. tak jak w scenariuszu głównym.
+
+4a. Recenzent wybiera przycisk „Zapisz szkic” zamiast „Wyślij”.
+5a. System zapisuje treść recenzji ze statusem „szkic”, bez walidacji długości i bez wysyłania powiadomienia.
+6a. System wyświetla komunikat „Szkic recenzji został zapisany. Możesz wrócić do niego później”.
+7a. System zamyka okno recenzji i wraca do listy gier.
+
+final: success
+POST: recenzja została zapisana w bazie recenzji ze statusem „szkic”, powiązana z kontem recenzenta; powiadomienie do twórcy nie zostało wysłane.
+
+**Scenariusz alternatywny B: Niepoprawna treść recenzji**
+
+1.-4. tak jak w scenariuszu głównym.
+
+[treść recenzji niepoprawna]
+5b. System stwierdza, że treść recenzji jest pusta, krótsza niż wymagane minimum lub brakuje oceny liczbowej.
+6b. System wyświetla komunikat „Uzupełnij treść recenzji oraz ocenę przed wysłaniem” i podświetla brakujące pola.
+7b. System nie zapisuje recenzji.
+
+Powrót do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny C: Anulowanie recenzji**
+
+1.-2. tak jak w scenariuszu głównym.
+
+3a. Recenzent wybiera przycisk „Anuluj” przed wysłaniem recenzji.
+4a. System wyświetla pytanie „Czy na pewno chcesz zamknąć okno bez zapisania recenzji?”.
+5a. Recenzent potwierdza anulowanie.
+6a. System porzuca wprowadzone dane bez zapisywania.
+7a. System zamyka okno recenzji i wraca do listy gier.
+
+final: failure
+POST: recenzja nie została zapisana w systemie.
+
+**Scenariusz alternatywny D: Recenzent już zrecenzował tę grę**
+
+1a. System wykrywa, że recenzent posiada już zapisaną recenzję dla tej gry.
+2a. System wyświetla komunikat „Posiadasz już recenzję dla tej gry. Możesz ją edytować zamiast tworzyć nową”.
+3a. System oferuje opcje „Edytuj istniejącą recenzję” lub „Anuluj”.
+4a. Recenzent wybiera jedną z opcji.
+[wybrano „Edytuj istniejącą recenzję”]
+5a. System wczytuje poprzednią treść i ocenę do okna recenzji.
+
+Powrót do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny E: Anulowanie edycji istniejącej recenzji**
+
+1a.-4a. tak jak w scenariuszu alternatywnym D.
+
+[wybrano „Anuluj”]
+5b. System zamyka komunikat i wraca do listy gier.
+
+final: failure
+POST: nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+
+**Scenariusz alternatywny F: Błąd zapisu recenzji**
+
+1.-5. tak jak w scenariuszu głównym.
+
+[błąd bazy danych lub braku połączenia]
+6c. System nie jest w stanie zapisać recenzji.
+7c. System wyświetla komunikat „Nie udało się zapisać recenzji. Spróbuj ponownie za chwilę”.
+8c. System zachowuje wprowadzoną treść w oknie recenzji, aby recenzent nie stracił pracy.
+
+Powrót do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny G: Wygaśnięcie sesji**
+
+(W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
+
+1g. System zapisuje lokalnie wprowadzoną treść jako szkic powiązany z kontem recenzenta.
+2g. System wylogowuje użytkownika.
+3g. System wyświetla komunikat „Sesja wygasła. Zaloguj się ponownie — szkic recenzji został zachowany”.
+4g. System przekierowuje recenzenta na ekran logowania.
+
+final: failure
+POST: recenzja nie została przesłana; wprowadzona treść zachowana jako szkic powiązany z kontem recenzenta.
 
 ---
