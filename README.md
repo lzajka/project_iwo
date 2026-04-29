@@ -521,7 +521,7 @@ F58: System powinien udostępniać edytor komnat
 | Typ: _funkcjonalne_ | Wersja: 1.0 (04.03.2026) | Odpowiedzialny: Julian Stefan |
 | :--- | :--- | :--- |
 | Priorytet: Przydatne || Wydanie: 1.0 |
-| Stworzenie edytora pozwalającego użytkownikowi na samodzielne dostosowanie komnat do potrzeb gry stworzonej przez siebie. Lista dostępnych materiałów, z których można tworzyć komnaty, musi pokrywać się z dostępnym stanem magazynowym.
+| Stworzenie edytora pozwalającego użytkownikowi na samodzielne dostosowanie komnat do potrzeb gry stworzonej przez siebie. Lista dostępnego wyposażenia, z którym można tworzyć komnaty, musi pokrywać się z dostępnym stanem magazynowym.
 
 F59: System powinien dać możliwość zamówienia niestandardowych obiektów
 | Typ: _funkcjonalne_ | Wersja: 1.0 (04.03.2026) | Odpowiedzialny: Julian Stefan |
@@ -651,7 +651,7 @@ Obiekt w świecie gry, który może być posiadany przez postać. Przedmiot moż
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
 
-Reprezentacja przestrzeni, w której odbywa się gra. Mapa zawiera pomieszczenia, przejścia, przeszkody oraz inne elementy środowiska gry.
+Reprezentacja przestrzeni, w której odbywa się gra. Mapa zawiera komnaty (strefy), przejścia, przeszkody oraz inne elementy środowiska gry.
 
 ---
 
@@ -880,38 +880,6 @@ Tyko użytkownik, do którego dana wiadomość została wysłana jest w stanie j
 
 Aktywny okres korzystania z systemu przez zalogowanego użytkownika. Sesja jest identyfikowana przez token sesji, ma ograniczony czas ważności (wygasa po zdefiniowanym czasie nieaktywności) i może zostać zakończona przez wylogowanie lub unieważniona przez system (np. po zmianie hasła).
 
-**Diagram:** Funkcje recenzenta
-
-```mermaid
-flowchart TB
- A["Recenzent gry"] --> n1(["Wyświetlenie listy gier przez recenzenta"]) -->|generalization| n2(["Wyświetlenie listy gier"])
- A -->|&lt;&lt;invoke&gt;&gt;| n3(["Zrecenzowanie gry"])
-```
-
-**PU001: Wyświetlenie listy gier**
-
-- Wersja: 1.0 (14.04.2026)
-- Odpowiedzialny: Maciej Bankiewicz
-- Priorytet i trudność: Istotne
-- Wydanie: 1.0
-- **Opis:** System wyświetla listę zawierającą wszystkie stworzone uprzednio [gry]. Listę można przewijać, filtrować, wyszukiwać konkretne [gry]. Lista jest stronicowana - na jedną stronę listy przypada maksymalnie 30 [gier]; strony mogą być zmieniane u góry i dołu listy.
-
-**Dane użytkownika**
-
-- Typ: pojęcie systemowe
-- Wersja: 1.0 (16.04.2026)
-- Odpowiedzialna: Polina Nesterova
-- Priorytet i trudność: Kluczowe
-- Wydanie: 1.0
-- **Opis:** Spełnia to co _PU001: Wyświetlenie listy gier_. Dodatkowo do każdej [gry] dodaje opcję [recenzji].
-
-**PU003: Zrecenzowanie gry**
-
-- Wersja: 1.0 (14.04.2026)
-- Odpowiedzialny: Maciej Bankiewicz
-- Priorytet i trudność: Istotne
-- Wydanie: 1.0
-- **Opis:** System wyświetla okno do zapisu recenzji. [Recenzent] zatwierdza [recenzję], a System ją zapisuje.
 
 **Blokada konta**
 
@@ -933,7 +901,7 @@ Tymczasowe wstrzymanie dostępu do konta użytkownika w reakcji na zdarzenie bez
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
 
-Wydzielony fizycznie i wirtualnie obszar terenu gry, który może posiadać własne ograniczenia dostępu. Strefy mogą być ukryte na interaktywnej mapie gracza, dopóki jego postać nie zdobędzie odpowiednich uprawnień.
+Wydzielony fizycznie i wirtualnie obszar terenu gry. Strefy mogą być ukryte na interaktywnej mapie gracza, dopóki jego postać nie zdobędzie odpowiednich uprawnień. Atrybuty: id komnaty, nazwa komnaty (wyświetlana graczom), ograniczenia dostępności (uprawnienia), widoczność na mapie, rozmieszczenie kodów QR, wyposażenie komnaty, rozmieszczenie wyposażenia. Operacja sprawdzenia poprawności danych komnaty polega na upewnieniu się co do obecności nazwy komnaty oraz dostępności wybranego wyposażenia w magazynie.
 
 ---
 
@@ -1072,29 +1040,28 @@ flowchart LR
     Czas --> u7
 ```
 
-**PU1001: Wyświetlenie listy użytkowników ze zgłoszeniami **
-
+**PU1001: Wyświetlenie listy  użytkowników ze zgłoszeniami**
 - Wersja: 1.0 (14.04.2026)
 - Odpowiedzialna: Karolina Wiśniewska
 - Wydanie: 1.0
 - Opis: System wyświetla menu administratora. Administrator wybiera opcję wyświetlenia listy użytkowników, którzy zostali zgłoszeni za łamanie regulaminu/ zasad społeczności. system wyświetla listę
 
-**PU1002: Zablokowanie konta użytkownika na ograniczony czas **
-
+  
+**PU1002: Zablokowanie konta użytkownika na ograniczony czas**
 - Wersja: 1.0 (14.04.2026)
 - Odpowiedzialna: Karolina Wiśniewska
 - Wydanie: 1.0
 - Opis: Invoked by PU1001. Administrator wybiera wybrane konto uczestnika. System wyświetla zapytanie o blokowanie lub dezaktywację konta. Administrator wybiera opcję zablokowania konta na ustalony czas. System nadaje kontu status zablokowanego na określony czas.
 
-**PU1003: Zablokowanie konta użytkownika na ograniczony czas **
-
+  
+**PU1003: Zablokowanie konta użytkownika na ograniczony czas**
 - Wersja: 1.0 (14.04.2026)
 - Odpowiedzialna: Karolina Wiśniewska
 - Wydanie: 1.0
 - Opis: Invoked by PU1001. Administrator wybiera wybrane konto uczestnika. System wyświetla zapytanie o blokowanie lub dezaktywację konta. Administrator wybiera opcję dezaktywacji konta. System usuwa konto z listy kont aktywnych. System zmienia status konta na zdezaktywowane
 
-**PU1004: Odblokowanie konta po określonym czasie **
-
+  
+**PU1004: Odblokowanie konta po określonym czasie**
 - Wersja: 1.0 (14.04.2026)
 - Odpowiedzialna: Karolina Wiśniewska
 - Wydanie: 1.0
@@ -1273,15 +1240,18 @@ pu_komunikat([Przesłanie komunikatu do twórcy])
 pu_lista_gier_org([Wyświetlenie listy gier przez organizatora])
 pu_lista_gier([Wyświetlenie listy gier])
 pu_recenzja_gry([Recenzja gry])
+pu_lista_recenzent([Wyświetlenie listy gier przez recenzenta])
 
 tworca --> pu_lista_gier_tw
 org --> pu_lista_gier_org
 rec --> pu_recenzja_gry
+rec --> pu_lista_recenzent
 
 pu_lista_gier_org ~~~ pu_lista_gier
 pu_lista_gier_tw ~~~ pu_lista_gier
-pu_lista_gier_org --> pu_lista_gier
-pu_lista_gier_tw --> pu_lista_gier
+pu_lista_gier_org -->|generalization| pu_lista_gier 
+pu_lista_gier_tw -->|generalization| pu_lista_gier
+pu_lista_recenzent -->|generalization| pu_lista_gier
 pu_recenzja_gry -."&lt;&lt;invoke&gt;&gt;".-> pu_komunikat
 
 end
@@ -1291,19 +1261,19 @@ end
 
 - Wersja: 1.0 (15.04.2026)
 - Odpowiedzialny: Łukasz Czajka
-- Opis: Twórcy gier mają możliwość wyświetlania listy gier, których są twórcami. Wybranie pozycji z listy pozwala na czynności takie jak edycja.
+- **Opis:** Twórcy gier mają możliwość wyświetlania listy gier, których są twórcami. Wybranie pozycji z listy pozwala na czynności takie jak edycja.
 
 **PU110: Wyświetlenie listy gier przez organizatora**
 
 - Wersja: 1.0 (15.04.2026)
 - Odpowiedzialny: Łukasz Czajka
-- Opis: Organizatorzy mają możliwość wyświetlania gier, które mogą zostać zorganizowane.
+- **Opis:** Organizatorzy mają możliwość wyświetlania gier, które mogą zostać zorganizowane.
 
 **PU111: Przesłanie komunikatu do twórcy**
 
 - Wersja: 1.0 (15.04.2026)
 - Odpowiedzialny: Łukasz Czajka
-- Opis: Recenzenci mają możliwość przesłania uwag dotyczących recenzowanej gry.
+- **Opis:** Recenzenci mają możliwość przesłania uwag dotyczących recenzowanej gry.
 
 **PU112: Wyświetlenie listy gier**
 
@@ -1319,7 +1289,7 @@ end
 - Odpowiedzialny: Maciej Bankiewicz
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
-- **Opis:** Specjalizacja przypadku PU112. System wyświetla listę zawierającą wszystkie stworzone uprzednio [gry], dodając do każdego rekordu opcję recenzji [gry].
+- **Opis:** System wyświetla listę zawierającą wszystkie stworzone uprzednio [gry] dodając do każdego rekordu opcję recenzji [gry].
 
 **PU114: Recenzja gry**
 
@@ -1327,7 +1297,7 @@ end
 - Odpowiedzialny: Maciej Bankiewicz
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
-- **Opis:** [Recenzent] wybiera grę z listy wyświetlonej w PU113. System wyświetla okno do zapisu tekstu. [Recenzent] zapisuje [recenzję] i zatwierdza ją.
+- **Opis:** System wyświetla okno do zapisu tekstu. [Recenzent] zapisuje [recenzję] i zatwierdza ją.
 
 ---
 
@@ -1597,14 +1567,14 @@ subgraph FUNKCJE_TWORCY
 GDF([Zdefiniowanie gry])
 ADF([Zdefiniowanie akcji])
 SCR([Przesłanie komunikatu do recenzenta])
-SEDF([Zdefiniowanie czujnika])
+KED([Edycja komnaty])
 end
 
 %% ===== RELACJE =====
 TG --> GDF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> ADF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> SCR
-GDF -. <&ltinvoke>> .-> SEDF
+GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED 
 ```
 
 **PU201: Zdefiniowanie gry**
@@ -1631,54 +1601,17 @@ GDF -. <&ltinvoke>> .-> SEDF
 - Wydanie: 1.0
 - **Opis:** Twórca gry wprowadza treść [komunikatu do recenzenta] a następnie klika wyślij. System wyświetla informację o potwierdzeniu przesłania komunikatu i dodaje ją do [okna komunikacji twórcy gry z recenzentem].
 
-**PU204: Zdefiniowanie czujnika**
-- Wersja: 1.1(24.04.2026)
-- Odpowiedzialna: Alicja Rosiak
+**PU204: Edycja komnaty**
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Maciej Bankiewicz
+- Priorytet i trudność: Istotne
 - Wydanie: 1.0
-- **Opis:** System wyświetla [formularz definicji czujnika]. Twórca wybiera
-  umiejscowienie [czujnika] na [mapie]. Następnie wybiera [akcję]
-  z [listy akcji]. Po zakończeniu twórca zapisuje zmiany. System zamyka
-  [formularz definicji czujnika].
-
+- **Opis:** System wyświetla panel edycji [komnaty (strefy)]. Twórca gry edytuje takie elementy jak: wyposażenie, rozmieszczenie [kodów QR], dostępność [komnaty], widoczność [komnaty] na interaktywnej [mapie]. System zapisuje dane i wyświetla informację o potwierdzeniu zapisania zmian.
 
 ---
 
 # 5. Scenariusze i scenopisy
 
-## 5.1 PU001: Dodanie nowego samochodu
-
-**Scenariusz główny**
-
-1. Aktor wybiera opcję
-2. System wyświetla ekran
-
-**Diagram:** Dodanie nowego samochodu - scenopis
-
----
-
-## 5.2 PU101: Dokonanie płatności online
-
-**Scenariusz główny**
-
-1. Aktor wybiera opcję
-2. System wyświetla ekran
-
----
-
-## 5.3 PU106: Wydanie samochodu do sprzedaży
-
-**Scenariusz główny**
-
-1. Aktor wybiera opcję
-2. System wyświetla okno
-3. System zapisuje dane
-
-**Błąd danych**
-
-1-2. -"-  
-3a. System wyświetla komunikat
-
----
 
 ## 5.4 PU1009: Logowanie
 
@@ -1877,47 +1810,51 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 3. System oferuje organizatorowi powrót do kalendarza w celu wybrania innych dostępnych terminów.
 4. Scenariusz wraca do kroku 9 scenariusza głównego.
 
+---
 
-## 5.6 PU204: Zdefiniowanie czujnika**
-
-- Wersja: 1.1 (24.04.2026)
-- Odpowiedzialna: Alicja Rosiak
+## 5.7 PU204: Edycja komnaty
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Maciej Bankiewicz
 - Wydanie: 1.0
-- Aktor główny: Twórca gry
-- Warunek początkowy: Twórca gry jest zalogowany
-  i jest w menu definiowania gry
-  i conajmniej jedna akcja została zdefiniowana dla danej gry
-  i mapa gry została została zdefiniowana dla danej gry
+- Aktor główny: Twórca gier
+- Warunek początkowy: Twórca gry jest zalogowany i jest w oknie definicji gry. 
 
 **Scenariusz główny**
 
-1. Twórca wybiera opcję dodania nowego czujnika.
-2. System wyświetla formularz definicji czujnika.
-3. Twórca wybiera opcję wybrania pozycji czujnika.
-4. System wyświetla okno podglądu mapy.
-5. Twórca wybiera pozycję nowego czujnika.
-6. System zamyka okno podglądu mapy.
-7. Twórca uzupełnia pozostałe dane czujnika.
-8. Twórca wybiera opcję zapisu i zamknięcia formularza.  
-[dane poprawne]
-9. System zapisuje nowy czujnik.  
-[zapis pomyślny]
-10. System wyświetla komunikat o pomyślnym dodaniu czujnika.
+1. Twórca gry wybiera opcję edycji komnaty.
+2. System pobiera dane komnaty.
+[dane pobrane pomyślnie]
+3. System wyświetla formularz edycji komnaty.
+4. Twórca gry dokonuje edycji danych komnaty.
+5. Twórca gry wybiera opcję „Zapisz zmiany”.
+6. System sprawdza poprawność danych.
+[dane poprawne]  
+7. System zapisuje zmiany.
+[dane zapisane pomyślnie]
+8. System wyświetla potwierdzenie zapisania zmian.
 
-Warunek końcowy: nowy czujnik jest zarejestrowany dla danej gry
+**Scenariusz alternatywny A: Błąd pobierania danych komnaty**
 
-**Scenariusz alternatywny 1**
+1-2. Jak w scenriuszu głównym.
+[błąd pobierania danych]
+3. System wyświetla komunikat o błędzie pobierania danych komnaty.
+4. Twórca gry wybiera "Ok".
+5. Dane pozostają bez zmian.
 
-1.-8. jak w Scenariuszu głównym  
+**Scenariusz alternatywny B: Wprowadzone dane są niepoprawne**
+
+1-6. Jak w scenariuszu głównym.  
 [dane niepoprawne]  
-9a. System wyświetla komunikat o błędnych danych.  
-Powrót do kroku 3. w Scenariuszu głównym
+7a. System wyświetla komunikat o braku przedmiotu w magazynie.  
+8a. Twórca gry wybiera „Ok”.  
+Powrót do kroku 3. w scenariuszu głównym.
 
-**Scenariusz alternatywny 2**
+**Scenariusz alternatywny C: Błąd zapisu zmian**
 
-1.-9. jak w Scenariuszu głównym  
-[zapis niepomyślny]  
-10b. System wyświetla komunikat o błędzie zapisu.  
-11b. System zamyka formularz definicji czujnika.
+1-7. Jak w scenariuszu głównym.  
+[błąd zapisu / problem z połączeniem]  
+8c. System wyświetla komunikat o błędzie zapisu zmian.  
+9c. Twórca gry wybiera „Ok”.  
+10c. Zmiany w komnacie nie zostają zapisane, dane pozostają bez zmian.
 
-Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
+---
