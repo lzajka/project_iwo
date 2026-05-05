@@ -938,6 +938,30 @@ Bezpieczny transfer zasobów wirtualnych między dwoma graczami, autoryzowany za
 
 ---
 
+**Warunek zwycięstwa**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (05.05.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Cel do osiągnięcia w grze, ustalany przez organizatora, którego spełnienie skutkuje zwycięstwem w danej grze. Możliwe do spełnienia dla pojedynczego gracza bądź frakcji.
+
+---
+
+**Dane warunku zwycięstwa**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (05.05.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Priorytet i trudność: Kluczowe
+- Wydanie: 1.0
+
+Zestaw parametrów określający dany warunek zwycięstwa, zależny od typu warunku. Parametry te są definiowane podczas tworzenia scenariusza przez Organizatora.
+
+---
+
 # 4. Wymagania użytkownika
 
 ## 4.1 Wymagania funkcjonalne
@@ -1122,12 +1146,14 @@ flowchart LR
 ```
 
 **PU1101: Rejestracja konta**
+
 - Wersja: 1.1 (16.04.2026)
 - Odpowiedzialna: Polina Nesterova
 - Wydanie: 1.0
 - Opis: System wyświetla formularz rejestracji. Użytkownik podaje [dane użytkownika]. System weryfikuje poprawność i unikalność podanych [danych użytkownika], zapisuje konto ze statusem „nieaktywne" i wysyła na wskazany kanał kontaktu wiadomość zawierającą link aktywacyjny. Rejestracja kończy się komunikatem o konieczności potwierdzenia konta przed pierwszym logowaniem — faktyczne potwierdzenie realizuje odrębny przypadek użycia PU1102 (Aktywacja konta przez link e-mail), wywoływany przez użytkownika po otrzymaniu wiadomości.
 
 **PU1102: Aktywacja konta przez link e-mail**
+
 - Wersja: 1.1 (16.04.2026)
 - Odpowiedzialna: Polina Nesterova
 - Wydanie: 1.0
@@ -1155,6 +1181,7 @@ flowchart LR
 - Opis: Zalogowany użytkownik wybiera opcję wylogowania. System kończy sesję użytkownika, unieważnia token sesji i przekierowuje na ekran logowania.
 
 **PU1106: Wyświetlenie historii wydarzeń**
+
 - Wersja: 1.1 (16.04.2026)
 - Odpowiedzialna: Polina Nesterova
 - Wydanie: 1.0
@@ -1845,7 +1872,7 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 ---
 
 ## 5.6 PU3: Definiowanie warunków zwycięstwa w scenariuszu gry
- 
+
 - Wersja: 1.0 (21.04.2026)
 - Odpowiedzialny: Tomasz Rogalski
 - Wydanie: 1.0
@@ -1856,26 +1883,25 @@ Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
 **Scenariusz główny**
 
 1. Organizator wybiera opcję „Warunki zwycięstwa”.
-2. System wyświetla formularz definiowania warunków.
-3. Organizator wprowadza dane warunku i zatwierdza formularz.
-4. System waliduje poprawność dodanego warunku.
+2. System wyświetla formularz definiowania warunków zwycięstwa.
+3. Organizator wprowadza dane warunku zwycięstwa.
+4. System waliduje poprawność dodanego warunku zwycięstwa.
    [dane poprawne]
-5. System zapisuje dodane warunki.
-6. System wyświetla potwierdzenie poprawnego zdefiniowania warunków.
+5. System wyświetla potwierdzenie poprawnego zdefiniowania warunku zwycięstwa.
 
 **Scenariusz alternatywny 1: Błędne lub niekompletne wartości w formularzu**
 
-1.-4. tak jak w scenariuszu głównym
-[dane niepoprawne]
-5a. System podświetla błędne pola i wyświetla komunikat o błędnych danych.
+1.-4. tak jak w scenariuszu głównym  
+[dane niepoprawne]  
+5a. System wyświetla komunikat o błędnych danych.  
 Powrót do zdania 3. w scenariuszu głównym.
 
 **Scenariusz alternatywny 2: Logiczna sprzeczność warunków gry**
 
-1.-4. tak jak w scenariuszu głównym
-[konflikt warunków]
-5b. System wymusza edycję przed zapisaniem i wyświetla komunikat o sprzeczności z istniejącymi warunkami.
-Powrót do zdania 2. w scenariuszu głównym.
+1.-4. tak jak w scenariuszu głównym  
+[konflikt warunków]  
+5b. System wyświetla komunikat o sprzeczności z istniejącymi warunkami.  
+Powrót do zdania 3. w scenariuszu głównym.
 
 **Scenopis:**
 ![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_tr.png)
