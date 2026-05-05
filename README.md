@@ -1206,6 +1206,48 @@ Kod graficzny wykorzystywany do identyfikacji elementów [Gry] oraz inicjowania 
 
 Bezpieczny transfer zasobów wirtualnych z [Ekwipunku] między dwoma [Graczami], autoryzowany za pomocą aplikacji mobilnej (np. poprzez skanowanie [Kodu QR]). Wymaga obecności obu stron [Transakcji wymiany] i zatwierdzenia jej w systemie.
 
+**Komunikat do recenzenta**
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Michał Marciniak
+- Wydanie: 1.0
+
+Treść tekstowa napisana przez twórcę gier do recenzenta, w celu wyeliminowania niejasności dotyczących mechanik gry lub odpowiedzi na pytanie.
+
+---
+
+**Okno komunikacji twórcy gry z recenzentem**
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Michał Marciniak
+- Wydanie: 1.0
+
+Okno zawierające historię kontaktu z recenzentem wraz z funkcją wysłania komunikatów do recenzenta.
+
+
+
+**Czujnik**
+- Typ: pojęcie domenowe
+- Wersja: 1.1 (24.04.2026)
+- Odpowiedzialna: Alicja Rosiak
+- Wydanie: 1.0
+
+Element [mapy] pozwalający na wchodzenie w [interakcje] przez [gracza].
+Ma określony [typ czujnika] oraz pozycję na [mapie]. Aktywowanie czujnika zależy
+od jego typu i powoduje wykonanie powiązanej [akcji].
+
+---
+
+**Typ czujnika**
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (24.04.2026)
+- Odpowiedzialna: Alicja Rosiak
+- Wydanie: 1.0
+
+Sposób, w jaki [czujnik] może być aktywowany. Możliwe typy: NFC, [kod QR],
+czujnik ruchu.
+
+
 ---
 
 
@@ -1850,13 +1892,15 @@ GDF([Zdefiniowanie gry])
 ADF([Zdefiniowanie akcji])
 SCR([Przesłanie komunikatu do recenzenta])
 KED([Edycja komnaty])
+SEDF([Zdefiniowanie czujnika])
 end
 
 %% ===== RELACJE =====
 TG --> GDF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> ADF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> SCR
-GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED 
+GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED
+GDF -. <&ltinvoke>> .-> SEDF
 ```
 
 **PU49: Zdefiniowanie gry**
@@ -1866,6 +1910,16 @@ GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
 - **Opis:** System wyświetla formularz [opisu ogólnego gry]. Twórca gry wprowadza [dane opisu ogólnego gry] do formularza. Twórca gry może dodać [pozostałe elementy gry]. Twórca gry wciska przycisk zapisz. System zamyka formularz [opisu ogólnego gry] i wyświetla informację o poprawnym zapisie.
+
+**PU204: Zdefiniowanie czujnika**
+- Wersja: 1.1(24.04.2026)
+- Odpowiedzialna: Alicja Rosiak
+- Wydanie: 1.0
+- **Opis:** System wyświetla [formularz definicji czujnika]. Twórca wybiera
+  umiejscowienie [czujnika] na [mapie]. Następnie wybiera [akcję]
+  z [listy akcji]. Po zakończeniu twórca zapisuje zmiany. System zamyka
+  [formularz definicji czujnika].
+
 
 **PU50: Zdefiniowanie akcji**
 
@@ -1959,205 +2013,7 @@ Powiązanie z wymaganiami funkcjonalnymi: **F28**.
 
 # 5. Scenariusze i scenopisy
 
-
-## 5.2 PU14: Logowanie
-
-- Wersja: 1.0 (15.04.2026)
-- Odpowiedzialna: Polina Nesterova
-- Wydanie: 1.0
-- Aktor główny: Użytkownik
-- Warunek początkowy: Użytkownik posiada zarejestrowane i aktywowane konto.
-- Warunek końcowy (sukces): Użytkownik jest zalogowany, system utworzył sesję i wyświetla ekran główny.
-
-**Scenariusz główny**
-
-1. Użytkownik uruchamia aplikację i wybiera opcję „Zaloguj się".
-2. System wyświetla formularz logowania z polami adres e-mail oraz hasło.
-3. Użytkownik wprowadza adres e-mail oraz hasło i potwierdza przyciskiem „Zaloguj".
-4. System weryfikuje poprawność danych uwierzytelniających w bazie użytkowników.
-5. System sprawdza status konta (aktywne / nieaktywne / zablokowane).
-6. System tworzy nową sesję użytkownika i generuje token sesji.
-7. System zapisuje informację o zalogowaniu (data, godzina, adres IP) w historii konta.
-8. System przekierowuje użytkownika na ekran główny i wyświetla powitanie.
-
-**Scenariusz alternatywny A: Niepoprawne dane uwierzytelniające**
-
-4a. System nie znajduje użytkownika o podanym adresie e-mail lub hasło nie pasuje do zapisanego w bazie.
-
-1. System wyświetla komunikat „Niepoprawny adres e-mail lub hasło" bez wskazywania, które pole jest błędne.
-2. System inkrementuje licznik nieudanych prób logowania dla tego konta.
-3. Scenariusz wraca do kroku 2 scenariusza głównego.
-
-**Scenariusz alternatywny B: Konto nieaktywowane**
-
-5a. System stwierdza, że konto ma status „nieaktywne".
-
-1. System wyświetla komunikat „Konto nie zostało jeszcze aktywowane. Sprawdź skrzynkę e-mail i kliknij w link aktywacyjny".
-2. System oferuje opcję ponownego wysłania linku aktywacyjnego.
-3. Użytkownik wybiera opcję wysłania linku lub zamyka formularz.
-
-**Scenariusz alternatywny C: Konto zablokowane**
-
-5b. System stwierdza, że konto ma status „zablokowane".
-
-1. System wyświetla komunikat „Konto zostało tymczasowo zablokowane. Spróbuj ponownie za [pozostały czas] lub zresetuj hasło".
-2. System oferuje opcję resetu hasła.
-3. Logowanie zostaje przerwane.
-
-**Scenariusz alternatywny D: Przekroczenie limitu prób**
-
-4b. Licznik nieudanych prób przekracza 5 w ciągu 15 minut.
-
-1. System zmienia status konta na „zablokowane" na okres 15 minut.
-2. System wysyła na adres e-mail użytkownika powiadomienie o próbach logowania i blokadzie.
-3. System wyświetla komunikat o blokadzie konta.
-4. Logowanie zostaje przerwane.
-
-**Scenariusz alternatywny E: Zapomniane hasło**
-
-3a. Użytkownik wybiera opcję „Nie pamiętam hasła" zamiast potwierdzania logowania.
-
-1. System przekierowuje do przypadku użycia PU15 (Reset hasła).
-
----
-
-## 5.4 PU37/PU38: Dokonanie wymiany zasobów między graczami
-
-- Wersja: 1.0 (15.04.2026)
-- Odpowiedzialny: Kacper Koziara
-- Wydanie: 1.0
-- Aktor główny: Gracz A (Inicjator)
-- Aktor pomocniczy: Gracz B (Odbiorca)
-- Warunek początkowy: Obaj gracze są zalogowani do aplikacji, uczestniczą w tym samym aktywnym wydarzeniu LARP, a Gracz A posiada w ekwipunku zasoby, które chce przekazać.
-- Warunek końcowy (sukces): Wybrane zasoby zostały bezpiecznie przeniesione z ekwipunku Gracza A do ekwipunku Gracza B, a system zapisał log z transakcji.
-
-**Scenariusz główny**
-
-1. Gracz A wybiera w swojej aplikacji moduł „Handel / Wymiana”.
-2. System wyświetla listę dostępnych zasobów w ekwipunku Gracza A.
-3. Gracz A zaznacza przedmioty i/lub wpisuje kwotę wirtualnej waluty, którą chce przekazać, a następnie klika „Generuj ofertę”.
-4. System tymczasowo blokuje wybrane zasoby u Gracza A i wyświetla na jego ekranie jednorazowy kod QR reprezentujący ofertę.
-5. Gracz B otwiera w swojej aplikacji skaner kodów i skanuje kod QR z ekranu Gracza A.
-6. System wyświetla na ekranie Gracza B okno podsumowania („Gracz A chce przekazać Ci: [lista]”) i prosi o akceptację.
-7. Gracz B wybiera przycisk „Zatwierdź transakcję”.
-8. System weryfikuje poprawność danych i dokonuje transferu, aktualizując stany ekwipunków obu postaci w bazie danych.
-9. System zapisuje szczegóły operacji (data, strony transakcji, zasoby) w logach wydarzenia.
-10. System wyświetla obu graczom komunikat o pomyślnym zakończeniu wymiany.
-
-**Scenariusz alternatywny A: Odrzucenie transakcji przez Odbiorcę**
-
-7a. Gracz B wybiera przycisk „Odrzuć”.
-
-1. System przerywa operację i zdejmuje blokadę z zasobów Gracza A.
-2. System wyświetla Graczowi A komunikat „Transakcja została odrzucona przez drugą stronę”.
-3. Wygenerowany kod QR zostaje trwale unieważniony.
-
-**Scenariusz alternatywny B: Przekroczenie limitu czasu (Timeout)**
-
-5a. Gracz B nie zdąży zeskanować kodu lub zatwierdzić operacji w określonym czasie (np. 3 minuty).
-
-1. System automatycznie anuluje ofertę i zdejmuje blokadę z zasobów Gracza A.
-2. System wyświetla Graczowi A komunikat „Czas na akceptację transakcji minął”.
-3. Kod QR zostaje unieważniony, proces wymiany należy zainicjować od nowa.
-
----
-
-## 5.1 PU2: Rezerwacja czasu dla gry
-
-- Wersja: 1.0 (15.04.2026)
-- Odpowiedzialna: FilobokHlib i Maksym Andrushchenko
-- Wydanie: 1.0
-- Aktor główny: Organizator zewnętrzny
-- Warunek początkowy: Organizator zewnętrzny jest zalogowany na stronie głównej i posiada uprawnienia do tworzenia gier, rezerwacji czasu dla gry, zarządzaniem uczęstnikami do gry i komunikacji z nimi.
-- Warunek końcowy (sukces): Rezerwacja czasu została utworzona, terminy są niedostępne dla innych użytkowników, organizator otrzymał potwierdzenie w skrzynce wiadomości, a płatność została przetworzona.
-
-Scenariusz główny
-
-1. Organizator znajduje się na stronie głównej i klika przycisk „Stwórz grę".
-2. System wyświetla formularz tworzenia gry z polami wymaganymi: nazwa gry, typ gry, liczba uczestników, poziom trudności i dodatkowe informacje (opcjonalne).
-3. Organizator wypełnia wszystkie wymagane pola formularza.
-4. System waliduje poprawność danych wpisanych w formularz.
-5. Organizator potwierdza formularz przyciskiem „Dalej".
-6. System pobiera dane z formularza i przekierowuje organizatora do kalendarza.
-7. Kalendarz wyświetla dostępne godziny dostosowane do czasu trwania wybranego typu gry (różne gry mają różny czas trwania).
-8. System uniemożliwia wybranie terminów niedostępnych (zarezerwowane, poza godzinami pracy, itp.).
-9. Organizator wybiera jeden lub więcej dostępnych terminów z kalendarza.
-10. System wyznacza przedział czasowy dla każdego wybranego terminu.
-11. Organizator potwierdza wybór terminów przyciskiem „Potwierdź wybór".
-12. System wyświetla podsumowanie rezerwacji zawierające dane gry, wybrane terminy i całkowity koszt.
-13. Organizator ma możliwość potwierdzenia rezerwacji przyciskiem „Potwierdź i płać" lub cofnięcia operacji przyciskiem „Cofnij".
-14. Organizator potwierdza rezerwację przyciskiem „Potwierdź i płać".
-15. System przenosi organizatora do modułu płatności.
-16. Organizator dokonuje płatności.
-17. System potwierdza wykonanie transakcji.
-18. Po udanej płatności system blokuje wybrane terminy w kalendarzu i rejestruje rezerwację w bazie danych.
-19. System generuje potwierdzenie rezerwacji i wysyła powiadomienie do skrzynki wiadomości organizatora zawierające dane gry, zarezerwowane terminy i numer rezerwacji.
-20. System przekierowuje organizatora na stronę główną.
-
-Scenariusz alternatywny A: Anulowanie na etapie formularza
-
-5a. Organizator klika przycisk „Anuluj" podczas wypełniania formularza.
-
-1. System powraca na stronę główną bez zapisywania danych.
-2. Dane formularza są tracone.
-
-Scenariusz alternatywny B: Brak wymaganych pól w formularzu
-
-4a. System stwierdza, że jedno lub więcej wymaganych pól formularza jest puste.
-
-1. System wyświetla komunikat „Uzupełnij wszystkie wymagane pola" i podświetla brakujące pola.
-2. Scenariusz wraca do kroku 3 scenariusza głównego.
-
-Scenariusz alternatywny C: Brak dostępnych terminów
-
-7a. System nie znalazł dostępnych terminów dla wybranego typu gry.
-
-1. System wyświetla komunikat „Brak dostępnych terminów dla wybranego typu gry".
-2. System oferuje organizatorowi opcje: zmianę danych gry lub powrót do strony głównej.
-3. Organizator wybiera jedną z opcji.
-
-Scenariusz alternatywny D: Cofnięcie operacji przed potwierdzeniem
-
-13a. Organizator klika przycisk „Cofnij" w podsumowaniu rezerwacji.
-
-1. System powraca do kalendarza.
-2. Wcześniej wybrane terminy są odznaczane.
-3. Organizator może wybrać inne terminy lub anulować operację przyciskiem „Anuluj".
-
-Scenariusz alternatywny E: Brak zaznaczonych terminów
-
-11a. Organizator klika przycisk „Potwierdź wybór" bez wybrania żadnego terminu.
-
-1. System wyświetla komunikat „Wybierz co najmniej jeden termin".
-2. Scenariusz wraca do kroku 9 scenariusza głównego.
-
-Scenariusz alternatywny F: Błąd płatności
-17a. Płatność nie powiodła się z powodu błędu systemu płatności, braku środków lub innych przyczyn.
-
-1. System wyświetla komunikat o błędzie płatności.
-2. System oferuje organizatorowi opcje: ponowienie próby płatności lub anulowanie rezerwacji.
-3. Jeśli organizator wybierze anulowanie, rezerwacja nie jest tworzona i terminy pozostają dostępne.
-4. Jeśli organizator wybierze ponowienie próby, system przenosi go do modułu płatności (scenariusz wraca do kroku 15 scenariusza głównego).
-
-Scenariusz alternatywny G: Timeout sesji
-
-(W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja organizatora wygasa z powodu nieaktywności.
-
-1. System wylogowuje użytkownika.
-2. System wyświetla komunikat „Sesja wygasła. Zaloguj się ponownie".
-3. System przekierowuje organizatora na ekran logowania.
-4. Rezerwacja nie jest tworzona i terminy pozostają dostępne.
-
-Scenariusz alternatywny H: Wybrany termin stanie się niedostępny
-
-9a. Między momentem wyświetlenia kalendarza a potwierdzeniem rezerwacji (krok 11) wybrany termin zostaje zarezerwowany przez innego użytkownika.
-
-1. System wykrywa konflikt dostępności podczas potwierdzania rezerwacji.
-2. System wyświetla komunikat „Wybrany termin jest już niedostępny. Dostępne są inne terminy".
-3. System oferuje organizatorowi powrót do kalendarza w celu wybrania innych dostępnych terminów.
-4. Scenariusz wraca do kroku 9 scenariusza głównego.
-
-## 5.8 UC202: Zdefiniowanie akcji
+## 5.1 UC202: Zdefiniowanie akcji
 - Wersja 1.0
 - Odpowiedzialna: Karolina Wiśniewska
 - Aktor Główny: Twórca Gry
@@ -2182,29 +2038,10 @@ Scenariusz Alternatywny B:
 6a. System nie zapisał akcji
 7. System wyświetla informację o błędzie zapisu
 8. Scenariusz wraca do kroku 3 scenariusza głównego
----
-
-## 5.6 PU52: Wyświetlenie scenariusza gry w edytorze
-
-- Wersja: 1.0 (29.04.2026)
-- Odpowiedzialny: Igor Ochocki
-- Wydanie: 1.0
-- Aktor główny: Projektant gier
-- Warunek początkowy: Projektant jest zalogowany i ma uprawnienie do edycji wybranej gry lub scenariusza.
-
-**Scenariusz główny**
-
-1. Projektant wybiera z poziomu aplikacji grę lub scenariusz do edycji i potwierdza wejście do modułu edytora scenariusza (np. z listy gier lub ze ścieżki powiązanej z definicją gry).
-2. System pobiera z bazy dane scenariusza przypisane do wybranej gry.
-3. System wyświetla widok edytora ze strukturą scenariusza (w tym istniejące zadania i elementy konfiguracji - szczegóły prezentacji w scenopisie).
-
-**Warunek końcowy:** Wybrany scenariusz jest wczytany i wyświetlony w edytorze.
-
-**Finalny rezultat:** success
 
 ---
 
-## 5.7 PU53: Projektowanie zadań w scenariuszu gry
+## 5.2 PU53: Projektowanie zadań w scenariuszu gry
 
 - Wersja: 1.0 (29.04.2026)
 - Odpowiedzialny: Igor Ochocki
@@ -2275,8 +2112,9 @@ Scenariusz Alternatywny B:
 
 **Warunek końcowy:** Struktura scenariusza gry nie uległa zmianie.
 
+
 ---
-## 5.5 PU51: Przesłanie komunikatu do recenzenta
+## 5.3 PU51: Przesłanie komunikatu do recenzenta
 - Wersja 1.0 (29.04.2026)
 - Odpowiedzialny: Michał Marciniak
 - Wydanie: 1.0
@@ -2341,7 +2179,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 ---
 
-## 5.3 PU28: Wyświetlenie listy gier
+## 5.4 PU28: Wyświetlenie listy gier
 
 - Wersja: 1.0 (29.04.2026)
 - Odpowiedzialny: Kacper Koziara
@@ -2394,5 +2232,377 @@ Powrót do kroku 3. w scenariuszu głównym
 3. System lokalnie zapisuje stan wyszukiwania (tzw. stan URL z filtrami) w Storage (local/session).
 4. System przekierowuje Użytkownika dyskretnie do widoku logowania z komunikatem: „Twoja sesja przedawniła się dla względów bezpieczeństwa. Zaloguj się, aby kontynuować.”
 5. (Po pomyślnym zalogowaniu poprzez PU14) System używa zapisanych lokalnie parametrów, automatycznie odświeżając i odtwarzając użytkownikowi widok listy gier z wybranymi opcjami paginacji i filtroania z dokładnego punktu w którym przestał działać.
+
+
+## 5.6 PU3: Definiowanie warunków zwycięstwa w scenariuszu gry
+
+- Wersja: 1.0 (21.04.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Wydanie: 1.0
+- Aktor główny: Organizator wydarzenia
+- Warunek początkowy: Organizator jest zalogowany w aplikacji i znajduje się w panelu edycji wybranego scenariusza gry.
+- Warunek końcowy (sukces): Warunki zwycięstwa dla graczy lub frakcji zostały pomyślnie zdefiniowane i zapisane w scenariuszu gry.
+
+**Scenariusz główny**
+
+1. Organizator wybiera opcję „Warunki zwycięstwa”.
+2. System wyświetla formularz definiowania warunków.
+3. Organizator wprowadza dane warunku i zatwierdza formularz.
+4. System waliduje poprawność dodanego warunku.
+   [dane poprawne]
+5. System zapisuje dodane warunki.
+6. System wyświetla potwierdzenie poprawnego zdefiniowania warunków.
+
+**Scenariusz alternatywny 1: Błędne lub niekompletne wartości w formularzu**
+
+1.-4. tak jak w scenariuszu głównym
+[dane niepoprawne]
+5a. System podświetla błędne pola i wyświetla komunikat o błędnych danych.
+Powrót do zdania 3. w scenariuszu głównym.
+
+**Scenariusz alternatywny 2: Logiczna sprzeczność warunków gry**
+
+1.-4. tak jak w scenariuszu głównym
+[konflikt warunków]
+5b. System wymusza edycję przed zapisaniem i wyświetla komunikat o sprzeczności z istniejącymi warunkami.
+Powrót do zdania 2. w scenariuszu głównym.
+
+**Scenopis:**
+![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_tr.png)
+
+
+
+
+## 5.7 PU003: Recenzja gry
+
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialna: Polina Nesterova
+- Wydanie: 1.0
+- Aktor główny: Recenzent gry
+- Warunek początkowy: Recenzent jest zalogowany w systemie, posiada uprawnienia recenzenta i znajduje się na liście gier wyświetlonej w ramach PU002 (Wyświetlenie listy gier przez recenzenta).
+- Warunek końcowy (sukces): Recenzja została zapisana, powiązana z wybraną grą oraz kontem recenzenta, a jej status zmienia się na „przesłana do twórcy”.
+
+**Scenariusz główny**
+
+1. Recenzent wybiera opcję „Recenzuj grę” przy wybranym rekordzie na liście gier.
+2. System wyświetla okno recenzji zawierające tytuł gry, pole tekstowe na treść recenzji, pole oceny liczbowej (skala 1–10) oraz przyciski „Zapisz szkic”, „Wyślij” i „Anuluj”.
+3. Recenzent wprowadza treść recenzji oraz ocenę liczbową.
+4. Recenzent wybiera przycisk „Wyślij”.
+5. System waliduje treść recenzji (wymagana długość minimalna, obecność oceny, brak zakazanych słów).
+[treść recenzji poprawna]
+6. System zapisuje recenzję w bazie recenzji i wiąże ją z grą oraz kontem recenzenta.
+7. System aktualizuje status recenzji na „przesłana do twórcy”.
+8. System wyświetla potwierdzenie „Recenzja została zapisana i przesłana do twórcy gry”.
+`<<invoke>>` Przesłanie komunikatu do twórcy
+9. System zamyka okno recenzji i wraca do listy gier.
+
+final: success
+POST: recenzja została zapisana w bazie recenzji, powiązana z grą i kontem recenzenta, a jej status to „przesłana do twórcy”.
+
+**Scenariusz alternatywny A: Zapisanie szkicu recenzji**
+
+1.-3. tak jak w scenariuszu głównym.
+
+4a. Recenzent wybiera przycisk „Zapisz szkic” zamiast „Wyślij”.
+5a. System zapisuje treść recenzji ze statusem „szkic”, bez walidacji długości i bez wysyłania powiadomienia.
+6a. System wyświetla komunikat „Szkic recenzji został zapisany. Możesz wrócić do niego później”.
+7a. System zamyka okno recenzji i wraca do listy gier.
+
+final: success
+POST: recenzja została zapisana w bazie recenzji ze statusem „szkic”, powiązana z kontem recenzenta; powiadomienie do twórcy nie zostało wysłane.
+
+**Scenariusz alternatywny B: Niepoprawna treść recenzji**
+
+1.-4. tak jak w scenariuszu głównym.
+
+[treść recenzji niepoprawna]
+5b. System stwierdza, że treść recenzji jest pusta, krótsza niż wymagane minimum lub brakuje oceny liczbowej.
+6b. System wyświetla komunikat „Uzupełnij treść recenzji oraz ocenę przed wysłaniem” i podświetla brakujące pola.
+7b. System nie zapisuje recenzji.
+
+Powrót do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny C: Anulowanie recenzji**
+
+1.-2. tak jak w scenariuszu głównym.
+
+3a. Recenzent wybiera przycisk „Anuluj” przed wysłaniem recenzji.
+4a. System wyświetla pytanie „Czy na pewno chcesz zamknąć okno bez zapisania recenzji?”.
+5a. Recenzent potwierdza anulowanie.
+6a. System porzuca wprowadzone dane bez zapisywania.
+7a. System zamyka okno recenzji i wraca do listy gier.
+
+final: failure
+POST: recenzja nie została zapisana w systemie.
+
+**Scenariusz alternatywny D: Recenzent już zrecenzował tę grę**
+
+1a. System wykrywa, że recenzent posiada już zapisaną recenzję dla tej gry.
+2a. System wyświetla komunikat „Posiadasz już recenzję dla tej gry. Możesz ją edytować zamiast tworzyć nową”.
+3a. System oferuje opcje „Edytuj istniejącą recenzję” lub „Anuluj”.
+4a. Recenzent wybiera jedną z opcji.
+[wybrano „Edytuj istniejącą recenzję”]
+5a. System wczytuje poprzednią treść i ocenę do okna recenzji.
+
+Powrót do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny E: Anulowanie edycji istniejącej recenzji**
+
+1a.-4a. tak jak w scenariuszu alternatywnym D.
+
+[wybrano „Anuluj”]
+5b. System zamyka komunikat i wraca do listy gier.
+
+final: failure
+POST: nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+
+**Scenariusz alternatywny F: Błąd zapisu recenzji**
+
+1.-5. tak jak w scenariuszu głównym.
+
+[błąd bazy danych lub braku połączenia]
+6c. System nie jest w stanie zapisać recenzji.
+7c. System wyświetla komunikat „Nie udało się zapisać recenzji. Spróbuj ponownie za chwilę”.
+8c. System zachowuje wprowadzoną treść w oknie recenzji, aby recenzent nie stracił pracy.
+
+Powrót do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny G: Wygaśnięcie sesji**
+
+(W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
+
+1g. System zapisuje lokalnie wprowadzoną treść jako szkic powiązany z kontem recenzenta.
+2g. System wylogowuje użytkownika.
+3g. System wyświetla komunikat „Sesja wygasła. Zaloguj się ponownie — szkic recenzji został zachowany”.
+4g. System przekierowuje recenzenta na ekran logowania.
+
+final: failure
+POST: recenzja nie została przesłana; wprowadzona treść zachowana jako szkic powiązany z kontem recenzenta.
+
+
+
+## 5.6 PU204: Zdefiniowanie czujnika**
+
+- Wersja: 1.1 (24.04.2026)
+- Odpowiedzialna: Alicja Rosiak
+- Wydanie: 1.0
+- Aktor główny: Twórca gry
+- Warunek początkowy: Twórca gry jest zalogowany
+  i jest w menu definiowania gry
+  i conajmniej jedna akcja została zdefiniowana dla danej gry
+  i mapa gry została została zdefiniowana dla danej gry
+
+**Scenariusz główny**
+
+1. Twórca wybiera opcję dodania nowego czujnika.
+2. System wyświetla formularz definicji czujnika.
+3. Twórca wybiera opcję wybrania pozycji czujnika.
+4. System wyświetla okno podglądu mapy.
+5. Twórca wybiera pozycję nowego czujnika.
+6. System zamyka okno podglądu mapy.
+7. Twórca uzupełnia pozostałe dane czujnika.
+8. Twórca wybiera opcję zapisu i zamknięcia formularza.  
+[dane poprawne]
+9. System zapisuje nowy czujnik.  
+[zapis pomyślny]
+10. System wyświetla komunikat o pomyślnym dodaniu czujnika.
+
+Warunek końcowy: nowy czujnik jest zarejestrowany dla danej gry
+
+**Scenariusz alternatywny 1**
+
+1.-8. jak w Scenariuszu głównym  
+[dane niepoprawne]  
+9a. System wyświetla komunikat o błędnych danych.  
+Powrót do kroku 3. w Scenariuszu głównym
+
+**Scenariusz alternatywny 2**
+
+1.-9. jak w Scenariuszu głównym  
+[zapis niepomyślny]  
+10b. System wyświetla komunikat o błędzie zapisu.  
+11b. System zamyka formularz definicji czujnika.
+
+Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
+
+
+## 5.6 PU201: Zdefiniowanie gry
+
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Cezary Rybiński
+- Wydanie: 1.0
+- Aktor główny: Twórca gry
+- Warunek początkowy: Twórca gry jest zalogowany w systemie i posiada uprawnienia do tworzenia gier.
+- Warunek końcowy (sukces): Nowa gra zostaje zapisana w systemie ze statusem „Oczekuje na weryfikację", a gra jest widoczna na liście gier twórcy.
+
+**Scenariusz główny**
+
+1. Twórca gry wybiera opcję „Utwórz nową grę" w panelu twórcy.
+2. System wyświetla formularz opisu ogólnego gry z polami: nazwa gry, opis fabularny, poziom trudności, minimalna i maksymalna liczba graczy oraz szacowany czas trwania.
+3. Twórca gry wypełnia wymagane pola formularza.
+4. Twórca gry dodaje pozostałe elementy gry — definiuje dostępne postaci (role graczy), układ mapy (pomieszczenia i strefy) oraz przedmioty dostępne w świecie gry.
+5. Twórca gry klika przycisk „Zapisz".
+6. System waliduje poprawność i kompletność danych formularza.
+7. System zapisuje grę ze statusem „Oczekuje na weryfikację".
+8. System zamyka formularz opisu ogólnego gry i wyświetla komunikat o poprawnym zapisie oraz informację, że gra oczekuje na weryfikację recenzenta.
+9. System przekierowuje twórcę do widoku listy jego gier, gdzie nowa gra jest widoczna.
+
+**Scenariusz alternatywny A: Brakujące lub błędne dane formularza**
+
+6a. System stwierdza, że jedno lub więcej wymaganych pól formularza jest puste lub zawiera nieprawidłowe wartości (np. maksymalna liczba graczy mniejsza niż minimalna).
+1. System wyświetla komunikat „Uzupełnij wszystkie wymagane pola" i podświetla błędne pola.
+2. Formularz pozostaje otwarty z zaznaczonymi błędami.
+3. Scenariusz wraca do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny B: Twórca definiuje akcje gry**
+
+4a. Twórca gry chce zdefiniować akcje dostępne w rozgrywce.
+1. Twórca wybiera opcję „Dodaj akcję" w formularzu gry.
+2. System wywołuje PU202: Zdefiniowanie akcji.
+3. Po zakończeniu definiowania akcji system powraca do formularza opisu ogólnego gry.
+4. Scenariusz wraca do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny C: Twórca przesyła komunikat do recenzenta**
+
+4b. Twórca gry chce skontaktować się z recenzentem w trakcie tworzenia gry.
+1. Twórca wybiera opcję „Wyślij komunikat do recenzenta".
+2. System wywołuje PU203: Przesłanie komunikatu do recenzenta.
+3. Po wysłaniu komunikatu system powraca do formularza opisu ogólnego gry.
+4. Scenariusz wraca do kroku 4 scenariusza głównego.
+
+**Scenariusz alternatywny D: Anulowanie tworzenia gry**
+
+(W dowolnym momencie kroków 2–4) Twórca gry klika przycisk „Anuluj".
+1. System wyświetla komunikat ostrzegający „Niezapisane zmiany zostaną utracone. Czy chcesz kontynuować?".
+2. Twórca potwierdza anulowanie.
+3. System zamyka formularz bez zapisywania danych i przekierowuje twórcę do listy jego gier.
+
+
+## 5.x PU1: Wyświetlenie kalendarza
+
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Olaf Smoleński
+
+Scenariusz główny
+
+1. Użytkownik wybiera opcję *Kalendarz* w głównym menu aplikacji.
+2. System wyświetla użytkownikowi stronę z kalendarzem wydarzeń.
+
+Scenariusz alternatywny: Sesja użytkownika wygasła przed kliknięciem opcji *Kalendarz*
+
+2a. System wylogowuje użytkownika.
+1. System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
+2. Strona z kalendarzem nie zostaje wyświetlona.
+
+
+## 5.7 PU204: Edycja komnaty
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Maciej Bankiewicz
+- Wydanie: 1.0
+- Aktor główny: Twórca gier
+- Warunek początkowy: Twórca gry jest zalogowany i jest w oknie definicji gry.
+
+**Scenariusz główny**
+
+1. Twórca gry wybiera opcję edycji komnaty.
+2. System pobiera dane komnaty.
+[dane pobrane pomyślnie]
+3. System wyświetla formularz edycji komnaty.
+4. Twórca gry dokonuje edycji danych komnaty.
+5. Twórca gry wybiera opcję „Zapisz zmiany”.
+6. System sprawdza poprawność danych.
+[dane poprawne]  
+7. System zapisuje zmiany.
+[dane zapisane pomyślnie]
+8. System wyświetla potwierdzenie zapisania zmian.
+
+**Scenariusz alternatywny A: Błąd pobierania danych komnaty**
+
+1-2. Jak w scenriuszu głównym.
+[błąd pobierania danych]
+3. System wyświetla komunikat o błędzie pobierania danych komnaty.
+4. Twórca gry wybiera "Ok".
+5. Dane pozostają bez zmian.
+
+**Scenariusz alternatywny B: Wprowadzone dane są niepoprawne**
+
+1-6. Jak w scenariuszu głównym.  
+7a. System wyświetla komunikat o braku przedmiotu w magazynie.  
+8a. Twórca gry wybiera „Ok”.  
+Powrót do kroku 3. w scenariuszu głównym.
+
+**Scenariusz alternatywny C: Błąd zapisu zmian**
+
+1-7. Jak w scenariuszu głównym.  
+[błąd zapisu / problem z połączeniem]  
+8c. System wyświetla komunikat o błędzie zapisu zmian.  
+9c. Twórca gry wybiera „Ok”.  
+10c. Zmiany w komnacie nie zostają zapisane, dane pozostają bez zmian.
+
+5.9 PU54: Zdefiniowanie mapy gry
+- Wersja: 1.0 (30.04.2026)
+- Odpowiedzialny: Łukasz Czajka
+- Wydanie: 1.0
+- Aktor główny: Twórca gry
+- Warunek początkowy: Twórca gry jest zalogowany w systemie, posiada uprawnienia do edycji tworzonej gry oraz znajduje się w edytorze gry.
+- Warunek końcowy (sukces): Poprawna mapa gry została zapisana w systemie.
+
+**Scenariusz główny**
+1. Twórca gry wybiera opcję "Zdefiniuj mapę gry" w edytorze gry.
+2. System pobiera obecną mapę gry.
+3. System wyświetla interaktywny edytor mapy gry z aktualną mapę gry.
+4. Twórca gry wprowadza zmiany w mapie gry.
+5. System zapisuje zmiany na bierząco w przeglądarce.
+6. Twórca gry wybiera opcję "Zapisz i wyjdź".
+7. System zapisuje mapę gry w bazie danych.
+8. System automatycznie waliduje poprawnoś mapy gry.
+
+final: success
+
+**Scenariusz alternatywny A: Brak zdefiniowanej mapy gry**
+
+2a. System pobiera domyślną mapę gry.
+
+Powrót do kroku 3 scenariusza głównego.
+
+**Scenariusz alternatywny B: Błąd zapisu mapy gry w przeglądarce użytkownika**
+5a. System wykrywa błąd zapisu mapy gry w przeglądarce.
+6a. System sprawdza czas od ostatniego zapisu.
+7a. System wyświetla komunikat o błędzie zapisu mapy gry w przeglądarce, informuje użytkownika o tym, że ostatni zapis został wykonany [czas] temu, oferuje możliwości wyjścia, ponowienia zapisu lub kontynuowania bez zapisu.
+8a. Twórca gry wybra opcję ponowienia zapisu mapy gry w przeglądarce.
+8a1.1 System ponawia próbę zapisu mapy gry w przeglądarce.
+8a1.2 System powraca do kroku 4 scenariusza głównego.
+
+8a2.1 Twórca gry wybiera opcję kontynuowania bez zapisu mapy gry w przeglądarce.
+8a2.2 System wyłącza funkcję automatycznego zapisu mapy gry w przeglądarce.
+8a2.3 System powraca do kroku 4 scenariusza głównego
+
+8a3.1 Twórca gry wybiera opcję wyjścia z edytora mapy gry.
+8a3.2 System zamyka edytor mapy gry bez zapisywania zmian.
+
+final: failure
+
+**Scenariusz alternatywny C: Bład zapisu mapy w bazie danych**
+7a. System wykrywa błąd zapisu mapy gry w bazie danych.
+8a. System wyświetla komunikat o błędzie zapisu mapy gry w bazie danych, informuje użytkownika o tym, że mapa jest zapisana lokalnie. System oferuje możliwości ponowienia zapisu mapy gry w bazie danych i wyjścia z edytora mapy gry.
+
+9a1.1 Twórca gry wybiera opcję ponowienia zapisu mapy gry w bazie danych.
+9a1.2 System powraca do kroku 7 scenariusza głównego.
+
+9a2.1 Twórca gry wybiera opcję wyjścia z edytora mapy gry.
+9a2.2 System zamyka edytor mapy gry bez zapisywania
+
+final: failure
+
+
+**Scenariusz alternatywny D: Mapa gry jest niepoprawna**
+8a. System informuje użytkownika o błędach w mapie gry (np. brak wymaganych elementów, niespójności) informuje, że mapa gry jest niepoprawna i oznacza mapę jako niepoprawną.
+9a. System oferuje możliwość zapisu z wyjściem lub powrotu do edycji mapy gry.
+
+9a1.1 Twórca gry wybiera opcję powrotu do edycji mapy gry.
+9a1.2 System powraca do kroku 4 scenariusza głównego
+
+9a2.1 Twórca gry wybiera opcję zapisu z wyjściem.
+9a2.2 System skacze do kroku 7 scenariusza głównego, ale mapa gry pozostaje oznaczona jako niepoprawna, co uniemożliwia publikację gry do czasu poprawy mapy gry.
 
 ---
