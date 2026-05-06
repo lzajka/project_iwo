@@ -670,7 +670,31 @@ classDiagram
         +zasady: String
     }
 
+    class ScenariuszGry {
+        +idScenariusza
+    }
+
+    class Zadanie {
+        +idZadania
+        +tytulOpcjonalny
+
+        +wymaganyPoziomGracza
+        +typInterakcji
+        +ograniczeniaCzasowe
+
+        +daneZadania
+    }
+
+    class Nagroda {
+        +typNagrody
+        +wartoscLubSzczegoly
+    }
+
     class Mapa {
+    }
+
+    class Czujnik {
+        +typ: String
     }
 
     class Pomieszczenie {
@@ -705,11 +729,16 @@ classDiagram
     OrganizatorZewnetrzny "1" --> "0..*" Gra   : tworzy
 
     Gra "1" *-- "1"    Mapa    : zawiera
+    Gra "1" *-- "1"    ScenariuszGry    : zawiera
     Gra "1" *-- "0..*" Postac  : zawiera
     Gra "1" *-- "0..*" Akcja   : dopuszcza
 
+    ScenariuszGry "1" --> "*" Zadanie : zawiera
+    Zadanie "1" --> "*" Nagroda : przyznaje po ukonczeniu
+
     Mapa "1" *-- "0..*" Pomieszczenie : zawiera
     Mapa "1" *-- "0..*" Strefa        : zawiera
+    Mapa "1" *-- "0..*" Czujnik : zawiera
 
     Postac "1" *-- "1"    Ekwipunek  : posiada
     Postac "1" --> "0..*" Przedmiot  : nosi
@@ -880,31 +909,6 @@ classDiagram
     StatusRecenzji "1" --> "1" Recenzja : opisuje
 
 ```
-
----
-
-**Czujnik**
-
-- Typ: pojęcie domenowe
-- Wersja: 1.1 (24.04.2026)
-- Odpowiedzialna: Alicja Rosiak
-- Wydanie: 1.0
-
-Element [mapy] pozwalający na wchodzenie w [interakcje] przez [gracza].
-Ma określony [typ czujnika] oraz pozycję na [mapie]. Aktywowanie czujnika zależy
-od jego typu i powoduje wykonanie powiązanej [akcji].
-
----
-
-**Typ czujnika**
-
-- Typ: pojęcie domenowe
-- Wersja: 1.0 (24.04.2026)
-- Odpowiedzialna: Alicja Rosiak
-- Wydanie: 1.0
-
-Sposób, w jaki [czujnik] może być aktywowany. Możliwe typy: NFC, [kod QR],
-czujnik ruchu.
 
 ---
 
@@ -1327,6 +1331,28 @@ od jego typu i powoduje wykonanie powiązanej [akcji].
 
 Sposób, w jaki [czujnik] może być aktywowany. Możliwe typy: NFC, [kod QR],
 czujnik ruchu.
+
+---
+
+**Zadanie**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (05.05.2026)
+- Odpowiedzialna: Julian Stefan
+- Wydanie: 1.0
+
+Zbiór celów które gracz musi wykonać podczas [Wydarzenia] jeśli chce otrzymać [Nagrodę].
+
+---
+
+**Nagroda**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (05.05.2026)
+- Odpowiedzialna: Julian Stefan
+- Wydanie: 1.0
+
+Rekompensata za ukończenie [Zadania].
 
 ---
 
