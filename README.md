@@ -1232,7 +1232,7 @@ Cel do osiągnięcia w grze, ustalany przez organizatora, którego spełnienie s
 - Priorytet i trudność: Kluczowe
 - Wydanie: 1.0
 
-Zestaw parametrów określający dany warunek zwycięstwa, zależny od typu warunku. Parametry te są definiowane podczas tworzenia scenariusza przez Organizatora.
+Zestaw parametrów określający dany warunek zwycięstwa, zależny od typu warunku. Parametry te są definiowane podczas tworzenia scenariusza przez Projektanta gier.
 
 ---
 
@@ -2291,7 +2291,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenariusz główny**
 
-1. System wyświetla formularz definiowania warunków zwycięstwa po wybraniu opcji przez projektanta przy aktywnym widoku edytora.
+1. System wyświetla formularz definiowania warunków zwycięstwa.
 2. Projektant wprowadza dane warunku zwycięstwa.
 3. System waliduje poprawność dodanego warunku zwycięstwa.
    [dane poprawne]
