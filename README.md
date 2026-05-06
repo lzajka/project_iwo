@@ -837,12 +837,16 @@ classDiagram
         +tresc: String
         +dataZgloszenia: DateTime
     }
+    
+    class KomunikatDoRecenzenta {
+    }
 
     Zaproszenie "0..*" --> "1" Uzytkownik : wysylane do
     Zaproszenie "0..*" --> "1" Wydarzenie : dotyczy
 
     Wiadomosc "0..*" --> "1" Uzytkownik : nadawca
     Wiadomosc "0..*" --> "1" Uzytkownik : odbiorca
+    KomunikatDoRecenzenta --|> Wiadomosc
 
     Skarga "0..*" --> "1" Uzytkownik : zglaszajacy
 ```
@@ -1035,12 +1039,29 @@ Zgłoszenie wysyłane przez [Użytkownika] w celu poinformowania [Organizatora] 
 **Recenzja**
 
 - Typ: pojęcie systemowe
-- Wersja: 1.0 (15.04.2026)
+- Wersja: 1.1 (06.05.2026)
 - Odpowiedzialny: Maciej Bankiewicz
 - Priorytet i trudność: Istotne
 - Wydanie: 1.0
 
 Ocena i weryfikacja [Gry] dokonana przez [Recenzenta] zawierająca tekst recenzji i decyzję o zatwierdzeniu.
+
+Walidacja recenzji: tekst recenzji musi posiadać minimalną długość, ocena liczbowa w skali 1–10 jest wymagana, treść nie może zawierać zakazanych słów.
+
+---
+
+**Status recenzji**
+
+- Typ: pojęcie systemowe
+- Wersja: 1.0 (06.05.2026)
+- Odpowiedzialna: Polina Nesterova
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+
+Stan [Recenzji] w procesie recenzowania [Gry]. Dostępne statusy:
+
+- SR1: szkic – recenzja zapisana przez recenzenta, nieprzesłana do twórcy.
+- SR2: przesłana do twórcy – recenzja wysłana i oczekująca na zapoznanie się przez twórcę.
 
 ---
 
@@ -1243,7 +1264,7 @@ Zestaw parametrów określający dany warunek zwycięstwa, zależny od typu waru
 - Odpowiedzialny: Michał Marciniak
 - Wydanie: 1.0
 
-Treść tekstowa napisana przez twórcę gier do recenzenta, w celu wyeliminowania niejasności dotyczących mechanik gry lub odpowiedzi na pytanie.
+Wiadomość wysyłana przez twórcę gry do recenzenta w ramach komunikacji dotyczącej konkretnej gry.
 
 ---
 
@@ -1922,6 +1943,8 @@ ADF(["Zdefiniowanie akcji"])
 SCR(["Przesłanie komunikatu do recenzenta"])
 KED(["Edycja komnaty"])
 SEDF(["Zdefiniowanie czujnika"])
+DGSCE(["Wyświetlenie scenariusza gry w edytorze"])
+TPGS(["Projektowanie zadania w scenariuszu gry"])
 
 
 %% ===== RELACJE =====
@@ -1930,6 +1953,8 @@ GDF -. "&lt;&lt;invoke&gt;&gt;" .-> ADF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> SCR
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED
 GDF -. <&ltinvoke>> .-> SEDF
+GDF -. "&lt;&lt;invoke&gt;&gt;" .-> DGSCE
+DGSCE -. "&lt;&lt;invoke&gt;&gt;" .-> TPGS
 ```
 
 #### PU49: Zdefiniowanie gry
@@ -2006,23 +2031,6 @@ flowchart TB
  A -->|<<invoke>>| n3(["Recenzja gry"])
 ```
 
-### 4.1.11 Edycja scenariusza gry (projektant gier)
-
-DIAGRAM:
-
-```mermaid
-flowchart LR
-    PU49(["PU49: Zdefiniowanie gry"])
-    PG(("👤 Projektant gier"))
-    PU56(["PU56: Wyświetlenie scenariusza\\ngry w edytorze"])
-    PU57(["PU57: Projektowanie zadań w scenariuszu gry"])
-    PU58(["PU58: Definiowanie warunków zwycięstwa w scenariuszu gry"])
-    PU49 -.->|"<<invoke>>"| PU56
-    PG --> PU56
-    PU56 -->|"<<invoke>>"| PU57
-    PU56 -->|"<<invoke>>"| PU58
-```
-
 #### PU56: Wyświetlenie scenariusza gry w edytorze
 
 - Wersja: 1.0 (29.04.2026)
@@ -2032,14 +2040,14 @@ flowchart LR
 - Aktor główny: Projektant gier
 - **Opis:** Projektant wybiera istniejącą grę lub scenariusz i otwiera go w module edycji. System wczytuje zapis scenariusza z bazy i prezentuje widok edytora (struktura scenariusza, m.in. lista zadań, warunków zwycięstwa i metadane - szczegóły UI w scenopisie). Ten przypadek **poprzedza** projektowanie nowych zadań (**PU57**) i warunków zwycięstwa (**PU58**): operacje te mają miejsce dopiero przy już wyświetlonym w edytorze scenariuszu.
 
-#### PU57: Projektowanie zadań w scenariuszu gry
+#### PU57: Projektowanie zadania w scenariuszu gry
 
 - Wersja: 1.0 (29.04.2026)
 - Odpowiedzialny: Igor Ochocki
 - Priorytet i trudność: Istotne (zgodnie z F28)
 - Wydanie: 1.0
-- Aktor główny: Projektant gier
-- **Opis:** Przy aktywnym widoku edytora scenariusza projektant dodaje nowe zadanie fabularne: wypełnia formularz z treścią dla gracza, parametrami mechanicznymi, opcjonalnym obiektem interakcji oraz nagrodami. System waliduje kompletność i spójność powiązań, zapisuje zadanie w strukturze scenariusza i informuje o powodzeniu; przy błędach lub konfliktach prezentuje odpowiednie komunikaty. Szczegóły scenariusza krok po kroku: rozdział 5.
+- Aktor główny: Twórca gier
+- **Opis:** Przy aktywnym widoku edytora scenariusza twórca dodaje nowe zadanie fabularne: wypełnia formularz z [danymi zadania]. System waliduje dane, zapisuje zadanie w strukturze scenariusza i informuje o powodzeniu; przy błędach lub konfliktach prezentuje odpowiednie komunikaty.
 
 Powiązanie z wymaganiami funkcjonalnymi: **F28**.
 
@@ -2082,26 +2090,26 @@ Scenariusz Alternatywny B:
 
 ---
 
-## 5.2 [PU57: Projektowanie zadań w scenariuszu gry](#pu57-projektowanie-zadań-w-scenariuszu-gry)
+## 5.2 [PU57: Projektowanie zadania w scenariuszu gry](#pu57-projektowanie-zadania-w-scenariuszu-gry)
 
 - Wersja: 1.0 (29.04.2026)
 - Odpowiedzialny: Igor Ochocki
 - Wydanie: 1.0
 - Aktor główny: Projektant gier
-- **Związek z [PU56: Wyświetlenie scenariusza gry w edytorze](#pu56-wyświetlenie-scenariusza-gry-w-edytorze):** Przypadek **PU57** realizuje się **po** otwarciu scenariusza w edytorze (PU56). Punkt wyjścia stanowi krok 3 scenariusza PU56 (widok edytora aktywny).
-- Warunek początkowy: Projektant jest zalogowany; w edytorze wyświetlony jest scenariusz gry zgodnie z **[PU56](#pu56-wyświetlenie-scenariusza-gry-w-edytorze)** (struktura scenariusza widoczna w module edycji).
+- **Związek z [PU56: Wyświetlenie scenariusza gry w edytorze](#pu56-wyświetlenie-scenariusza-gry-w-edytorze):** Przypadek **PU57** realizuje się **po** otwarciu scenariusza w edytorze (PU56).
+- Warunek początkowy: Projektant jest zalogowany; w edytorze wyświetlony jest scenariusz gry zgodnie z **[PU56](#pu56-wyświetlenie-scenariusza-gry-w-edytorze)**.
 
 **Scenariusz główny (sukces)**
 
-1. Projektant wybiera <opcję dodania zadania>.
-2. System wyświetla <formularz definicji zadania>.
-3. Projektant wprowadza <dane zadania>.
-4. System waliduje dane pod kątem <kompletności> oraz <spójności powiązań>.
+1. Projektant wybiera [opcję dodania zadania].
+2. System wyświetla [formularz definicji zadania].
+3. Projektant wprowadza [dane zadania].
+4. System waliduje dane.
 
 [dane poprawne]
 
-5. System zapisuje <nowe zadanie> w bazie scenariusza.
-6. System wyświetla <potwierdzenie zapisu>.
+5. System zapisuje [zadanie].
+6. System wyświetla [potwierdzenie zapisu].
 
 **Warunek końcowy:** Nowe zadanie jest dostępne w strukturze scenariusza gry.
 
@@ -2113,13 +2121,13 @@ Scenariusz Alternatywny B:
 
 1–4. Tak jak w scenariuszu głównym.
 
-[dane niepoprawne - <brak wymaganych pól>]
+[dane niepoprawne - [brak wymaganych pól]]
 
-5a. System wyświetla <komunikat o błędach> z wskazaniem pól wymagających uzupełnienia.
+5a. System wyświetla [komunikat o błędach].
 
 6a. Scenariusz wraca do kroku 3 scenariusza głównego.
 
-**final:** failure (brak zapisu do momentu poprawy danych)
+**final:** failure (brak zapisu)
 
 ---
 
@@ -2127,15 +2135,15 @@ Scenariusz Alternatywny B:
 
 1–4. Tak jak w scenariuszu głównym.
 
-[dane niepoprawne - <konflikt powiązań>]
+[dane niepoprawne - [konflikt powiązań]]
 
-5b. System wyświetla <ostrzeżenie o duplikacji / konflikcie powiązań>.
+5b. System wyświetla [ostrzeżenie o konflikcie powiązań].
 
-6b. Projektant wybiera <inny obiekt interakcji> albo modyfikuje istniejące powiązanie zgodnie z możliwościami formularza.
+6b. Projektant wybiera [inny obiekt interakcji].
 
-7b. Scenariusz wraca do kroku 3 scenariusza głównego (po edycji projektant ponownie zatwierdza lub kontynuuje wprowadzanie).
+7b. Scenariusz wraca do kroku 3 scenariusza głównego.
 
-**final:** failure do czasu usunięcia konfliktu (brak zapisu)
+**final:** failure (brak zapisu)
 
 ---
 
@@ -2143,15 +2151,19 @@ Scenariusz Alternatywny B:
 
 1–2. Tak jak w scenariuszu głównym.
 
-3c. Projektant wybiera <opcję anuluj>.
+3c. Projektant wybiera [opcję anuluj].
 
-4c. System wyświetla <zapytanie o porzucenie zmian>.
+4c. System wyświetla [zapytanie o porzucenie zmian].
 
-5c. Projektant potwierdza <chęć wyjścia bez zapisu>.
+5c. Projektant potwierdza [wyjście bez zapisu].
 
-6c. System zamyka <formularz> bez zapisywania zmian.
+6c. System zamyka [formularz definicji zadania].
 
 **Warunek końcowy:** Struktura scenariusza gry nie uległa zmianie.
+
+
+**Scenopis**
+![](./scenopisy/PU57_Projektowanie_zadania_w_scenariuszu_gry.png)
 
 ---
 
@@ -2161,6 +2173,7 @@ Scenariusz Alternatywny B:
 - Odpowiedzialny: Michał Marciniak
 - Wydanie: 1.0
 - Aktor główny: Twórca gry
+- Wywoływany z: [PU49: Zdefiniowanie gry](#pu49-zdefiniowanie-gry)
 - Warunek początkowy: Twórca gry jest zalogowany i znajduje się w formularzu opisu ogólnego gry.
 - Warunek końcowy (success): Komunikat do recenzenta został wysłany i jest widoczny w oknie komunikacji twórcy gry z recenzentem.
 - Warunek końcowy (failure): Komunikat do recenzenta nie został wysłany, treść pozostaje w polu edycji.
@@ -2170,11 +2183,10 @@ Scenariusz Alternatywny B:
 1. Twórca gry wybiera opcję przesłania komunikatu do recenzenta.
 2. System wyświetla okno komunikacji twórcy gry z recenzentem.
 3. Twórca gry wpisuje komunikat do recenzenta.
-4. Twórca gry wybiera opcję "Wyślij". \
-   [komunikat do recenzenta poprawny]
+4. Twórca gry wybiera opcję wysłania. \
+[komunikat do recenzenta poprawny]
 5. System wysyła komunikat do recenzenta.
-6. System wyświetla potwierdzenie wysłania komunikatu do recenzenta.
-7. System dodaje wiadomość do okna komunikacji twórcy gry z recenzentem.
+6. System dodaje wiadomość do okna komunikacji twórcy gry z recenzentem.
 
 **final:** success
 
@@ -2219,67 +2231,75 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **POST:** Komunikat do recenzenta nie został wysłany, treść pozostaje w polu edycji.
 
+**Scenopis**
+![](./scenopisy/PU52_Przeslanie_komunikatu_do_recenzenta.png)
+
 ---
 
 ## 5.4 [PU53: Wyświetlenie listy gier](#pu53-wyświetlenie-listy-gier)
 
-- Wersja: 1.0 (29.04.2026)
+
+- Wersja: 1.1 (06.05.2026)
 - Odpowiedzialny: Kacper Koziara
 - Wydanie: 1.0
-- Aktor główny: Użytkownik
-- Warunek początkowy: Użytkownik jest zalogowany w systemie i posiada aktywną sesję. Powinien znajdować się na ekranie umożliwiającym nawigację do listy gier.
-- Warunek końcowy (sukces): System poprawnie pobiera i wyświetla przefiltrowaną oraz posortowaną listę gier (w zadanym układzie i limitach), po której użytkownik może nawigować.
+- Aktor główny: [Użytkownik]
+- Warunek początkowy: [Użytkownik] posiada aktywną [Sesję] i znajduje się na ekranie umożliwiającym nawigację do listy gier.
+- Warunek końcowy (sukces): System wyświetla [Użytkownikowi] posortowaną i przefiltrowaną listę [Gier].
 
 **Scenariusz główny**
 
-1. Użytkownik wybiera z głównego menu bocznego/górnego opcję „Lista gier” / „Przeglądaj gry”.
-2. System weryfikuje ważność tokenu sesji użytkownika.
-3. System wysyła zapytanie do bazy danych o domyślną listę gier (pierwsza strona, limit 30 pozycji, sortowanie od najnowszych, status: dostępne).
-4. System wyświetla ekran główny z paskiem wyszukiwania, panelem zaawansowanych filtrów i siatką kafelków reprezentujących gry. Każdy kafelek zawiera miniaturę, tytuł, typ gry, poziom trudności i informacje o dostępnych miejscach.
-5. Użytkownik wprowadza frazę w pole wyszukiwania tekstowego i aktywuje kilka opcji w panelu filtrów (np. kategoria: thriller, wolne miejsca: tak, czas trwania: poniżej 3h).
-6. System zatrzymuje odświeżanie na czas wpisywania (debounce) i po krótkiej pauzie inicjuje nowe zapytanie z zaaplikowanymi filtrami.
-7. System wyświetla wskaźnik ładowania (np. szkielety kafelków - skeleton loader) na obszarze wyników.
-8. System zwraca nową paczkę danych i płynnie aktualizuje listę, prezentując jedynie te gry, które ściśle odpowiadają wyszukiwaniu.
-9. Użytkownik przewija wyniki na sam dół i korzysta z paginacji (np. przycisk „Następna strona” / „Pokaż więcej”), po czym system ładuje i dołącza kolejne pozycje z zestawienia bez utraty wybranch filtrów.
+1. [Użytkownik] wybiera opcję przeglądania listy [Gier].
+2. System weryfikuje ważność [Sesji] [Użytkownika].
+3. System pobiera i wyświetla domyślną listę [Gier] oraz opcje filtrowania.
+4. [Użytkownik] wprowadza kryteria wyszukiwania i filtrowania.
+5. System pobiera dane i aktualizuje listę, wyświetlając tylko te [Gry], które spełniają wprowadzone kryteria.
+6. [Użytkownik] wybiera opcję wyświetlenia kolejnych wyników.
+7. System pobiera i dołącza kolejne [Gry] do wyświetlanej listy, zachowując wybrane filtry.
 
 **Scenariusz alternatywny A: Brak wyników (Pusta lista po filtrach)**
 
-8a. System stwierdza po stronie serwera, że nie ma rekordów dla żądanej kombinacji parametrów wyszukiwania.
+1.-4. tak jak w scenariuszu głównym.
+[brak wyników]
+5a. System nie znajduje [Gier] spełniających wybrane kryteria.
+6a. System wyświetla komunikat o braku wyników oraz udostępnia opcję wyczyszczenia filtrów.
+7a. [Użytkownik] wybiera opcję wyczyszczenia filtrów.
+8a. System resetuje kryteria wyszukiwania.
 
-1. System wyświetla komunikat wizualny pustego stanu na liście: „Nie znaleźliśmy gier spełniających Twoje kryteria.”
-2. System wyświetla przycisk CTA „Wyczyść filtry”.
-3. Użytkownik klika „Wyczyść filtry”.
-4. System resetuje lokalne stany formularzy szukania/filtrów i ponownie wykonuje zapytanie o domyślną listę gier, wracając do kroku 3 głównego scenariusza.
+Powrót do kroku 3 w scenariuszu głównym.
 
-**Scenariusz alternatywny B: Przekroczenie czasu oczekiwania na odpowiedź serwera (Timeout / Błąd bazy)**
+**Scenariusz alternatywny B: Błąd pobierania danych**
 
-3a. Baza danych po stronie serwera jest nieosiągalna lub trwa zbyt długa odpowiedź, co skutkuje przerwaniem żądania po stronie systemu.
+1.-2. tak jak w scenariuszu głównym.
+[błąd po stronie serwera]
+3b. System napotyka problem z pobraniem danych [Gier].
+4b. System wyświetla komunikat o błędzie oraz udostępnia opcję ponowienia próby.
+5b. [Użytkownik] wybiera opcję ponowienia próby.
 
-1. System przerywa wyświetlanie animacji ładowania ekranu.
-2. System wyświetla komunikat błędu (tzw. ekran błędu 500): „Ups! Mamy problemy z pobraniem danych. Spróbuj ponownie lub odczekaj kilka minut.”
-3. System prezentuje przycisk „Spróbuj ponownie”.
-4. Użytkownik klika „Spróbuj ponownie”, po czym system podejmuje kolejną próbę załadowania struktury listy (powrót do kroku 3 scenariusza głównego).
+Powrót do kroku 3 w scenariuszu głównym.
 
-**Scenariusz alternatywny C: Awaria łączności po stronie klienta w trakcie filtrowania**
+**Scenariusz alternatywny C: Awaria łączności po stronie klienta**
 
-6a. System wykrywa utratę dostępu do internetu u użytkownika w trakcie wysyłania zapytania z nowymi parametrami.
+1.-4. tak jak w scenariuszu głównym.
+[brak połączenia z siecią]
+5c. System wykrywa brak połączenia z siecią podczas próby aktualizacji listy.
+6c. System wstrzymuje aktualizację, zachowuje dotychczasowy widok listy [Gier] i wyświetla komunikat o braku połączenia.
+7c. System wykrywa przywrócenie połączenia sieciowego i ukrywa komunikat o błędzie.
 
-1. Aplikacja/System przechwytuje wyjątek związany z awarią sieci.
-2. System zdejmuje loader z list, pozostawiając listę gier nieruszoną na stanie sprzed wyszukiwania.
-3. System wstrzymuje aktualizację widoku i wyświetla globalny, czerwony toast (baner u góry ekranu): „Brak dostępu do sieci. Działasz w trybie offline, dane mogą być nieaktualne.”
-4. Użytkownik odzyskuje zasięg – aplikacja wykrywa stan `online`, zdejmuje baner błędu i automatycznie ponawia zapytanie, wznawiając główny scenariusz od kroku 7.
+Powrót do kroku 5 w scenariuszu głównym.
 
-**Scenariusz alternatywny D: Wygaszona w międzyczasie sesja**
+**Scenariusz alternatywny D: Wygaśnięcie sesji**
 
-9a. Użytkownik przegląda listę długi czas bez interakcji, po czym klika na przycisk następnej strony.
+(W dowolnym momencie po kroku 3)
+1d. System wykrywa, że [Sesja] [Użytkownika] wygasła z powodu braku aktywności.
+2d. System tymczasowo zapisuje wybrane przez [Użytkownika] filtry wyszukiwania.
+3d. System wyświetla komunikat o wygaśnięciu [Sesji] i wylogowuje [Użytkownika].
+4d. [Użytkownik] pomyślnie loguje się do systemu (wywołanie [PU14: Logowanie]).
+5d. System przywraca zapisane filtry.
 
-1. System wysyła do serwera żądanie z wygasłym tokenem z powodu braku aktywności w tle.
-2. Aplikacja przechwytuje kod błędu autoryzacji (HTTP 401).
-3. System lokalnie zapisuje stan wyszukiwania (tzw. stan URL z filtrami) w Storage (local/session).
-4. System przekierowuje Użytkownika dyskretnie do widoku logowania z komunikatem: „Twoja sesja przedawniła się dla względów bezpieczeństwa. Zaloguj się, aby kontynuować.”
-5. (Po pomyślnym zalogowaniu poprzez [PU14: Logowanie](#pu14-logowanie)) System używa zapisanych lokalnie parametrów, automatycznie odświeżając i odtwarzając użytkownikowi widok listy gier z wybranymi opcjami paginacji i filtroania z dokładnego punktu w którym przestał działać.
+Powrót do kroku 5 w scenariuszu głównym.
 
-## 5.5 [PU58: Definiowanie warunków zwycięstwa w scenariuszu gry](#pu58-definiowanie-warunków-zwycięstwa-w-scenariuszu-gry)
+**Scenopis:**
+![Scenopis - Wyświetlenie listy gier](scenopisy/scenopis_pu53.png)
 
 - Wersja: 1.0 (05.05.2026)
 - Odpowiedzialny: Tomasz Rogalski
@@ -2316,109 +2336,154 @@ Powrót do zdania 2. w scenariuszu głównym.
 
 ## 5.6 [PU55: Recenzja gry](#recenzja)
 
-- Wersja: 1.0 (22.04.2026)
+- Wersja: 1.1 (06.05.2026)
 - Odpowiedzialna: Polina Nesterova
 - Wydanie: 1.0
 - Aktor główny: Recenzent gry
 - Warunek początkowy: Recenzent jest zalogowany w systemie, posiada uprawnienia recenzenta i znajduje się na liście gier wyświetlonej w ramach [PU29: Wyświetlenie listy gier przez recenzenta](#pu29-wyświetlenie-listy-gier-przez-recenzenta).
-- Warunek końcowy (sukces): Recenzja została zapisana, powiązana z wybraną grą oraz kontem recenzenta, a jej status zmienia się na „przesłana do twórcy”.
+- Warunek końcowy (sukces): Recenzja została zapisana i powiązana z wybraną grą oraz kontem recenzenta.
 
 **Scenariusz główny**
 
-1. Recenzent wybiera opcję „Recenzuj grę” przy wybranym rekordzie na liście gier.
-2. System wyświetla okno recenzji zawierające tytuł gry, pole tekstowe na treść recenzji, pole oceny liczbowej (skala 1–10) oraz przyciski „Zapisz szkic”, „Wyślij” i „Anuluj”.
-3. Recenzent wprowadza treść recenzji oraz ocenę liczbową.
-4. Recenzent wybiera przycisk „Wyślij”.
-5. System waliduje treść recenzji (wymagana długość minimalna, obecność oceny, brak zakazanych słów).
-   [treść recenzji poprawna]
-6. System zapisuje recenzję w bazie recenzji i wiąże ją z grą oraz kontem recenzenta.
-7. System aktualizuje status recenzji na „przesłana do twórcy”.
-8. System wyświetla potwierdzenie „Recenzja została zapisana i przesłana do twórcy gry”.
-   `<<invoke>>` Przesłanie komunikatu do twórcy
-9. System zamyka okno recenzji i wraca do listy gier.
+![Scenopis PU55 — Lista gier do recenzji](scenopisy/recenzja/lista-gier.png)
 
-final: success
-POST: recenzja została zapisana w bazie recenzji, powiązana z grą i kontem recenzenta, a jej status to „przesłana do twórcy”.
+1. Recenzent wybiera opcję recenzji wybranej gry.
+
+![Scenopis PU55 — Okno recenzji](scenopisy/recenzja/recenzja-okno.png)
+
+2. System wyświetla okno recenzji.
+3. Recenzent wprowadza treść recenzji.
+4. Recenzent wysyła recenzję.
+5. System waliduje recenzję.
+[recenzja poprawna]
+6. System zapisuje recenzję.
+7. System aktualizuje [Status recenzji].
+
+![Scenopis PU55 — Potwierdzenie wysłania recenzji](scenopisy/recenzja/recenzja-zapis.png)
+
+8. System wyświetla potwierdzenie wysłania.
+`<<invoke>>` Przesłanie komunikatu do twórcy
+9. System przekierowuje recenzenta do listy gier.
+
+**final:** success
+**POST:** recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
+
+---
 
 **Scenariusz alternatywny A: Zapisanie szkicu recenzji**
 
 1.-3. tak jak w scenariuszu głównym.
 
-4a. Recenzent wybiera przycisk „Zapisz szkic” zamiast „Wyślij”.
-5a. System zapisuje treść recenzji ze statusem „szkic”, bez walidacji długości i bez wysyłania powiadomienia.
-6a. System wyświetla komunikat „Szkic recenzji został zapisany. Możesz wrócić do niego później”.
-7a. System zamyka okno recenzji i wraca do listy gier.
+4a. Recenzent zapisuje szkic [Recenzji].
+5a. System zapisuje szkic [Recenzji].
 
-final: success
-POST: recenzja została zapisana w bazie recenzji ze statusem „szkic”, powiązana z kontem recenzenta; powiadomienie do twórcy nie zostało wysłane.
+![Scenopis PU55 — Potwierdzenie zapisu szkicu (alt. A)](scenopisy/recenzja/recenzja-szkic-zapis.png)
+
+6a. System wyświetla potwierdzenie zapisu szkicu.
+7a. System przekierowuje recenzenta do listy gier.
+
+**final:** success
+**POST:** szkic [Recenzji] został zapisany i powiązany z kontem recenzenta.
+
+---
 
 **Scenariusz alternatywny B: Niepoprawna treść recenzji**
 
 1.-4. tak jak w scenariuszu głównym.
 
-[treść recenzji niepoprawna]
-5b. System stwierdza, że treść recenzji jest pusta, krótsza niż wymagane minimum lub brakuje oceny liczbowej.
-6b. System wyświetla komunikat „Uzupełnij treść recenzji oraz ocenę przed wysłaniem” i podświetla brakujące pola.
+[recenzja niepoprawna]
+5b. System stwierdza błąd walidacji recenzji.
+
+![Scenopis PU55 — Błąd walidacji recenzji (alt. B)](scenopisy/recenzja/szkic-brakinfo.png)
+
+6b. System wyświetla komunikat o błędzie walidacji.
 7b. System nie zapisuje recenzji.
 
 Powrót do kroku 3 scenariusza głównego.
+
+---
 
 **Scenariusz alternatywny C: Anulowanie recenzji**
 
 1.-2. tak jak w scenariuszu głównym.
 
-3a. Recenzent wybiera przycisk „Anuluj” przed wysłaniem recenzji.
-4a. System wyświetla pytanie „Czy na pewno chcesz zamknąć okno bez zapisania recenzji?”.
-5a. Recenzent potwierdza anulowanie.
-6a. System porzuca wprowadzone dane bez zapisywania.
-7a. System zamyka okno recenzji i wraca do listy gier.
+3a. Recenzent anuluje recenzję.
 
-final: failure
-POST: recenzja nie została zapisana w systemie.
+![Scenopis PU55 — Dialog potwierdzenia anulowania (alt. C)](scenopisy/recenzja/chcesz-anulowac.png)
+
+4a. System wyświetla prośbę o potwierdzenie.
+5a. Recenzent potwierdza anulowanie.
+6a. System porzuca dane recenzji.
+7a. System przekierowuje recenzenta do listy gier.
+
+**final:** failure
+**POST:** recenzja nie została zapisana w systemie.
+
+---
 
 **Scenariusz alternatywny D: Recenzent już zrecenzował tę grę**
 
-1a. System wykrywa, że recenzent posiada już zapisaną recenzję dla tej gry.
-2a. System wyświetla komunikat „Posiadasz już recenzję dla tej gry. Możesz ją edytować zamiast tworzyć nową”.
-3a. System oferuje opcje „Edytuj istniejącą recenzję” lub „Anuluj”.
-4a. Recenzent wybiera jedną z opcji.
-[wybrano „Edytuj istniejącą recenzję”]
-5a. System wczytuje poprzednią treść i ocenę do okna recenzji.
+1a. System wykrywa istniejącą recenzję dla wybranej gry.
+
+![Scenopis PU55 — Komunikat o istniejącej recenzji (alt. D, krok 2a)](scenopisy/recenzja/recenzja-istnieje.png)
+
+2a. System wyświetla komunikat o istniejącej recenzji.
+3a. System oferuje edycję istniejącej recenzji.
+4a. Recenzent wybiera edycję recenzji.
+[edycja wybrana]
+
+![Scenopis PU55 — Edycja istniejącej recenzji (alt. D, krok 5a)](scenopisy/recenzja/recenzja-edycja.png)
+
+5a. System wczytuje istniejącą recenzję.
 
 Powrót do kroku 3 scenariusza głównego.
+
+---
 
 **Scenariusz alternatywny E: Anulowanie edycji istniejącej recenzji**
 
 1a.-4a. tak jak w scenariuszu alternatywnym D.
 
-[wybrano „Anuluj”]
-5b. System zamyka komunikat i wraca do listy gier.
+[anulowanie wybrane]
+5b. System wraca do listy gier.
 
-final: failure
-POST: nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+**final:** failure
+**POST:** nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+
+---
 
 **Scenariusz alternatywny F: Błąd zapisu recenzji**
 
 1.-5. tak jak w scenariuszu głównym.
 
-[błąd bazy danych lub braku połączenia]
-6c. System nie jest w stanie zapisać recenzji.
-7c. System wyświetla komunikat „Nie udało się zapisać recenzji. Spróbuj ponownie za chwilę”.
-8c. System zachowuje wprowadzoną treść w oknie recenzji, aby recenzent nie stracił pracy.
+[błąd zapisu]
+6c. System zgłasza błąd zapisu.
+
+![Scenopis PU55 — Błąd zapisu recenzji (alt. F, krok 7c)](scenopisy/recenzja/recenzja-blad.png)
+
+7c. System wyświetla komunikat o błędzie.
+8c. System zachowuje treść recenzji.
 
 Powrót do kroku 4 scenariusza głównego.
+
+---
 
 **Scenariusz alternatywny G: Wygaśnięcie sesji**
 
 (W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
 
-1g. System zapisuje lokalnie wprowadzoną treść jako szkic powiązany z kontem recenzenta.
-2g. System wylogowuje użytkownika.
-3g. System wyświetla komunikat „Sesja wygasła. Zaloguj się ponownie — szkic recenzji został zachowany”.
-4g. System przekierowuje recenzenta na ekran logowania.
+1g. System zapisuje szkic [Recenzji].
+2g. System wylogowuje recenzenta.
 
-final: failure
-POST: recenzja nie została przesłana; wprowadzona treść zachowana jako szkic powiązany z kontem recenzenta.
+![Scenopis PU55 — Wygaśnięcie sesji (alt. G, krok 3g)](scenopisy/recenzja/sesja-wygasla.png)
+
+3g. System wyświetla komunikat o wygaśnięciu sesji.
+4g. System przekierowuje recenzenta do ekranu logowania.
+
+**final:** failure
+**POST:** recenzja nie została przesłana; treść zachowana jako szkic [Recenzji].
+
+---
 
 ## 5.7 [PU50: Zdefiniowanie czujnika](#pu50-zdefiniowanie-czujnika)
 
@@ -2463,6 +2528,10 @@ Powrót do kroku 3. w Scenariuszu głównym
 11b. System zamyka formularz definicji czujnika.
 
 Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
+
+**Scenopis**
+![](./scenopisy/PU50_Zdefiniowanie_czujnika.png)
+
 
 ## 5.8 [PU49: Zdefiniowanie gry](#pu49-zdefiniowanie-gry)
 
