@@ -2311,8 +2311,10 @@ Powrót do zdania 2. w scenariuszu głównym.
 `<<invoke>>` Przesłanie komunikatu do twórcy
 9. System wraca do listy gier.
 
-final: success
-POST: recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
+**final:** success
+**POST:** recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
+
+---
 
 **Scenariusz alternatywny A: Zapisanie szkicu recenzji**
 
@@ -2323,8 +2325,10 @@ POST: recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
 6a. System wyświetla potwierdzenie zapisu szkicu.
 7a. System wraca do listy gier.
 
-final: success
-POST: szkic recenzji został zapisany i powiązany z kontem recenzenta.
+**final:** success
+**POST:** szkic recenzji został zapisany i powiązany z kontem recenzenta.
+
+---
 
 **Scenariusz alternatywny B: Niepoprawna treść recenzji**
 
@@ -2337,6 +2341,8 @@ POST: szkic recenzji został zapisany i powiązany z kontem recenzenta.
 
 Powrót do kroku 3 scenariusza głównego.
 
+---
+
 **Scenariusz alternatywny C: Anulowanie recenzji**
 
 1.-2. tak jak w scenariuszu głównym.
@@ -2347,8 +2353,10 @@ Powrót do kroku 3 scenariusza głównego.
 6a. System porzuca dane recenzji.
 7a. System wraca do listy gier.
 
-final: failure
-POST: recenzja nie została zapisana w systemie.
+**final:** failure
+**POST:** recenzja nie została zapisana w systemie.
+
+---
 
 **Scenariusz alternatywny D: Recenzent już zrecenzował tę grę**
 
@@ -2361,6 +2369,8 @@ POST: recenzja nie została zapisana w systemie.
 
 Powrót do kroku 3 scenariusza głównego.
 
+---
+
 **Scenariusz alternatywny E: Anulowanie edycji istniejącej recenzji**
 
 1a.-4a. tak jak w scenariuszu alternatywnym D.
@@ -2368,8 +2378,10 @@ Powrót do kroku 3 scenariusza głównego.
 [anulowanie wybrane]
 5b. System wraca do listy gier.
 
-final: failure
-POST: nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+**final:** failure
+**POST:** nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
+
+---
 
 **Scenariusz alternatywny F: Błąd zapisu recenzji**
 
@@ -2382,6 +2394,8 @@ POST: nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez z
 
 Powrót do kroku 4 scenariusza głównego.
 
+---
+
 **Scenariusz alternatywny G: Wygaśnięcie sesji**
 
 (W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
@@ -2391,8 +2405,8 @@ Powrót do kroku 4 scenariusza głównego.
 3g. System wyświetla komunikat o wygaśnięciu sesji.
 4g. System przekierowuje recenzenta na ekran logowania.
 
-final: failure
-POST: recenzja nie została przesłana; treść zachowana jako szkic recenzji.
+**final:** failure
+**POST:** recenzja nie została przesłana; treść zachowana jako szkic recenzji.
 
 
 
