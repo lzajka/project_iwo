@@ -2719,6 +2719,8 @@ Powrót do kroku 3. w scenariuszu głównym.
 
 ## 5.11 [Zdefiniowanie mapy gry]
 
+![](scenopisy/Zdefiniowanie_mapy.png)
+
 - Wersja: 1.0 (30.04.2026)
 - Odpowiedzialny: Łukasz Czajka
 - Wydanie: 1.0
@@ -2745,17 +2747,17 @@ final: success
 
 Powrót do kroku 3 scenariusza głównego.
 
-**Scenariusz alternatywny B: Błąd zapisu mapy gry w przeglądarce użytkownika**
-5a. System wykrywa błąd zapisu mapy gry w przeglądarce.
-6a. System sprawdza czas od ostatniego zapisu.
-7a. System wyświetla komunikat o błędzie zapisu mapy gry w przeglądarce, informuje użytkownika o tym, że ostatni zapis został wykonany [czas] temu, oferuje możliwości wyjścia, ponowienia zapisu lub kontynuowania bez zapisu.
-8a. Twórca gry wybra opcję ponowienia zapisu mapy gry w przeglądarce.
-8a1.1 System ponawia próbę zapisu mapy gry w przeglądarce.
+**Scenariusz alternatywny B: Błąd zapisu mapy gry w przeglądarce użytkownika**     
+5a. System wykrywa błąd zapisu mapy gry w przeglądarce.    
+6a. System sprawdza czas od ostatniego zapisu.    
+7a. System wyświetla komunikat o błędzie zapisu mapy gry w przeglądarce, informuje użytkownika o tym, że ostatni zapis został wykonany [czas] temu, oferuje możliwości wyjścia, ponowienia zapisu lub kontynuowania bez zapisu.    
+8a. Twórca gry wybra opcję ponowienia zapisu mapy gry w przeglądarce.    
+8a1.1 System ponawia próbę zapisu mapy gry w przeglądarce.     
 8a1.2 System powraca do kroku 4 scenariusza głównego.
 
-8a2.1 Twórca gry wybiera opcję kontynuowania bez zapisu mapy gry w przeglądarce.
-8a2.2 System wyłącza funkcję automatycznego zapisu mapy gry w przeglądarce.
-8a2.3 System powraca do kroku 4 scenariusza głównego
+8a2.1 Twórca gry wybiera opcję kontynuowania bez zapisu mapy gry w przeglądarce.    
+8a2.2 System wyłącza funkcję automatycznego zapisu mapy gry w przeglądarce.    
+8a2.3 System powraca do kroku 4 scenariusza głównego    
 
 8a3.1 Twórca gry wybiera opcję wyjścia z edytora mapy gry.
 8a3.2 System zamyka edytor mapy gry bez zapisywania zmian.
@@ -2783,5 +2785,3 @@ final: failure
 
 9a2.1 Twórca gry wybiera opcję zapisu z wyjściem.
 9a2.2 System skacze do kroku 7 scenariusza głównego, ale mapa gry pozostaje oznaczona jako niepoprawna, co uniemożliwia publikację gry do czasu poprawy mapy gry.
-
----
