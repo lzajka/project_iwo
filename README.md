@@ -2649,6 +2649,9 @@ Scenariusz alternatywny: Sesja użytkownika wygasła przed kliknięciem opcji _K
 1. System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
 2. Strona z kalendarzem nie zostaje wyświetlona.
 
+**Scenopis**
+![](./scenopisy/scenopis-pu1.png)
+
 ## 5.10 [Edycja komnaty]
 
 - Wersja: 1.0 (22.04.2026)
