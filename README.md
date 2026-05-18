@@ -2780,7 +2780,7 @@ final: failure
 1. Organizator wybiera opcję dodania wydarzenia do kalendarza
 2. System wyświetla formularz dodania wydarzenia do kalendarza
 3. Organizator wprowadza dane wydarzenia
-4. Organizator wybiera opcję dodania.
+4. Organizator wybiera opcję dodania. \
 [dane poprawne i termin wolny]
 5. System dodaje wydarzenie do kalendarza
 
@@ -2813,3 +2813,6 @@ Powrót do kroku 3. w scenariuszu głównym
 **final:** failure
 
 **POST:** Wydarzenie nie zostało dodane do kalendarza.
+
+**Scenopis**:
+![](./scenopisy/PU39_Dodanie_wydarzenia_do_kalendarza.png)
