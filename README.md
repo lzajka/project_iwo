@@ -2793,7 +2793,7 @@ final: failure
 - Odpowiedzialny: Tomasz Rogalski
 - Wydanie: 1.0
 - Aktor główny: Mistrz wydarzenia
-- Warunek początkowy: Mistrz wydarzenia jest zalogowany w systemie i znajduje się na ekranie zarządzania nadchodzącym [Wydarzeniem].
+- Warunek początkowy: Mistrz wydarzenia jest zalogowany w systemie i znajduje się na ekranie zarządzania [Wydarzeniem].
 - Warunek końcowy (sukces): [Wydarzenie] zostaje pomyślnie uruchomione, jego status zmienia się na aktywne, a uczestnicy otrzymują odpowiednie powiadomienia.
 
 **Scenariusz główny**
@@ -2808,8 +2808,11 @@ final: failure
 
 **Scenariusz alternatywny A: Niespełnione warunki rozpoczęcia**
 
-1.-3. tak jak w scenariuszu głównym.
-[warunki niespełnione]
+1.-3. tak jak w scenariuszu głównym.  
+[warunki niespełnione]  
 4a. System wyświetla komunikat o niespełnionych warunkach rozpoczęcia.
 
 Powrót do zdania 2 scenariusza głównego.
+
+**Scenopis:**
+![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_PU20.png)
