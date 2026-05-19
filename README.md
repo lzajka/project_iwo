@@ -1884,7 +1884,7 @@ G --> SRG
 G --> SIL
 G --> SEL
 
-SRG -..->|&lt;&lt;invoke&gt;&gt;| JG
+SEL -..->|&lt;&lt;invoke&gt;&gt;| JG
 SIL -..->|&lt;&lt;invoke&gt;&gt;| AI
 
 
@@ -2764,3 +2764,37 @@ final: failure
 
 9a2.1 Twórca gry wybiera opcję zapisu z wyjściem.
 9a2.2 System skacze do kroku 7 scenariusza głównego, ale mapa gry pozostaje oznaczona jako niepoprawna, co uniemożliwia publikację gry do czasu poprawy mapy gry.
+
+
+## 5.xx[PU42 Wyświetlenie listy wydarzeń]
+
+Wersja: 1.0 (19.05.2026)
+Odpowiedzialny: Karolina Wiśniewska
+Wydanie: 1.0
+Aktor główny: Gracz
+Warunek początkowy: Gracz jest zalogowany i znajduje się w widoku "Menu gracza". Istnieją wydarzenia, na które nie jest zarejestrowany.
+
+**Scenariusz główny**
+1.  Gracz wybiera opcję "Wydarzenia" w Menu gracza
+2.  System pobiera dane i wyświetla ekran "Lista Wydarzeń", zawieracy tabelę wydarzeń oraz opcję "Filtry".
+3.  Gracz wybiera opcję "Filtry"
+4.  System wyświetla ekran "Menu Filtrów", zawierający listę filtrów wydarzeń.
+5.  Gracz wybiera jeden z filtrów
+6.  System wyświetla posortowane wydarzenia w sposób określony przez filtr
+
+**Scenariusz alternatywny A - sesja gracza wygasła przed wyświetleniem listy**
+2a. System wylogowuje gracza.
+3.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
+
+Warunek końcowy: Nie wyświetlono listy wydarzeń
+
+**Scenariusz alternatywny B - sesja gracza wygasła przed wyświetleniem posortowanej listy**
+6a. System wylogowuje gracza.
+7.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
+
+Warunek końcowy: Nie wyświetlono listy wydarzeń
+
+![](scenopisy/Wyswietlenie_listy_wydarzen.png)
+
+
+
