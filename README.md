@@ -2413,12 +2413,15 @@ Powrót do zdania 2. w scenariuszu głównym.
 3. Recenzent wprowadza treść recenzji.
 4. Recenzent wysyła recenzję.
 5. System waliduje recenzję.
+
 [recenzja poprawna]
+
 6. System zapisuje recenzję.
 7. System aktualizuje [Status recenzji].
 8. System wyświetla potwierdzenie wysłania.
 `<<invoke>>` Przesłanie komunikatu do twórcy
-9. System przekierowuje recenzenta do listy gier.
+9. Recenzent zamyka potwierdzenie.
+10. System przekierowuje recenzenta do listy gier.
 
 **final:** success
 **POST:** recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
@@ -2444,6 +2447,7 @@ Powrót do zdania 2. w scenariuszu głównym.
 1.-4. tak jak w scenariuszu głównym.
 
 [recenzja niepoprawna]
+
 5b. System stwierdza błąd walidacji recenzji.
 6b. System wyświetla komunikat o błędzie walidacji.
 7b. System nie zapisuje recenzji.
@@ -2473,7 +2477,9 @@ Powrót do kroku 3 scenariusza głównego.
 2a. System wyświetla komunikat o istniejącej recenzji.
 3a. System oferuje edycję istniejącej recenzji.
 4a. Recenzent wybiera edycję recenzji.
+
 [edycja wybrana]
+
 5a. System wczytuje istniejącą recenzję.
 
 Powrót do kroku 3 scenariusza głównego.
@@ -2485,7 +2491,8 @@ Powrót do kroku 3 scenariusza głównego.
 1a.-4a. tak jak w scenariuszu alternatywnym D.
 
 [anulowanie wybrane]
-5b. System wraca do listy gier.
+
+5b. System przekierowuje recenzenta do listy gier.
 
 **final:** failure
 **POST:** nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
@@ -2497,25 +2504,11 @@ Powrót do kroku 3 scenariusza głównego.
 1.-5. tak jak w scenariuszu głównym.
 
 [błąd zapisu]
+
 6c. System zgłasza błąd zapisu.
 7c. System wyświetla komunikat o błędzie.
-8c. System zachowuje treść recenzji.
 
 Powrót do kroku 4 scenariusza głównego.
-
----
-
-**Scenariusz alternatywny G: Wygaśnięcie sesji**
-
-(W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
-
-1g. System zapisuje szkic [Recenzji].
-2g. System wylogowuje recenzenta.
-3g. System wyświetla komunikat o wygaśnięciu sesji.
-4g. System przekierowuje recenzenta do ekranu logowania.
-
-**final:** failure
-**POST:** recenzja nie została przesłana; treść zachowana jako szkic [Recenzji].
 
 **Scenopis**
 ![Scenopis PU55 — Recenzja gry](./scenopisy/Scenopis_PU55_Recenzja_gry.png)
