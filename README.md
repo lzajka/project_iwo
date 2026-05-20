@@ -1856,7 +1856,7 @@ flowchart TD
 - Wersja: 1.0 (15.04.2026)
 - Odpowiedzialny: Olaf Smoleński
 - Wydanie: 1.0
-- Opis: Invoked by PU39. Organizator wysyła graczom zaproszenia na wydarzenie. Organizator może wybrać graczy, którym wyśle zaproszenie, klikając przycisk _Zaproś graczy_ w menu wydarzenia. Po jego kliknięciu pokazuje się lista zarejestrowanych graczy, spośród których organizator wybiera poszczególne osoby i klika przycisk _Wyślij zaproszenie_. Zaproszony gracz otrzymuje powiadomienie o zaproszeniu na wydarzenie.
+- Opis: Invoked by PU47. Organizator wysyła graczom zaproszenia na wydarzenie. Organizator może wybrać graczy, którym wyśle zaproszenie, klikając przycisk _Zaproś graczy_ po wyświetleniu kalendarza. Po jego kliknięciu pokazuje się lista zarejestrowanych graczy, spośród których organizator wybiera poszczególne osoby i klika przycisk _Wyślij zaproszenie_. Zaproszony gracz otrzymuje powiadomienie o zaproszeniu na wydarzenie.
 
 #### PU41: Udostępnienie wydarzenia graczom
 
@@ -2413,12 +2413,15 @@ Powrót do zdania 2. w scenariuszu głównym.
 3. Recenzent wprowadza treść recenzji.
 4. Recenzent wysyła recenzję.
 5. System waliduje recenzję.
+
 [recenzja poprawna]
+
 6. System zapisuje recenzję.
 7. System aktualizuje [Status recenzji].
 8. System wyświetla potwierdzenie wysłania.
 `<<invoke>>` Przesłanie komunikatu do twórcy
-9. System przekierowuje recenzenta do listy gier.
+9. Recenzent zamyka potwierdzenie.
+10. System przekierowuje recenzenta do listy gier.
 
 **final:** success
 **POST:** recenzja została zapisana i powiązana z grą oraz kontem recenzenta.
@@ -2439,14 +2442,14 @@ Powrót do zdania 2. w scenariuszu głównym.
 
 ---
 
-**Scenariusz alternatywny B: Niepoprawna treść recenzji**
+**Scenariusz alternatywny B: Puste pola formularza recenzji**
 
 1.-4. tak jak w scenariuszu głównym.
 
-[recenzja niepoprawna]
-5b. System stwierdza błąd walidacji recenzji.
-6b. System wyświetla komunikat o błędzie walidacji.
-7b. System nie zapisuje recenzji.
+[pola formularza puste]
+
+5b. System wyświetla komunikat o konieczności wypełnienia pól.
+6b. System nie zapisuje recenzji.
 
 Powrót do kroku 3 scenariusza głównego.
 
@@ -2473,7 +2476,9 @@ Powrót do kroku 3 scenariusza głównego.
 2a. System wyświetla komunikat o istniejącej recenzji.
 3a. System oferuje edycję istniejącej recenzji.
 4a. Recenzent wybiera edycję recenzji.
+
 [edycja wybrana]
+
 5a. System wczytuje istniejącą recenzję.
 
 Powrót do kroku 3 scenariusza głównego.
@@ -2485,7 +2490,8 @@ Powrót do kroku 3 scenariusza głównego.
 1a.-4a. tak jak w scenariuszu alternatywnym D.
 
 [anulowanie wybrane]
-5b. System wraca do listy gier.
+
+5b. System przekierowuje recenzenta do listy gier.
 
 **final:** failure
 **POST:** nowa recenzja nie została utworzona; istniejąca recenzja pozostaje bez zmian.
@@ -2497,25 +2503,11 @@ Powrót do kroku 3 scenariusza głównego.
 1.-5. tak jak w scenariuszu głównym.
 
 [błąd zapisu]
+
 6c. System zgłasza błąd zapisu.
 7c. System wyświetla komunikat o błędzie.
-8c. System zachowuje treść recenzji.
 
 Powrót do kroku 4 scenariusza głównego.
-
----
-
-**Scenariusz alternatywny G: Wygaśnięcie sesji**
-
-(W dowolnym momencie scenariusza głównego lub alternatywnego) Sesja recenzenta wygasa z powodu nieaktywności.
-
-1g. System zapisuje szkic [Recenzji].
-2g. System wylogowuje recenzenta.
-3g. System wyświetla komunikat o wygaśnięciu sesji.
-4g. System przekierowuje recenzenta do ekranu logowania.
-
-**final:** failure
-**POST:** recenzja nie została przesłana; treść zachowana jako szkic [Recenzji].
 
 **Scenopis**
 ![Scenopis PU55 — Recenzja gry](./scenopisy/Scenopis_PU55_Recenzja_gry.png)
@@ -2766,7 +2758,94 @@ final: failure
 9a2.1 Twórca gry wybiera opcję zapisu z wyjściem.
 9a2.2 System skacze do kroku 7 scenariusza głównego, ale mapa gry pozostaje oznaczona jako niepoprawna, co uniemożliwia publikację gry do czasu poprawy mapy gry.
 
-## 5.12 [PU43: Wyświetlenie listy zaproszeń](#pu43-wyswietlenie-listy-zaproszen)
+## 5.12 [PU40: Zaproszenie graczy](#pu40-zaproszenie-graczy)
+
+- Wersja: 1.0 (18.05.2026)
+- Odpowiedzialna: Polina Nesterova
+- Wydanie: 1.0
+- Aktor główny: Organizator wydarzenia
+- **Związek z [PU47: Wyświetlenie kalendarza przez organizatora](#pu47-wyświetlenie-kalendarza-przez-organizatora):** Przypadek **PU40** jest wywoływany z PU47; organizator wybiera [Wydarzenie] z [Kalendarza] i inicjuje zaproszenie graczy.
+- Warunek początkowy: Organizator jest zalogowany; [Wydarzenie] zostało pomyślnie utworzone; organizator ma dostęp do opcji [zaproszenia graczy].
+
+**Scenariusz główny (sukces)**
+
+1. Organizator wybiera [opcję zaproszenia graczy].
+2. System wyświetla [okno zapraszania graczy].
+3. Organizator wybiera [graczy] z [listy zarejestrowanych graczy].
+4. Organizator wybiera [opcję wysłania zaproszenia].
+5. System waliduje wybór.
+
+[wybór poprawny]
+
+6. System zapisuje [Zaproszenia] dla wybranych [Graczy] w ramach [Wydarzenia].
+7. System wysyła [powiadomienia o zaproszeniu] do wybranych [Graczy].
+8. System wyświetla [potwierdzenie wysłania zaproszeń].
+
+**Warunek końcowy:** [Zaproszenia] zostały zapisane i powiązane z wybranymi [Graczami] oraz [Wydarzeniem]; zaproszeni [Gracze] otrzymali [powiadomienie o zaproszeniu].
+
+**final:** success
+
+---
+
+**Scenariusz alternatywny 1: Filtrowanie listy graczy**
+
+1–2. Tak jak w scenariuszu głównym.
+
+3a. Organizator wprowadza [kryteria wyszukiwania] w [polu wyszukiwania].
+
+4a. System filtruje [listę zarejestrowanych graczy].
+
+[wyniki znalezione]
+
+5a. Organizator wybiera [graczy] z [przefiltrowanej listy].
+
+6a. Scenariusz wraca do kroku 4 scenariusza głównego.
+
+**final:** success (kontynuacja scenariusza głównego)
+**POST:** [Lista zarejestrowanych graczy] została przefiltrowana zgodnie z [kryteriami wyszukiwania].
+
+---
+
+**Scenariusz alternatywny 2: Brak wybranych graczy**
+
+1–4. Tak jak w scenariuszu głównym.
+
+[wybór niepoprawny - [brak zaznaczonych graczy]]
+
+5a. System wyświetla [komunikat o konieczności wybrania gracza].
+
+6a. Scenariusz wraca do kroku 3 scenariusza głównego.
+
+**final:** failure (brak wysłania)
+**POST:** [Zaproszenia] nie zostały wysłane; [okno zapraszania graczy] pozostaje otwarte z widocznym [komunikatem].
+
+---
+
+**Scenariusz alternatywny 3: Błąd zapisu zaproszeń**
+
+1–5. Tak jak w scenariuszu głównym.
+
+[błąd zapisu]
+
+6e. System zgłasza [błąd zapisu zaproszeń].
+
+7e. System wyświetla [komunikat o błędzie wysłania] z [opcją ponowienia próby].
+
+8e. Organizator wybiera [opcję ponowienia próby].
+
+9e. Scenariusz wraca do kroku 5 scenariusza głównego.
+
+**final:** failure (brak zapisu)
+**POST:** [Zaproszenia] nie zostały zapisane; [wybór graczy] pozostaje zachowany w [oknie zapraszania graczy].
+
+---
+
+**Scenopis**
+![Scenopis PU40 — Zaproszenie graczy](./scenopisy/Scenopis_PU40_Zaproszenie_graczy.svg)
+
+---
+
+## 5.13 [PU43: Wyświetlenie listy zaproszeń](#pu43-wyswietlenie-listy-zaproszen)
 - Wersja: 1.0 (19.05.2026)
 - Odpowiedzialny: Cezary Rybiński
 - Wydanie: 1.0
