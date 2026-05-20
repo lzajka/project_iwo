@@ -2228,7 +2228,7 @@ Scenariusz Alternatywny B:
 
 **Scenariusz alternatywny 1: Dane niepoprawne - brak wymaganych pól**
 
-1–4. Tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 
 [dane niepoprawne - [brak wymaganych pól]]
 
@@ -2242,7 +2242,7 @@ Scenariusz Alternatywny B:
 
 **Scenariusz alternatywny 2: Dane niepoprawne - konflikt powiązań**
 
-1–4. Tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 
 [dane niepoprawne - [konflikt powiązań]]
 
@@ -2287,14 +2287,6 @@ Scenariusz Alternatywny B:
 - Warunek końcowy (failure): Komunikat do recenzenta nie został wysłany, treść pozostaje w polu edycji.
 
 **Scenariusz główny**
-
-1. Twórca gry wybiera opcję przesłania komunikatu do recenzenta.
-2. System wyświetla okno komunikacji twórcy gry z recenzentem.
-3. Twórca gry wpisuje komunikat do recenzenta.
-4. Twórca gry wybiera opcję wysłania. \
-   [komunikat do recenzenta poprawny]
-5. System wysyła komunikat do recenzenta.
-6. System dodaje wiadomość do okna komunikacji twórcy gry z recenzentem.
 1. Twórca gry wybiera [opcję przesłania komunikatu do recenzenta].
 2. System wyświetla [okno komunikacji twórcy gry z recenzentem].
 3. Twórca gry wpisuje [komunikat do recenzenta].
@@ -2370,7 +2362,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenariusz alternatywny A: Brak wyników (Pusta lista po filtrach)**
 
-1.-4. tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 [brak wyników]
 5a. System nie znajduje [Gier] spełniających wybrane kryteria.
 6a. System wyświetla komunikat o braku wyników oraz udostępnia opcję wyczyszczenia filtrów.
@@ -2391,7 +2383,7 @@ Powrót do kroku 3 w scenariuszu głównym.
 
 **Scenariusz alternatywny C: Awaria łączności po stronie klienta**
 
-1.-4. tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 [brak połączenia z siecią]
 5c. System wykrywa brak połączenia z siecią podczas próby aktualizacji listy.
 6c. System wstrzymuje aktualizację, zachowuje dotychczasowy widok listy [Gier] i wyświetla komunikat o braku połączenia.
@@ -2495,7 +2487,7 @@ Powrót do zdania 2. w scenariuszu głównym.
 
 **Scenariusz alternatywny B: Puste pola formularza recenzji**
 
-1.-4. tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 
 [pola formularza puste]
 
@@ -2755,7 +2747,7 @@ Powrót do kroku 3. w scenariuszu głównym.
 
 <img width="1104" height="698" alt="image" src="https://github.com/user-attachments/assets/6284c041-97bb-42a1-8b38-89b98fbf6a3a" />
 
-## 5.11 [Zdefiniowanie mapy gry]
+## 5.11 [PU50: Zdefiniowanie mapy gry](#zdefiniowanie-mapy-gry)
 
 ![](scenopisy/Zefiniowanie_mapy2.svg)
 
@@ -2772,7 +2764,7 @@ Powrót do kroku 3. w scenariuszu głównym.
 2. System pobiera obecną mapę gry.
 3. System wyświetla interaktywny edytor mapy gry z aktualną mapę gry.
 4. Twórca gry wprowadza zmiany w mapie gry.
-5. System zapisuje zmiany na bierząco w przeglądarce.
+5. System zapisuje zmiany na bieżąco w przeglądarce.
 6. Twórca gry wybiera opcję "Zapisz i wyjdź".
 7. System zapisuje mapę gry w bazie danych.
 8. System automatycznie waliduje poprawnoś mapy gry.
@@ -2851,108 +2843,6 @@ final: failure
 6. System wyświetla [potwierdzenie dołączenia].
 
 **Warunek końcowy (sukces):** System zarejestrował obecność [Gracza] w wybranym [Wydarzeniu].
-## 5.12 [PU20: Uruchomienie wydarzenia](#pu20-uruchomienie-wydarzenia)
-
-- Wersja: 1.0 (19.05.2026)
-- Odpowiedzialny: Tomasz Rogalski
-- Wydanie: 1.0
-- Aktor główny: Mistrz wydarzenia
-- Warunek początkowy: Mistrz wydarzenia jest zalogowany w systemie i znajduje się na ekranie zarządzania [Wydarzeniem].
-- Warunek końcowy (sukces): [Wydarzenie] zostaje pomyślnie uruchomione, jego status zmienia się na aktywne, a uczestnicy otrzymują odpowiednie powiadomienia.
-
-**Scenariusz główny**
-
-1. Mistrz Wydarzenia wybiera opcję Uruchom [Wydarzenie].
-2. System wyświetla formularz z [Danymi warunku rozpoczęcia].
-3. Mistrz Wydarzenia uzupełnia formularz.
-4. System waliduje poprawność wprowadzonych danych.
-   [dane poprawne]
-5. System wyświetla potwierdzenie uruchomienia [Wydarzenia].
-
-**final:** success
-
-**Scenariusz alternatywny A: Niespełnione warunki rozpoczęcia**
-
-1.-4. tak jak w scenariuszu głównym.  
-[dane niepopranwe]  
-5a. System wyświetla komunikat o niespełnionych warunkach rozpoczęcia.
-
-Powrót do zdania 3 scenariusza głównego.
-
----
-
-**Scenariusz alternatywny B: Anulowanie uruchomienia wydarzenia**
-
-1.-2. tak jak w scenariuszu głównym.
-
-3b. Mistrz Wydarzenia anuluje uruchomienie [Wydarzenia].  
-4b. System wyświetla prośbę o potwierdzenie.  
-5b. Mistrz Wydarzenia potwierdza anulowanie.  
-6b. System zamyka formularz uruchomienia [Wydarzenia]
-
-**final:** failure
-
-**Scenopis:**
-![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_PU20.png)
-
-## 5.xx[PU42 Wyświetlenie listy wydarzeń]
-
-Wersja: 1.0 (19.05.2026)
-Odpowiedzialny: Karolina Wiśniewska
-Wydanie: 1.0
-Aktor główny: Gracz
-Warunek początkowy: Gracz jest zalogowany i znajduje się w widoku "Menu gracza". Istnieją wydarzenia, na które nie jest zarejestrowany.
-
-**Scenariusz główny**
-1.  Gracz wybiera opcję "Wydarzenia" w Menu gracza
-2.  System pobiera dane i wyświetla ekran "Lista Wydarzeń", zawieracy tabelę wydarzeń oraz opcję "Filtry".
-3.  Gracz wybiera opcję "Filtry"
-4.  System wyświetla ekran "Menu Filtrów", zawierający listę filtrów wydarzeń.
-5.  Gracz wybiera jeden z filtrów
-6.  System wyświetla posortowane wydarzenia w sposób określony przez filtr
-
-**Scenariusz alternatywny A - sesja gracza wygasła przed wyświetleniem listy**
-2a. System wylogowuje gracza.
-3.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
-
-Warunek końcowy: Nie wyświetlono listy wydarzeń
-
-**Scenariusz alternatywny B - sesja gracza wygasła przed wyświetleniem posortowanej listy**
-6a. System wylogowuje gracza.
-7.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
-
-Warunek końcowy: Nie wyświetlono listy wydarzeń
-
-![](scenopisy/PU42_Wyswietlenie_listy_wydarzen.png)
-
-
-
-# 5.X PU21: Zakończenie wydarzenia
-
-- **Wersja:** 1.0 (18.05.2026)
-- **Odpowiedzialny:** Kacper Koziara
-- **Wydanie:** 1.0
-- **Aktor główny:** Mistrz wydarzenia / System (w przypadku automatu)
-- **Warunek początkowy:** Wydarzenie LARP posiada status „W trakcie rozgrywki” (jest uruchomione). Warunki zakończenia scenariusza (np. fabularne lub czasowe) zostały osiągnięte LUB Mistrz wydarzenia decyduje o wcześniejszym przerwaniu gry.
-- **Warunek końcowy (sukces):** Rozgrywka zostaje pomyślnie zamknięta, status wydarzenia zmienia się na „Zakończone”, punkty doświadczenia (XP) oraz odznaki zostają naliczone, wyniki są zapisane w bazie danych, a gracze otrzymują podsumowanie gry.
-
----
-
-### Scenariusz główny (Ręczne zakończenie przez Mistrza Wydarzenia)
-
-1. Mistrz wydarzenia wybiera opcję **„Zakończ wydarzenie”** w panelu sterowania grą.
-2. System wyświetla okno potwierdzenia z podsumowaniem aktualnego stanu rozgrywki (np. osiągnięte cele, aktualna punktacja frakcji).
-3. Mistrz wydarzenia klika przycisk **„Potwierdź zakończenie”**.
-4. System automatycznie blokuje graczom możliwość wykonywania dalszych akcji w aplikacji (np. skanowanie kodów QR, handel, interakcje z czujnikami).
-5. System zmienia status wydarzenia na „Zakończone”.
-6. System automatycznie oblicza i przyznaje graczom punkty doświadczenia (XP) oraz odznaki na podstawie ich aktywności w trakcie gry.
-7. System zapisuje ostateczne wyniki i statystyki gry w bazie danych.
-8. System generuje i wyświetla wszystkim uczestnikom ekran **„Podsumowanie wydarzenia”** (zawierający statystyki, zdobyte punkty i osiągnięcia).
-
-**final:** success
-
----
-
 **Scenariusz alternatywny A: Przekroczony maksymalny limit graczy**
 
 1.-4. Jak w scenariuszu głównym.
@@ -3012,12 +2902,144 @@ Warunek końcowy: Nie wyświetlono listy wydarzeń
 [wybrano opcję "Anuluj"]
 
 4d. System wyświetla [listę zarejestrowanych wydarzeń] (powrót do PU45)
+## 5.13 [PU20: Uruchomienie wydarzenia](#pu20-uruchomienie-wydarzenia)
+
+- Wersja: 1.0 (19.05.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Wydanie: 1.0
+- Aktor główny: Mistrz wydarzenia
+- Warunek początkowy: Mistrz wydarzenia jest zalogowany w systemie i znajduje się na ekranie zarządzania [Wydarzeniem].
+- Warunek końcowy (sukces): [Wydarzenie] zostaje pomyślnie uruchomione, jego status zmienia się na aktywne, a uczestnicy otrzymują odpowiednie powiadomienia.
+
+**Scenariusz główny**
+
+1. Mistrz Wydarzenia wybiera opcję Uruchom [Wydarzenie].
+2. System wyświetla formularz z [Danymi warunku rozpoczęcia].
+3. Mistrz Wydarzenia uzupełnia formularz.
+4. System waliduje poprawność wprowadzonych danych.
+   [dane poprawne]
+5. System wyświetla potwierdzenie uruchomienia [Wydarzenia].
+
+**final:** success
+
+**Scenariusz alternatywny A: Niespełnione warunki rozpoczęcia**
+
+1.-4. Jak w scenariuszu głównym.  
+[dane niepopranwe]  
+5a. System wyświetla komunikat o niespełnionych warunkach rozpoczęcia.
+
+Powrót do zdania 3 scenariusza głównego.
+
+---
+
+**Scenariusz alternatywny B: Anulowanie uruchomienia wydarzenia**
+
+1.-2. tak jak w scenariuszu głównym.
+
+3b. Mistrz Wydarzenia anuluje uruchomienie [Wydarzenia].  
+4b. System wyświetla prośbę o potwierdzenie.  
+5b. Mistrz Wydarzenia potwierdza anulowanie.  
+6b. System zamyka formularz uruchomienia [Wydarzenia]
+
+**final:** failure
+
+**Scenopis:**
+![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_PU20.png)
+
+## 5.14 [PU42: Wyświetlenie listy wydarzeń](#pu42-wyświetlenie-listy-wydarzeń)
+
+Wersja: 1.0 (19.05.2026)
+Odpowiedzialny: Karolina Wiśniewska
+Wydanie: 1.0
+Aktor główny: Gracz
+Warunek początkowy: Gracz jest zalogowany i znajduje się w widoku "Menu gracza". Istnieją wydarzenia, na które nie jest zarejestrowany.
+
+**Scenariusz główny**
+1.  Gracz wybiera opcję "Wydarzenia" w Menu gracza
+2.  System pobiera dane i wyświetla ekran "Lista Wydarzeń", zawieracy tabelę wydarzeń oraz opcję "Filtry".
+3.  Gracz wybiera opcję "Filtry"
+4.  System wyświetla ekran "Menu Filtrów", zawierający listę filtrów wydarzeń.
+5.  Gracz wybiera jeden z filtrów
+6.  System wyświetla posortowane wydarzenia w sposób określony przez filtr
+
+**Scenariusz alternatywny A - sesja gracza wygasła przed wyświetleniem listy**
+2a. System wylogowuje gracza.
+3.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
+
+Warunek końcowy: Nie wyświetlono listy wydarzeń
+
+**Scenariusz alternatywny B - sesja gracza wygasła przed wyświetleniem posortowanej listy**
+6a. System wylogowuje gracza.
+7.System wyświetla komunikat "Sesja wygasła. Zaloguj się ponownie" oraz okno logowania.
+
+Warunek końcowy: Nie wyświetlono listy wydarzeń
+
+![](scenopisy/PU42_Wyswietlenie_listy_wydarzen.png)
+
+
+
+## 5.15 [PU21: Zakończenie wydarzenia](#pu21-zakończenie-wydarzenia)
+
+- **Wersja:** 1.0 (18.05.2026)
+- **Odpowiedzialny:** Kacper Koziara
+- **Wydanie:** 1.0
+- **Aktor główny:** Mistrz wydarzenia / System (w przypadku automatu)
+- **Warunek początkowy:** Wydarzenie LARP posiada status „W trakcie rozgrywki” (jest uruchomione). Warunki zakończenia scenariusza (np. fabularne lub czasowe) zostały osiągnięte LUB Mistrz wydarzenia decyduje o wcześniejszym przerwaniu gry.
+- **Warunek końcowy (sukces):** Rozgrywka zostaje pomyślnie zamknięta, status wydarzenia zmienia się na „Zakończone”, punkty doświadczenia (XP) oraz odznaki zostają naliczone, wyniki są zapisane w bazie danych, a gracze otrzymują podsumowanie gry.
+
+---
+
+### Scenariusz główny (Ręczne zakończenie przez Mistrza Wydarzenia)
+
+1. Mistrz wydarzenia wybiera opcję **„Zakończ wydarzenie”** w panelu sterowania grą.
+2. System wyświetla okno potwierdzenia z podsumowaniem aktualnego stanu rozgrywki (np. osiągnięte cele, aktualna punktacja frakcji).
+3. Mistrz wydarzenia klika przycisk **„Potwierdź zakończenie”**.
+4. System automatycznie blokuje graczom możliwość wykonywania dalszych akcji w aplikacji (np. skanowanie kodów QR, handel, interakcje z czujnikami).
+5. System zmienia status wydarzenia na „Zakończone”.
+6. System automatycznie oblicza i przyznaje graczom punkty doświadczenia (XP) oraz odznaki na podstawie ich aktywności w trakcie gry.
+7. System zapisuje ostateczne wyniki i statystyki gry w bazie danych.
+8. System generuje i wyświetla wszystkim uczestnikom ekran **„Podsumowanie wydarzenia”** (zawierający statystyki, zdobyte punkty i osiągnięcia).
+
+**final:** success
+
 ### Scenariusz alternatywny A: Automatyczne zakończenie gry (Upływ limitu czasu)
 
 1a. System wykrywa, że zdefiniowany w scenariuszu limit czasu trwania rozgrywki upłynął.
 2a. System automatycznie wywołuje blokadę akcji graczy.
 3a. Scenariusz przechodzi do kroku 5 scenariusza głównego (automatyczna zmiana statusu na „Zakończone”, naliczenie XP i wygenerowanie podsumowania).
-## 5.12 [PU39: Dodanie wydarzenia do kalendarza](#pu39-dodanie-wydarzenia-do-kalendarza)
+### Scenariusz alternatywny B: Awaryjne przymusowe zakończenie gry (Sytuacja awaryjna)
+
+1b. Mistrz wydarzenia (lub Organizator) wybiera opcję **„Awaryjne zatrzymanie gry”** w panelu sterowania.
+2b. System wyświetla ostrzeżenie o natychmiastowym przerwaniu rozgrywki i prosi o potwierdzenie.
+3b. Mistrz wydarzenia potwierdza przymusowe zakończenie.
+4b. System zmienia status wydarzenia na „Przerwane awaryjnie”.
+5b. System zapisuje aktualny, cząstkowy stan rozgrywki w bazie danych, aby nie utracić dotychczasowych postępów graczy.
+6b. System wysyła do aplikacji mobilnych wszystkich uczestników natychmiastowy komunikat push o przerwaniu gry ze względów bezpieczeństwa/technicznych.
+
+**final:** success
+
+---
+
+### Scenariusz alternatywny C: Błąd zapisu ostatecznych wyników w bazie danych
+
+1.–6. Tak jak w scenariuszu głównym.
+7c. System wykrywa błąd połączenia z serwerem lub błąd zapisu ostatecznych statystyk w bazie danych.
+8c. System wyświetla Mistrzowi wydarzenia komunikat: **„Błąd zapisu danych. Czy chcesz ponowić próbę?”**.
+9c. Mistrz wydarzenia wybiera opcję **„Ponów próbę”**.
+10c. System pomyślnie zapisuje dane.
+11c. Scenariusz wraca do kroku 8 scenariusza głównego (wyświetlenie podsumowania).
+
+**final:** success
+
+
+
+
+
+
+**Scenopis**
+![](./scenopisy/scenopis-pu21.png)
+
+## 5.16 [PU39: Dodanie wydarzenia do kalendarza](#pu39-dodanie-wydarzenia-do-kalendarza)
 
 - Wersja 1.0 (20.05.2026)
 - Odpowiedzialny: Michał Marciniak
@@ -3071,7 +3093,7 @@ Powrót do kroku 3. w scenariuszu głównym
 **Scenopis**:
 ![](./scenopisy/PU39_Dodanie_wydarzenia_do_kalendarza.png)
 
-## 5.13 [PU47: Wyświetlenie kalendarza przez organizatora](#pu47-wyświetlenie-kalendarza-przez-organizatora)
+## 5.17 [PU47: Wyświetlenie kalendarza przez organizatora](#pu47-wyświetlenie-kalendarza-przez-organizatora)
 
 - Wersja 1.0 (20.05.2026)
 - Odpowiedzialny: Michał Marciniak
@@ -3093,7 +3115,7 @@ Powrót do kroku 3. w scenariuszu głównym
 ![](./scenopisy/PU47_Wyswietlenie_kalendarza_przez_organizatora.png)
 
 
-## 5.xx PU41: Udostępnienie wydarzenia graczom
+## 5.18 [PU41: Udostępnienie wydarzenia graczom](#pu41-udostępnienie-wydarzenia-graczom)
 
 - Wersja 1.0 (19.05.2026)
 - Odpowiedzialny: Olaf Smoleński
@@ -3118,7 +3140,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenariusz alternatywny A**: Brak lub niepoprawna data otwarcia i/lub zamknięcia
 
-1-4. Jak w scenariuszu głównym. \
+1.-4. Jak w scenariuszu głównym. \
 \[brak lub niepoprawna data] \
 5a. System wyświetla komunikat o niepoprawnej dacie. \
 6a. Organizator wybiera "OK". \
@@ -3130,7 +3152,7 @@ Powrót do kroku 3. w scenariuszu głównym
 **Scenopis**
 
 ![](./scenopisy/scenopis-pu41.png)
-## 5.12 [PU40: Zaproszenie graczy](#pu40-zaproszenie-graczy)
+## 5.19 [PU40: Zaproszenie graczy](#pu40-zaproszenie-graczy)
 
 - Wersja: 1.0 (18.05.2026)
 - Odpowiedzialna: Polina Nesterova
@@ -3157,36 +3179,6 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **final:** success
 
----
-
-### Scenariusz alternatywny B: Awaryjne przymusowe zakończenie gry (Sytuacja awaryjna)
-
-1b. Mistrz wydarzenia (lub Organizator) wybiera opcję **„Awaryjne zatrzymanie gry”** w panelu sterowania.
-2b. System wyświetla ostrzeżenie o natychmiastowym przerwaniu rozgrywki i prosi o potwierdzenie.
-3b. Mistrz wydarzenia potwierdza przymusowe zakończenie.
-4b. System zmienia status wydarzenia na „Przerwane awaryjnie”.
-5b. System zapisuje aktualny, cząstkowy stan rozgrywki w bazie danych, aby nie utracić dotychczasowych postępów graczy.
-6b. System wysyła do aplikacji mobilnych wszystkich uczestników natychmiastowy komunikat push o przerwaniu gry ze względów bezpieczeństwa/technicznych.
-
-**final:** success
-
----
-
-### Scenariusz alternatywny C: Błąd zapisu ostatecznych wyników w bazie danych
-
-1.–6. Tak jak w scenariuszu głównym.
-7c. System wykrywa błąd połączenia z serwerem lub błąd zapisu ostatecznych statystyk w bazie danych.
-8c. System wyświetla Mistrzowi wydarzenia komunikat: **„Błąd zapisu danych. Czy chcesz ponowić próbę?”**.
-9c. Mistrz wydarzenia wybiera opcję **„Ponów próbę”**.
-10c. System pomyślnie zapisuje dane.
-11c. Scenariusz wraca do kroku 8 scenariusza głównego (wyświetlenie podsumowania).
-
-**final:** success
-
-
-**Scenopis**
-![](./scenopisy/scenopis-pu21.png)
-
 **Scenariusz alternatywny 1: Filtrowanie listy graczy**
 
 1–2. Tak jak w scenariuszu głównym.
@@ -3208,7 +3200,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenariusz alternatywny 2: Brak wybranych graczy**
 
-1–4. Tak jak w scenariuszu głównym.
+1.-4. Jak w scenariuszu głównym.
 
 [wybór niepoprawny - [brak zaznaczonych graczy]]
 
@@ -3245,7 +3237,7 @@ Powrót do kroku 3. w scenariuszu głównym
 
 ---
 
-## 5.13 [PU43: Wyświetlenie listy zaproszeń](#pu43-wyswietlenie-listy-zaproszen)
+## 5.20 [PU43: Wyświetlenie listy zaproszeń](#pu43-wyświetlenie-listy-zaproszeń)
 - Wersja: 1.0 (19.05.2026)
 - Odpowiedzialny: Cezary Rybiński
 - Wydanie: 1.0
@@ -3264,7 +3256,7 @@ Powrót do kroku 3. w scenariuszu głównym
 **Scenopis**
 ![](./scenopisy/PU43_wyswietlenie_listy_zaproszen.png)
 
-## 5.13 [PU31: Wysłanie skargi](#pu31-wyslanie-skargi)
+## 5.21 [PU31: Wysłanie skargi](#pu31-wysłanie-skargi)
 
 - Wersja: 1.0 (20.05.2026)
 - Odpowiedzialna: Alicja Rosiak
@@ -3305,12 +3297,12 @@ Warunek końcowy: skarga nie została wysłana
 **Scenopis**
 
 ![](./scenopisy/PU31_Wysłanie_skargi.png)
-## 5.13 PU22: Skanowanie kodu QR
+## 5.22 [PU22: Skanowanie kodu QR](#pu22-skanowanie-kodu-qr)
 
 ![](scenopisy/22.svg)
 
 - Wersja: 1.0 (20.05.2026)
-- Odpowiedzialny: Łuukasz Czajka
+- Odpowiedzialny: Łukasz Czajka
 - Wydanie: 1.0
 - Aktor główny: Gracz
 - Warunek początkowy: Gracz jest zalogowany w aplikacji i znajduje się na ekranie startowym
@@ -3327,7 +3319,7 @@ Warunek końcowy: skarga nie została wysłana
 
 final: success
 
-**Scenarusz alternatywny A: Anulowanie skanu kodu QR**
+**Scenariusz alternatywny A: Anulowanie skanu kodu QR**
 
 
 3a. Gracz naciska przycisk wtecz    
@@ -3346,7 +3338,7 @@ final: failure
 6c. Gracz naciska przycisk "Anuluj"    
 
 final: failure
-## 5.13 [PU44: Akceptacja zaproszenia](#pu44-akceptacja-zaproszenia)
+## 5.23 [PU44: Akceptacja zaproszenia](#pu44-akceptacja-zaproszenia)
 
 - Wersja: 1.0 (14.04.2026)
 - Odpowiedzialny: Maciej Bankiewicz
