@@ -2065,6 +2065,44 @@ DGSCE -. "&lt;&lt;invoke&gt;&gt;" .-> TPGS
 - Wydanie: 1.0
 - **Opis:** Twórca gry wprowadza treść [komunikatu do recenzenta] a następnie klika wyślij. System wyświetla informację o potwierdzeniu przesłania komunikatu i dodaje ją do [okna komunikacji twórcy gry z recenzentem].
 
+#### PU56: Wyświetlenie scenariusza gry w edytorze
+
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Igor Ochocki
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+- Aktor główny: Projektant gier
+- **Opis:** Projektant wybiera istniejącą grę lub scenariusz i otwiera go w module edycji. System wczytuje zapis scenariusza z bazy i prezentuje widok edytora (struktura scenariusza, m.in. lista zadań, warunków zwycięstwa i metadane - szczegóły UI w scenopisie). Ten przypadek **poprzedza** projektowanie nowych zadań (**PU57**) i warunków zwycięstwa (**PU58**): operacje te mają miejsce dopiero przy już wyświetlonym w edytorze scenariuszu.
+
+#### PU57: Projektowanie zadania w scenariuszu gry
+
+- Wersja: 1.0 (29.04.2026)
+- Odpowiedzialny: Igor Ochocki
+- Priorytet i trudność: Istotne (zgodnie z F28)
+- Wydanie: 1.0
+- Aktor główny: Twórca gier
+- **Opis:** Przy aktywnym widoku edytora scenariusza twórca dodaje nowe zadanie fabularne: wypełnia formularz z [danymi zadania]. System waliduje dane, zapisuje zadanie w strukturze scenariusza i informuje o powodzeniu; przy błędach lub konfliktach prezentuje odpowiednie komunikaty.
+
+Powiązanie z wymaganiami funkcjonalnymi: **F28**.
+
+#### PU59: Edycja komnaty
+
+- Wersja: 1.0 (22.04.2026)
+- Odpowiedzialny: Maciej Bankiewicz
+- Priorytet i trudność: Istotne
+- Wydanie: 1.0
+- **Opis:** Twórca gry przechodzi do edycji wybranej [komnaty]. System pobiera [dane komnaty] i udostępnia formularz edycyjny. Po wprowadzeniu modyfikacji i zleceniu zapisu, system weryfikuje poprawność [danych]. Jeżeli [dane] są poprawne, system aktualizuje [komnatę]. W przypadku wystąpienia błędów, system wyświetla komunikat o błędzie, a zmiany nie zostają zapisane.
+
+---
+
+**Diagram:** Funkcje recenzenta
+
+```mermaid
+flowchart TB
+ A(("👤 Recenzent")) --> n1(["Wyświetlenie listy gier przez recenzenta"]) -->|generalization| n2(["Wyświetlenie listy gier"])
+ A -->|<<invoke>>| n3(["Recenzja gry"])
+```
+
 #### PU53: Wyświetlenie listy gier
 
 - Wersja: 1.0 (14.04.2026)
@@ -2095,35 +2133,6 @@ DGSCE -. "&lt;&lt;invoke&gt;&gt;" .-> TPGS
 - Wydanie: 1.0
 - **Opis:** System wyświetla okno do zapisu tekstu. [Recenzent] zapisuje [Recenzję] i zatwierdza ją.
 
----
-
-**Diagram:** Funkcje recenzenta
-
-```mermaid
-flowchart TB
- A(("👤 Recenzent")) --> n1(["Wyświetlenie listy gier przez recenzenta"]) -->|generalization| n2(["Wyświetlenie listy gier"])
- A -->|<<invoke>>| n3(["Recenzja gry"])
-```
-
-#### PU56: Wyświetlenie scenariusza gry w edytorze
-
-- Wersja: 1.0 (29.04.2026)
-- Odpowiedzialny: Igor Ochocki
-- Priorytet i trudność: Istotne
-- Wydanie: 1.0
-- Aktor główny: Projektant gier
-- **Opis:** Projektant wybiera istniejącą grę lub scenariusz i otwiera go w module edycji. System wczytuje zapis scenariusza z bazy i prezentuje widok edytora (struktura scenariusza, m.in. lista zadań, warunków zwycięstwa i metadane - szczegóły UI w scenopisie). Ten przypadek **poprzedza** projektowanie nowych zadań (**PU57**) i warunków zwycięstwa (**PU58**): operacje te mają miejsce dopiero przy już wyświetlonym w edytorze scenariuszu.
-
-#### PU57: Projektowanie zadania w scenariuszu gry
-
-- Wersja: 1.0 (29.04.2026)
-- Odpowiedzialny: Igor Ochocki
-- Priorytet i trudność: Istotne (zgodnie z F28)
-- Wydanie: 1.0
-- Aktor główny: Twórca gier
-- **Opis:** Przy aktywnym widoku edytora scenariusza twórca dodaje nowe zadanie fabularne: wypełnia formularz z [danymi zadania]. System waliduje dane, zapisuje zadanie w strukturze scenariusza i informuje o powodzeniu; przy błędach lub konfliktach prezentuje odpowiednie komunikaty.
-
-Powiązanie z wymaganiami funkcjonalnymi: **F28**.
 
 #### PU58: Definiowanie warunków zwycięstwa w scenariuszu gry
 
@@ -2668,7 +2677,7 @@ Scenariusz alternatywny: Sesja użytkownika wygasła przed kliknięciem opcji _K
 **Scenopis**
 ![](./scenopisy/scenopis-pu1.png)
 
-## 5.10 [Edycja komnaty]
+## 5.10 [PU59: Edycja komnaty](#pu59-edycja-komnaty)
 
 - Wersja: 1.0 (22.04.2026)
 - Odpowiedzialny: Maciej Bankiewicz
@@ -2693,12 +2702,20 @@ Scenariusz alternatywny: Sesja użytkownika wygasła przed kliknięciem opcji _K
 **Scenariusz alternatywny A: Błąd pobierania danych komnaty**
 
 1-2. Jak w scenriuszu głównym.
-[błąd pobierania danych] 3. System wyświetla komunikat o błędzie pobierania danych komnaty. 4. Twórca gry wybiera "Ok". 5. Dane pozostają bez zmian.
+[błąd pobierania danych] 
+
+3. System wyświetla komunikat o błędzie pobierania danych komnaty. 
+
+4. Twórca gry wybiera "Ok". 
+
+5. Dane pozostają bez zmian.
 
 **Scenariusz alternatywny B: Wprowadzone dane są niepoprawne**
 
 1-6. Jak w scenariuszu głównym.  
+
 7a. System wyświetla komunikat o braku przedmiotu w magazynie.  
+
 8a. Twórca gry wybiera „Ok”.  
 Powrót do kroku 3. w scenariuszu głównym.
 
@@ -2706,8 +2723,11 @@ Powrót do kroku 3. w scenariuszu głównym.
 
 1-7. Jak w scenariuszu głównym.  
 [błąd zapisu / problem z połączeniem]  
+
 8c. System wyświetla komunikat o błędzie zapisu zmian.  
+
 9c. Twórca gry wybiera „Ok”.  
+
 10c. Zmiany w komnacie nie zostają zapisane, dane pozostają bez zmian.
 
 <img width="1104" height="698" alt="image" src="https://github.com/user-attachments/assets/6284c041-97bb-42a1-8b38-89b98fbf6a3a" />
@@ -3155,3 +3175,49 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenopis**
 ![](./scenopisy/PU43_wyswietlenie_listy_zaproszen.png)
+
+## 5.13 [PU44: Akceptacja zaproszenia](#pu44-akceptacja-zaproszenia)
+
+- Wersja: 1.0 (14.04.2026)
+- Odpowiedzialny: Maciej Bankiewicz
+- Priorytet i trudność: Istotne
+- Wywołany z: [PU43: Wyświetlenie listy zaproszeń](#pu43-wyswietlenie-listy-zaproszen)
+- Wydanie: 1.0
+- Aktor główny: Gracz
+- Warunek początkowy: Gracz jest zalogowany i znajduje się w widoku listy zaproszeń.
+
+**Scenariusz główny**
+1. Gracz wybiera opcję [akceptacji] przy wybranym zaproszeniu.
+2. System sprawdza dostępność miejsc. [są wolne miejsca]
+3. System dodaje gracza do listy zarejestrowanych uczestników.
+4. System usuwa zaproszenie z listy zaproszeń gracza.
+5. System wyświetla potwierdzenie pomyślnej akceptacji zaproszenia.
+
+**Scenariusz alternatywny A: Brak wolnych miejsc**
+
+1-2. Jak w scenariuszu głównym. [brak wolnych miejsc]
+
+3a. System wyświetla komunikat informujący o braku wolnych miejsc.
+
+4a. Gracz wybiera „Ok”.
+
+5a. Gracz nie zostaje dodany do listy, a zaproszenie pozostaje bez zmian.
+
+**Scenariusz alternatywny B: Błąd zapisu / problem techniczny**
+
+1-2. Jak w scenariuszu głównym.
+[błąd zapisu do bazy danych / problem z połączeniem]
+
+3b. System wyświetla komunikat o błędzie akceptacji zaproszenia.
+
+4b. Gracz wybiera „Ok”.
+
+5b. Proces zostaje przerwany, gracz nie zostaje dodany, a zaproszenie pozostaje na liście bez zmian.
+
+**Scenariusz alternatywny C: Odrzucenie zaproszenia**
+
+1c. Gracz wybiera opcję [odrzucenia] przy wybranym zaproszeniu.
+
+2c. System usuwa zaproszenie z listy zaproszeń gracza.
+
+3c. System wyświetla komunikat z potwierdzeniem pomyślnego odrzucenia zaproszenia.
