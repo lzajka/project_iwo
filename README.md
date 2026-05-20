@@ -2448,9 +2448,8 @@ Powrót do zdania 2. w scenariuszu głównym.
 
 [pola formularza puste]
 
-5b. System stwierdza, że wymagane pola formularza recenzji są puste.
-6b. System wyświetla komunikat o konieczności wypełnienia pól.
-7b. System nie zapisuje recenzji.
+5b. System wyświetla komunikat o konieczności wypełnienia pól.
+6b. System nie zapisuje recenzji.
 
 Powrót do kroku 3 scenariusza głównego.
 
