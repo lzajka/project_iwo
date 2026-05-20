@@ -744,6 +744,12 @@ classDiagram
         +wartoscSkutow: String
     }
 
+    class Strefa {
+        +nazwa: String
+        +ukryta: Boolean
+        +ograniczeniaDostepu: Enum
+    }
+
     TworcaGier "1" --> "0..*" Gra : definiuje
 
     Gra "1" *-- "1"    Mapa    : zawiera
@@ -755,7 +761,8 @@ classDiagram
     ScenariuszGry "1" --> "1..*" WarunekZwycięstwa : zawiera
     Zadanie "1" --> "*" Nagroda : przyznaje po ukonczeniu
 
-    Mapa "1" *-- "1..*" Komnata : składa sie z
+    Mapa "1" *-- "1..*" Strefa : składa sie z
+    Strefa "1" *-- "1..*" Komnata : może zawierać
 
     Komnata "1" *-- "0..*" Czujnik : zawiera
     Komnata "1" *-- "0..*" KodQR : zawiera
@@ -813,12 +820,17 @@ classDiagram
         +minimalnaLiczbaGraczy: Integer
     }
 
+    class DaneWarunkuZwyciestwa {
+        +parametry: String
+    }
+
     Organizator    "1" --> "0..*" Wydarzenie : zarzadza
     MistrzWydarzenia "1" --> "0..*" Wydarzenie : prowadzi
 
     Wydarzenie "0..*" --> "1"    Gra    : jest instancja
     Wydarzenie "1"    -- "0..*" Gracz  : uczestnicza
     Wydarzenie "1" *-- "1" DaneWarunkuRozpoczecia : posiada
+    Wydarzenie "1" *-- "0..*" DaneWarunkuZwyciestwa : posiada
 
     KalendarzWydarzen "1" --> "0..*" Wydarzenie : prezentuje
 
@@ -861,7 +873,7 @@ classDiagram
     Interakcja "0..*" --> "1"    Gracz    : inicjuje
     Interakcja "0..*" --> "1"    Przedmiot : dotyczy
     Interakcja "0..*" --> "1"    KodQR    : wymaga
-    Interakcja "1"    --|> "0..*" Akcja    : wyzwala
+    Interakcja    --|>  Akcja    
 
     TransakcjaWymiany "0..*" --> "2" Gracz : miedzy graczami
     TransakcjaWymiany "0..*" --> "1" KodQR : autoryzowana przez
@@ -900,12 +912,24 @@ classDiagram
     class KomunikatDoRecenzenta {
     }
 
+    class Okno komunikacji twórcy gry z recenzentem {
+    }
+
+    class TworcaGier {
+    }
+
+    class Recenzent {
+    }
+
     Zaproszenie "0..*" --> "1" Uzytkownik : wysylane do
     Zaproszenie "0..*" --> "1" Wydarzenie : dotyczy
 
     Wiadomosc "0..*" --> "1" Uzytkownik : nadawca
     Wiadomosc "0..*" --> "1" Uzytkownik : odbiorca
     Wiadomosc <|-- KomunikatDoRecenzenta
+
+    TworcaGier "1..*" --> "1" Okno komunikacji twórcy gry z recenzentem
+    Recenzent "1" --> "1..*" Okno komunikacji twórcy gry z recenzentem
 
     Skarga "0..*" --> "1" Uzytkownik : zglaszajacy
 ```
