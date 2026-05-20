@@ -2836,7 +2836,7 @@ final: failure
 - Warunek początkowy: Gracz jest zalogowany i znajduje się w widoku listy zaproszeń.
 
 **Scenariusz główny**
-1. Gracz wybiera opcję akceptacji przy wybranym zaproszeniu.
+1. Gracz wybiera opcję [akceptacji] przy wybranym zaproszeniu.
 2. System sprawdza dostępność miejsc. [są wolne miejsca]
 3. System dodaje gracza do listy zarejestrowanych uczestników.
 4. System usuwa zaproszenie z listy zaproszeń gracza.
@@ -2862,3 +2862,11 @@ final: failure
 4b. Gracz wybiera „Ok”.
 
 5b. Proces zostaje przerwany, gracz nie zostaje dodany, a zaproszenie pozostaje na liście bez zmian.
+
+**Scenariusz alternatywny C: Odrzucenie zaproszenia**
+
+1c. Gracz wybiera opcję [odrzucenia] przy wybranym zaproszeniu.
+
+2c. System usuwa zaproszenie z listy zaproszeń gracza.
+
+3c. System wyświetla komunikat z potwierdzeniem pomyślnego odrzucenia zaproszenia.
