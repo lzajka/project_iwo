@@ -2006,7 +2006,7 @@ TG --> GDF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> ADF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> SCR
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> KED
-GDF -. <&ltinvoke>> .-> SEDF
+KED -. <&ltinvoke>> .-> SEDF
 GDF -. "&lt;&lt;invoke&gt;&gt;" .-> DGSCE
 DGSCE -. "&lt;&lt;invoke&gt;&gt;" .-> TPGS
 ```
@@ -2524,12 +2524,12 @@ Powrót do kroku 4 scenariusza głównego.
 
 ## 5.7 [PU50: Zdefiniowanie czujnika](#pu50-zdefiniowanie-czujnika)
 
-- Wersja: 1.1 (24.04.2026)
+- Wersja: 1.2 (20.05.2026)
 - Odpowiedzialna: Alicja Rosiak
 - Wydanie: 1.0
 - Aktor główny: Twórca gry
 - Warunek początkowy: Twórca gry jest zalogowany
-  i jest w menu definiowania gry
+  i jest w menu edycji komnaty
   i conajmniej jedna akcja została zdefiniowana dla danej gry
   i mapa gry została została zdefiniowana dla danej gry
 
