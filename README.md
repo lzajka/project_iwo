@@ -2766,7 +2766,7 @@ final: failure
 
 ## 5.12 [PU39: Dodanie wydarzenia do kalendarza](#pu39-dodanie-wydarzenia-do-kalendarza)
 
-- Wersja 1.0 (15.05.2026)
+- Wersja 1.0 (20.05.2026)
 - Odpowiedzialny: Michał Marciniak
 - Wydanie: 1.0
 - Aktor główny: Organizator
@@ -2816,3 +2816,24 @@ Powrót do kroku 3. w scenariuszu głównym
 
 **Scenopis**:
 ![](./scenopisy/PU39_Dodanie_wydarzenia_do_kalendarza.png)
+
+## 5.13 [PU47: Wyświetlenie kalendarza przez organizatora](#pu47-wyświetlenie-kalendarza-przez-organizatora)
+
+- Wersja 1.0 (20.05.2026)
+- Odpowiedzialny: Michał Marciniak
+- Wydanie: 1.0
+- Aktor główny: Organizator
+- Specjalizacja: [PU1: Wyświetlenie kalendarza](#pu1-wyświetlenie-kalendarza)
+- Warunek początkowy: Organizator jest zalogowany i znajduje się w menu głównym aplikacji.
+- Warunek końcowy (success): Wyświetlony kalendarz
+
+**Scenariusz główny**
+
+1. Organizator wybiera opcję wyświetlenia kalendarza.
+2. System wyświetla kalendarz wydarzeń z opcją dodania wydarzenia.
+
+**final:** success
+
+**POST:** Wyświetlony kalendarz
+
+![](./scenopisy/PU47_Wyswietlenie_kalendarza_przez_organizatora.png)
