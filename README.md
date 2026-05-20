@@ -784,7 +784,6 @@ classDiagram
 
     class DaneWarunkuRozpoczecia {
         +minimalnaLiczbaGraczy: Integer
-        +zablokowaneZmianyPostaci: Boolean
     }
 
     Organizator    "1" --> "0..*" Wydarzenie : zarzadza
@@ -1371,7 +1370,7 @@ Rekompensata za ukończenie [Zadania].
 - Odpowiedzialny: Tomasz Rogalski
 - Wydanie: 1.0
 
-Konkretny zbiór informacji konfiguracyjnych i kryteriów niezbędnych do uruchomienia [Wydarzenia] w danym formularzu. Obejmuje takie pola jak: `minimalnaLiczbaGraczy` (integer) oraz blokada edycji kart postaci przed startem `zablokowaneZmianyPostaci` (boolean). Określane mianem spełnionych lub niespełnionych, pozwalając na start wydarzenia.
+Konkretny zbiór informacji konfiguracyjnych i kryteriów niezbędnych do uruchomienia [Wydarzenia] w danym formularzu. Obejmuje pole `minimalnaLiczbaGraczy` (integer). Określane mianem spełnionych lub niespełnionych, pozwalając na start wydarzenia.
 
 ---
 
