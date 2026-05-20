@@ -773,6 +773,7 @@ classDiagram
     class Wydarzenie {
         +czas: DateTime
         +miejsce: String
+        +status: String
     }
 
     class KalendarzWydarzen {
@@ -781,11 +782,16 @@ classDiagram
     class Zaproszenie {
     }
 
+    class DaneWarunkuRozpoczecia {
+        +minimalnaLiczbaGraczy: Integer
+    }
+
     Organizator    "1" --> "0..*" Wydarzenie : zarzadza
     MistrzWydarzenia "1" --> "0..*" Wydarzenie : prowadzi
 
     Wydarzenie "0..*" --> "1"    Gra    : jest instancja
     Wydarzenie "1"    -- "0..*" Gracz  : uczestnicza
+    Wydarzenie "1" *-- "1" DaneWarunkuRozpoczecia : posiada
 
     KalendarzWydarzen "1" --> "0..*" Wydarzenie : prezentuje
 
@@ -866,7 +872,7 @@ classDiagram
         +tresc: String
         +dataZgloszenia: DateTime
     }
-    
+
     class KomunikatDoRecenzenta {
     }
 
@@ -881,6 +887,7 @@ classDiagram
 ```
 
 ## 6. Tworzenie i recenzowanie gier
+
 ```mermaid
 classDiagram
     direction TB
@@ -1353,6 +1360,17 @@ Zbiór celów które gracz musi wykonać podczas [Wydarzenia] jeśli chce otrzym
 - Wydanie: 1.0
 
 Rekompensata za ukończenie [Zadania].
+
+---
+
+**Dane warunku rozpoczęcia**
+
+- Typ: pojęcie domenowe
+- Wersja: 1.0 (19.05.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Wydanie: 1.0
+
+Konkretny zbiór informacji konfiguracyjnych i kryteriów niezbędnych do uruchomienia [Wydarzenia] w danym formularzu. Obejmuje pole `minimalnaLiczbaGraczy` (integer). Określane mianem spełnionych lub niespełnionych, pozwalając na start wydarzenia.
 
 ---
 
@@ -2131,29 +2149,24 @@ Scenariusz Główny:
 
 1. Twórca wybiera dodanie akcji
 2. System wyświetla formularz dodania akcji
-3. Twórca wprowadza dane  akcji
+3. Twórca wprowadza dane akcji
 4. Twórca wybiera przycisk zapisania akcji
 5. System weryfikuje poprawność danych akcji
 6. System zapisuje akcję
-7. System weryfikuje powodzenie zapisania akcji 
+7. System weryfikuje powodzenie zapisania akcji
 8. System wyświetla informacje o sukcesie
 9. System zamyka formularz
-Warunek końcowy: Dodanie nowej akcji zakończone powodzeniem
+   Warunek końcowy: Dodanie nowej akcji zakończone powodzeniem
 
 Scenariusz Alternatywny A:
 
-6a. System wykrył niepełne dane akcji przy dodaniu
-7. System wyświetla informcje o nieuzupełnieniu danych przez twórcę gry
-8. Scenariusz wraca do kroku 3 scenariusza głównego
+6a. System wykrył niepełne dane akcji przy dodaniu 7. System wyświetla informcje o nieuzupełnieniu danych przez twórcę gry 8. Scenariusz wraca do kroku 3 scenariusza głównego
 
 Scenariusz Alternatywny B:
 
-7a. System nie zapisał akcji
-7. System wyświetla informację o błędzie zapisu
-8. Scenariusz wraca do kroku 3 scenariusza głównego
+7a. System nie zapisał akcji 7. System wyświetla informację o błędzie zapisu 8. Scenariusz wraca do kroku 3 scenariusza głównego
 
-![](./scenopisy/Scenopis_Scenariusz5.1_PU51.png)
----
+## ![](./scenopisy/Scenopis_Scenariusz5.1_PU51.png)
 
 ## 5.2 [PU57: Projektowanie zadania w scenariuszu gry](#pu57-projektowanie-zadania-w-scenariuszu-gry)
 
@@ -2226,7 +2239,6 @@ Scenariusz Alternatywny B:
 
 **Warunek końcowy:** Struktura scenariusza gry nie uległa zmianie.
 
-
 **Scenopis**
 ![](./scenopisy/PU57_Projektowanie_zadania_w_scenariuszu_gry.png)
 
@@ -2245,6 +2257,13 @@ Scenariusz Alternatywny B:
 
 **Scenariusz główny**
 
+1. Twórca gry wybiera opcję przesłania komunikatu do recenzenta.
+2. System wyświetla okno komunikacji twórcy gry z recenzentem.
+3. Twórca gry wpisuje komunikat do recenzenta.
+4. Twórca gry wybiera opcję wysłania. \
+   [komunikat do recenzenta poprawny]
+5. System wysyła komunikat do recenzenta.
+6. System dodaje wiadomość do okna komunikacji twórcy gry z recenzentem.
 1. Twórca gry wybiera [opcję przesłania komunikatu do recenzenta].
 2. System wyświetla [okno komunikacji twórcy gry z recenzentem].
 3. Twórca gry wpisuje [komunikat do recenzenta].
@@ -2300,7 +2319,6 @@ Powrót do kroku 3. w scenariuszu głównym
 ---
 
 ## 5.4 [PU53: Wyświetlenie listy gier](#pu53-wyświetlenie-listy-gier)
-
 
 - Wersja: 1.1 (06.05.2026)
 - Odpowiedzialny: Kacper Koziara
@@ -2363,6 +2381,8 @@ Powrót do kroku 5 w scenariuszu głównym.
 
 **Scenopis:**
 ![Scenopis - Wyświetlenie listy gier](scenopisy/scenopis_pu53_0.png)
+
+## 5.5 [PU58: Definiowanie warunków zwycięstwa w scenariuszu gry](#pu58-definiowanie-warunków-zwycięstwa-w-scenariuszu-gry)
 
 - Wersja: 1.0 (05.05.2026)
 - Odpowiedzialny: Tomasz Rogalski
@@ -2561,7 +2581,6 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenopis**
 ![](./scenopisy/PU50_Zdefiniowanie_czujnika.png)
 
-
 ## 5.8 [PU49: Zdefiniowanie gry](#pu49-zdefiniowanie-gry)
 
 - Wersja: 1.0 (22.04.2026)
@@ -2588,6 +2607,7 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenariusz alternatywny A: Błędne dane w parametrach**
 
 5a. System stwierdza, że dane w formularzu parametrów są nieprawidłowe lub niekompletne.
+
 1. System wyświetla komunikat **„Błąd: Podane dane są błędne”**.
 2. Twórca klika przycisk **„OK”**.
 3. Formularz parametrów pozostaje otwarty, a błędne pola zostają wyróżnione.
@@ -2596,6 +2616,7 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenariusz alternatywny B: Definiowanie elementów szczegółowych (Czujniki)**
 
 7a. Twórca chce zdefiniować czujniki dla gry.
+
 1. Twórca wybiera opcję **„Dodaj nowy czujnik”** w widoku „Definicja gry”.
 2. System wywołuje **PU50: Zdefiniowanie czujnika**.
 3. Po zakończeniu definiowania czujnika system powraca do widoku **„Definicja gry”**.
@@ -2604,6 +2625,7 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenariusz alternatywny C: Definiowanie elementów szczegółowych (Scenariusz)**
 
 7b. Twórca chce edytować zadania lub mapę w scenariuszu.
+
 1. Twórca wybiera opcję **„Edytuj scenariusz gry”** w widoku „Definicja gry”.
 2. System wywołuje **PU56: Wyświetlenie scenariusza gry w edytorze**.
 3. Po zakończeniu edycji scenariusza system powraca do widoku **„Definicja gry”**.
@@ -2612,6 +2634,7 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenariusz alternatywny D: Zapis lokalny (bez wysyłki do recenzji)**
 
 8a. Twórca klika przycisk **„Zapisz”**.
+
 1. System zapisuje grę ze statusem „W edycji”.
 2. System wyświetla komunikat **„Poprawnie zapisano grę”**.
 3. Twórca klika przycisk **„OK”**; system przekierowuje go do widoku **„Lista gier”**.
@@ -2619,6 +2642,7 @@ Warunek końcowy: nowy czujnik nie został zarejestrowany dla danej gry
 **Scenariusz alternatywny E: Anulowanie tworzenia gry**
 
 (W dowolnym momencie przebywania w widoku „Definicja gry”) Twórca klika przycisk **„Anuluj”**.
+
 1. System zamyka formularz i przekierowuje twórcę do widoku **„Panel Twórcy”** bez zapisywania żadnych zmian.
 
 **Scenopis**
@@ -2727,9 +2751,9 @@ Powrót do kroku 3 scenariusza głównego.
 8a1.1 System ponawia próbę zapisu mapy gry w przeglądarce.     
 8a1.2 System powraca do kroku 4 scenariusza głównego.
 
-8a2.1 Twórca gry wybiera opcję kontynuowania bez zapisu mapy gry w przeglądarce.    
-8a2.2 System wyłącza funkcję automatycznego zapisu mapy gry w przeglądarce.    
-8a2.3 System powraca do kroku 4 scenariusza głównego    
+8a2.1 Twórca gry wybiera opcję kontynuowania bez zapisu mapy gry w przeglądarce.  
+8a2.2 System wyłącza funkcję automatycznego zapisu mapy gry w przeglądarce.  
+8a2.3 System powraca do kroku 4 scenariusza głównego
 
 8a3.1 Twórca gry wybiera opcję wyjścia z edytora mapy gry.
 8a3.2 System zamyka edytor mapy gry bez zapisywania zmian.
@@ -2758,6 +2782,49 @@ final: failure
 9a2.1 Twórca gry wybiera opcję zapisu z wyjściem.
 9a2.2 System skacze do kroku 7 scenariusza głównego, ale mapa gry pozostaje oznaczona jako niepoprawna, co uniemożliwia publikację gry do czasu poprawy mapy gry.
 
+## 5.12 [PU20: Uruchomienie wydarzenia](#pu20-uruchomienie-wydarzenia)
+
+- Wersja: 1.0 (19.05.2026)
+- Odpowiedzialny: Tomasz Rogalski
+- Wydanie: 1.0
+- Aktor główny: Mistrz wydarzenia
+- Warunek początkowy: Mistrz wydarzenia jest zalogowany w systemie i znajduje się na ekranie zarządzania [Wydarzeniem].
+- Warunek końcowy (sukces): [Wydarzenie] zostaje pomyślnie uruchomione, jego status zmienia się na aktywne, a uczestnicy otrzymują odpowiednie powiadomienia.
+
+**Scenariusz główny**
+
+1. Mistrz Wydarzenia wybiera opcję Uruchom [Wydarzenie].
+2. System wyświetla formularz z [Danymi warunku rozpoczęcia].
+3. Mistrz Wydarzenia uzupełnia formularz.
+4. System waliduje poprawność wprowadzonych danych.
+   [dane poprawne]
+5. System wyświetla potwierdzenie uruchomienia [Wydarzenia].
+
+**final:** success
+
+**Scenariusz alternatywny A: Niespełnione warunki rozpoczęcia**
+
+1.-4. tak jak w scenariuszu głównym.  
+[dane niepopranwe]  
+5a. System wyświetla komunikat o niespełnionych warunkach rozpoczęcia.
+
+Powrót do zdania 3 scenariusza głównego.
+
+---
+
+**Scenariusz alternatywny B: Anulowanie uruchomienia wydarzenia**
+
+1.-2. tak jak w scenariuszu głównym.
+
+3b. Mistrz Wydarzenia anuluje uruchomienie [Wydarzenia].  
+4b. System wyświetla prośbę o potwierdzenie.  
+5b. Mistrz Wydarzenia potwierdza anulowanie.  
+6b. System zamyka formularz uruchomienia [Wydarzenia]
+
+**final:** failure
+
+**Scenopis:**
+![Scenopis - Definiowanie warunków zwycięstwa](scenopisy/scenopis_PU20.png)
 
 ## 5.xx[PU42 Wyświetlenie listy wydarzeń]
 
