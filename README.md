@@ -2698,7 +2698,7 @@ Powrót do kroku 3. w scenariuszu głównym.
 
 ## 5.11 [Zdefiniowanie mapy gry]
 
-![](scenopisy/Zdefiniowanie_mapy.png)
+![](scenopisy/Zefiniowanie_mapy2.svg)
 
 - Wersja: 1.0 (30.04.2026)
 - Odpowiedzialny: Łukasz Czajka
