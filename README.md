@@ -3349,7 +3349,8 @@ Warunek końcowy: skarga nie została wysłana
 5. System sprawdza typ akcji powiązanej z kodem QR (walka/mini-gra)    
 6. System wyświetla komunikat z prośbą o potwierdzenie akcji danego typu    
 7. Gracz potwierdza    
-8. System wykonuje akcję    
+8. Jeżeli akcja typu mini-gra: Invoke [PU23: Granie w mini-grę](#pu23-granie-w-mini-grę)    
+Jeżeli akcja typu walka: Invoke [PU24: Walczenie z innym graczem](#pu24-walczenie-z-innym-graczem)
 
 final: success
 
@@ -3367,7 +3368,7 @@ final: failure
 [Kod QR błędny]    
 5b. System wyświetla komunikat o błędzie   
 6b. Gracz naciska przycisk OK    
-7b. System wraca do kroku     
+7b. System przechodzi do kroku 2     
 
 **Scenariusz alternatywny C: Gracz anulował wykonanie akcji**
 
