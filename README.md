@@ -2769,7 +2769,7 @@ Powrót do kroku 3. w scenariuszu głównym.
 
 10c. Zmiany w komnacie nie zostają zapisane, dane pozostają bez zmian.
 
-<img width="1104" height="698" alt="image" src="https://github.com/user-attachments/assets/6284c041-97bb-42a1-8b38-89b98fbf6a3a" />
+![](scenopisy/pu59_edycja_komnaty.png)
 
 ## 5.11 [PU50: Zdefiniowanie mapy gry](#zdefiniowanie-mapy-gry)
 
@@ -3407,3 +3407,5 @@ final: failure
 2c. System usuwa zaproszenie z listy zaproszeń gracza.
 
 3c. System wyświetla komunikat z potwierdzeniem pomyślnego odrzucenia zaproszenia.
+
+![](./scenopisy/pu44_akceptacja_zaproszenia.png)
