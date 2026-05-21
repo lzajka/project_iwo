@@ -3374,6 +3374,8 @@ final: failure
 6c. Gracz naciska przycisk "Anuluj"    
 
 final: failure
+
+![Scenopis dla PU22](scenopisy/22.svg)
 ## 5.23 [PU44: Akceptacja zaproszenia](#pu44-akceptacja-zaproszenia)
 
 - Wersja: 1.0 (14.04.2026)
