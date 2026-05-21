@@ -3176,7 +3176,7 @@ Powrót do kroku 3. w scenariuszu głównym
 **Scenopis**
 ![](./scenopisy/PU43_wyswietlenie_listy_zaproszen.png)
 
-## 5.13 PU22: Skanowanie kodu QR
+## 5.13 [PU22: Skanowanie kodu QR](#pu22%3A-skanowanie-kodu-qr)
 
 ![](scenopisy/22.svg)
 
