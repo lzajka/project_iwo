@@ -3194,10 +3194,10 @@ Powrót do kroku 3. w scenariuszu głównym
 4. System sprawdza kod.
 
 [kod QR poprawny]
-
-5. System wyświetla komuunikat z prośbą o potwierdzenie
-6. Gracz potwierdza.
-7. System wykonuje akcję.
+5. System sprawdza typ akcji powiązanej z kodem QR (walka/mini-gra)
+6. System wyświetla komunikat z prośbą o potwierdzenie akcji danego typu
+7. Gracz potwierdza
+8. System wykonuje akcję
 
 final: success
 
